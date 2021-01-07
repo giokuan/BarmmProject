@@ -17,6 +17,17 @@ class Ui_MainForm(object):
         #MainForm.hide()
         self.window.show()
 
+    def messageBox(self,title,message):
+        mess=QtWidgets.QMessageBox()
+        mess.setWindowTitle(title)
+        mess.setText(message)
+        mess.setIcon(QMessageBox.Information)
+        mess.setStandardButtons(QtWidgets.QMessageBox.Ok)
+        mess.exec_() 
+
+   
+        
+
     def popup(self):
         msg=QMessageBox() 
         msg.setWindowTitle("Exit")
@@ -51,6 +62,7 @@ class Ui_MainForm(object):
         self.advance_search.hide()
         self.adsearch_edit_lname.hide()
         self.adsearch_edit_fname.hide()
+       
 
 
     def addsearch_radio(self):
@@ -63,6 +75,7 @@ class Ui_MainForm(object):
         self.adsearch_edit_fname.show()
         
     def loadData(self):
+
         
         row = 0
         try: 
@@ -125,7 +138,166 @@ class Ui_MainForm(object):
         self.place_edit.setText(pob)
         self.sitio_edit.setText(sitio)
         self.street_edit.setText(street)
+    
+    def update(self):
+        
+        mem_id=self.id_edit.text()
+        lname=self.lname_edit.text()
+        mname=self.middle_edit.text()
+        fname=self.fname_edit.text()
+        sex=self.sex_comboBox.currentText()
+        civil=self.civil_comboBox.currentText()
+        position=self.position_comboBox.currentText()
+        sup=self.supp_comboBox.currentText()
+        dob=self.bday_edit.text()
+        pob=self.place_edit.text()
+        sitio=self.sitio_edit.text()
+        street=self.street_edit.text()
+
+        
+        self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
+        cur=self.conn.cursor()
+
+        sql = "UPDATE resident SET Last_name = '"+ lname.upper() +"', First_name= '" + fname.upper() + "',\
+                Middle_name = '" + mname.upper() + "', Sex= '" + sex.upper()\
+                + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "', Supp_data = '" + sup.upper() + "',\
+                Birth_date = '" + dob.upper() + "', Birth_place = '"\
+                + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "'  WHERE Resident_ID = '"+mem_id+"' "
+        
+        if (sql):
+            msg=QMessageBox()
+            if    len(lname) == 0:
+                self.messageBox("Information", " Please Enter your Last Name!")
+                return
+            elif  len(fname) == 0:
+                self.messageBox("Information", " Please Enter your First Name!")
+                return
+            elif  len(mname)  == 0:
+                self.messageBox("Information", " Please Enter your Middle Name!")
+                return
+            elif  len(dob) == 0:
+                self.messageBox("Information", " Please Enter your Birth Date!")
+                return
+            elif  len(pob)== 0:
+                self.messageBox("Information", " Please Enter your Place of Birth!")
+                return
+            elif  len(sitio)== 0:
+                self.messageBox("Information", " Please Enter your Sitio!")
+                return
+            elif  len(street)== 0:
+                self.messageBox("Information", " Please Enter House number or Street!")
+                return
            
+            else:
+                cur.execute(sql)
+                self.messageBox("Update", " Member Data Updated")
+                self.conn.commit()
+                self.cancel()
+                self.loadData()
+
+    def search(self):    
+        row = 0
+        try: 
+            mydb = mc.connect(
+                host = "localhost",
+                user = "root",
+                password= "noahkuan03",
+                database = "barmm"
+            )
+            mycursor = mydb.cursor()
+            se = self.search_edit.text()
+            mycursor.execute("SELECT * FROM resident WHERE last_name = '"+se+"'" );
+            result = mycursor.fetchall()
+          
+            self.tableWidget.setRowCount(0)
+           
+            for row_number, row_data in enumerate(result):
+                self.tableWidget.insertRow(row_number)
+
+                for column_number, data in enumerate(row_data):
+                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                  
+        except mc.Error as e:
+            print ("Error Occured")
+
+    def search_all(self):    
+        row = 0
+        try: 
+            mydb = mc.connect(
+                host = "localhost",
+                user = "root",
+                password= "noahkuan03",
+                database = "barmm"
+            )
+            mycursor = mydb.cursor()
+            se = self.search_comboBox.currentText()
+            mycursor.execute("SELECT * FROM resident WHERE Supp_data = '"+se+"' OR Family_position= '"+se+"' " );
+            result = mycursor.fetchall()
+          
+            self.tableWidget.setRowCount(0)
+           
+            for row_number, row_data in enumerate(result):
+                self.tableWidget.insertRow(row_number)
+
+                for column_number, data in enumerate(row_data):
+                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                  
+        except mc.Error as e:
+            print ("Error Occured")
+
+    def adv_search(self):    
+        row = 0
+        try: 
+            mydb = mc.connect(
+                host = "localhost",
+                user = "root",
+                password= "noahkuan03",
+                database = "barmm"
+            )
+            mycursor = mydb.cursor()
+            adv_lname = self.adsearch_edit_lname.text()
+            adv_fname = self.adsearch_edit_fname.text()
+            mycursor.execute("SELECT * FROM resident WHERE Last_name = '"+adv_lname+"' AND First_name = '"+adv_fname+"' ");
+            result = mycursor.fetchall()
+            if len(adv_lname) == 0 or len(adv_fname) == 0:
+                self.messageBox("Information", " Please Enter Last Name and First Name!")
+
+            else:
+                self.tableWidget.setRowCount(0)
+                for row_number, row_data in enumerate(result):
+                    self.tableWidget.insertRow(row_number)
+
+                    for column_number, data in enumerate(row_data):
+                        self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                  
+        except mc.Error as e:
+            print ("Error Occured")
+
+    def delete_record(self):
+        mem_id=self.id_edit.text()
+
+        self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
+        cur=self.conn.cursor()
+        sql = "DELETE FROM resident WHERE Resident_ID = '"+mem_id+"' "
+        
+        msg=QMessageBox() 
+        msg.setWindowTitle("Delete")
+        msg.setText("Are you sure you wan't to Delete this Record?")
+        msg.setIcon(QMessageBox.Question)
+        msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
+        msg.setDefaultButton(QMessageBox.Ok)
+        
+        res = msg.exec_()
+        if res == QMessageBox.Ok: 
+            self.messageBox("Delete", " Resident Data Record Deleted")
+            cur.execute(sql)
+            self.conn.commit() 
+            self.loadData()
+            self.clear()
+            
+        if res == QMessageBox.Cancel:
+            pass 
+
     def edit(self):
         self.lname_edit.setEnabled(True)
         self.middle_edit.setEnabled(True)
@@ -151,6 +323,20 @@ class Ui_MainForm(object):
         self.place_edit.setEnabled(False)
         self.sitio_edit.setEnabled(False)
         self.street_edit.setEnabled(False)
+
+    def clear(self):
+        self.id_edit.clear()
+        self.lname_edit.clear()
+        self.middle_edit.clear()
+        self.fname_edit.clear()
+        self.sex_comboBox.setCurrentIndex(0)
+        self.civil_comboBox.setCurrentIndex(0)
+        self.position_comboBox.setCurrentIndex(0)
+        self.supp_comboBox.setCurrentIndex(0)
+        self.bday_edit.clear()
+        self.place_edit.clear()
+        self.sitio_edit.clear()
+        self.street_edit.clear()
 
 
     def setupUi(self, MainForm):
@@ -272,101 +458,122 @@ class Ui_MainForm(object):
 
         #RESIDENT ID EDIT TEXTBOX
         self.id_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.id_edit.setGeometry(QtCore.QRect(50, 510, 141, 31))
+        self.id_edit.setGeometry(QtCore.QRect(50, 510, 201, 31))
         self.id_edit.setObjectName("id_edit")
         self.id_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.id_edit.setFont(font)
 
         #LAST NAME EDIT TEXTBOX
         self.lname_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lname_edit.setGeometry(QtCore.QRect(210, 510, 311, 31))
+        self.lname_edit.setGeometry(QtCore.QRect(270, 510, 331, 31))
         self.lname_edit.setObjectName("lname_edit")
         self.lname_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lname_edit.setFont(font)
 
         #MIDDLE NAME EDIT TEXTBOX
         self.middle_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.middle_edit.setGeometry(QtCore.QRect(540, 510, 311, 31))
+        self.middle_edit.setGeometry(QtCore.QRect(620, 510, 311, 31))
         self.middle_edit.setObjectName("middle_edit")
         self.middle_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.middle_edit.setFont(font)
 
         #FIRST NAME EDIT TEXTBOX
         self.fname_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.fname_edit.setGeometry(QtCore.QRect(870, 510, 311, 31))
+        self.fname_edit.setGeometry(QtCore.QRect(950, 510, 311, 31))
         self.fname_edit.setObjectName("fname_edit")
         self.fname_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.fname_edit.setFont(font)
 
         #BIRTHDAY EDIT TEXTBOX
         self.bday_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.bday_edit.setGeometry(QtCore.QRect(540, 580, 311, 31))
+        self.bday_edit.setGeometry(QtCore.QRect(620, 580, 311, 31))
         self.bday_edit.setText("")
         self.bday_edit.setObjectName("bday_edit")
         self.bday_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.bday_edit.setFont(font)
 
         #PLACE OF BIRTH EDIT TEXTBOX
         self.place_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.place_edit.setGeometry(QtCore.QRect(870, 580, 311, 31))
+        self.place_edit.setGeometry(QtCore.QRect(950, 580, 311, 31))
         self.place_edit.setObjectName("place_edit")
         self.place_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.place_edit.setFont(font)
 
         #SEX EDIT TEXTBOX
         self.sex_comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.sex_comboBox.setGeometry(QtCore.QRect(50, 580, 69, 31))
+        self.sex_comboBox.setGeometry(QtCore.QRect(50, 580, 86, 31))
         self.sex_comboBox.setObjectName("sex_comboBox")
-        #self.sex_comboBox.addItem("")
-        #self.sex_comboBox.addItem("")
         sex = ["MALE","FEMALE"]
         self.sex_comboBox.addItems(sex)
         self.sex_comboBox.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.sex_comboBox.setFont(font)
 
         #CIVIL STATUS EDIT TEXTBOX
         self.civil_comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.civil_comboBox.setGeometry(QtCore.QRect(130, 580, 91, 31))
+        self.civil_comboBox.setGeometry(QtCore.QRect(155, 580, 96, 31))
         self.civil_comboBox.setObjectName("civil_comboBox")
-        #self.civil_comboBox.addItem("")
-        #self.civil_comboBox.addItem("")
-        #self.civil_comboBox.addItem("")
         civil = ["SINGLE","MARRIED","WIDDOW"]
         self.civil_comboBox.addItems(civil)
         self.civil_comboBox.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.civil_comboBox.setFont(font)
 
         #FAMILY POSITION EDIT TEXTBOX
         self.position_comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.position_comboBox.setGeometry(QtCore.QRect(240, 580, 121, 31))
+        self.position_comboBox.setGeometry(QtCore.QRect(270, 580, 121, 31))
         self.position_comboBox.setObjectName("position_comboBox")
-        #self.position_comboBox.addItem("")
-        #self.position_comboBox.addItem("")
         pos = ["HEAD","MEMBER"]
         self.position_comboBox.addItems(pos)
         self.position_comboBox.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.position_comboBox.setFont(font)
 
-
-
-        #SUPPLEMENTAL DATA EDIT TEXTBOX
-        #self.supp_edit = QtWidgets.QLineEdit(self.centralwidget)
-        #self.supp_edit.setGeometry(QtCore.QRect(380, 580, 141, 31))
-        #self.supp_edit.setText("")
-        #self.supp_edit.setObjectName("supp_edit")
-        #self.supp_edit.setEnabled(False)
-
+        #SUPPLEMENTARY COMBO BOX
         self.supp_comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.supp_comboBox.setGeometry(QtCore.QRect(380, 580, 141, 31))
+        self.supp_comboBox.setGeometry(QtCore.QRect(410, 580, 191, 31))
         self.supp_comboBox.setObjectName("supp_comboBox")
         sup = ["NOT APPLICABLE","SENIOR CITIZEN", "PERSON WITH DISABILITY (PWD)", "INDIGENOUS"]
         self.supp_comboBox.addItems(sup)
         self.supp_comboBox.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.supp_comboBox.setFont(font)
 
 
 
         #SITIO EDIT TEXTBOX
         self.sitio_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.sitio_edit.setGeometry(QtCore.QRect(140, 640, 221, 31))
+        self.sitio_edit.setGeometry(QtCore.QRect(140, 640, 301, 31))
         self.sitio_edit.setObjectName("sitio_edit") 
         self.sitio_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.sitio_edit.setFont(font)
 
         #STREET EDIT TEXTBOX
         self.street_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.street_edit.setGeometry(QtCore.QRect(380, 640, 801, 31))
+        self.street_edit.setGeometry(QtCore.QRect(460, 640, 801, 31))
         self.street_edit.setObjectName("street_edit")
         self.street_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.street_edit.setFont(font)
 
 
 
@@ -378,6 +585,9 @@ class Ui_MainForm(object):
         self.search_radioButton.setFont(font)
         self.search_radioButton.setObjectName("search_radioButton")
         self.search_radioButton.toggled.connect(self.search_radio)
+        self.search_radioButton.toggled.connect(lambda:self.adsearch_edit_lname.clear())
+        self.search_radioButton.toggled.connect(lambda:self.adsearch_edit_fname.clear())
+
 
         #SEARCH ALL RADIO BUTTON
         self.searchAll_radioButton = QtWidgets.QRadioButton(self.centralwidget)
@@ -387,18 +597,19 @@ class Ui_MainForm(object):
         self.searchAll_radioButton.setFont(font)
         self.searchAll_radioButton.setObjectName("searchAll_radioButton")
         self.searchAll_radioButton.toggled.connect(self.search_allRadio)
+        self.searchAll_radioButton.toggled.connect(lambda:self.adsearch_edit_lname.clear())
+        self.searchAll_radioButton.toggled.connect(lambda:self.adsearch_edit_fname.clear())
+        self.searchAll_radioButton.toggled.connect(lambda:self.search_edit.clear())
         
         #ADVANCE RADIO BUTTON
         self.advance_radioButton = QtWidgets.QRadioButton(self.centralwidget)
-        #self.advance_radioButton.setGeometry(QtCore.QRect(70, 150, 111, 17))
         self.advance_radioButton.setGeometry(QtCore.QRect(200, 100, 121, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.advance_radioButton.setFont(font)
         self.advance_radioButton.setObjectName("advance_radioButton")
         self.advance_radioButton.toggled.connect(self.addsearch_radio)
-
-
+        self.advance_radioButton.toggled.connect(lambda:self.search_edit.clear())
 
 
         #NUMERONG ID NG RESIDENTE LABEL
@@ -418,12 +629,12 @@ class Ui_MainForm(object):
 
         #APELYIDO LABEL
         self.apelyido_label = QtWidgets.QLabel(self.centralwidget)
-        self.apelyido_label.setGeometry(QtCore.QRect(210, 490, 91, 16))
+        self.apelyido_label.setGeometry(QtCore.QRect(270, 490, 91, 16))
         self.apelyido_label.setObjectName("apelyido_label")
 
         #LAST NAME LABEL
         self.lname_label = QtWidgets.QLabel(self.centralwidget)
-        self.lname_label.setGeometry(QtCore.QRect(210, 480, 81, 16))
+        self.lname_label.setGeometry(QtCore.QRect(270, 480, 81, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -433,7 +644,7 @@ class Ui_MainForm(object):
 
         #MIDDLE NAME LABEL
         self.middle_label = QtWidgets.QLabel(self.centralwidget)
-        self.middle_label.setGeometry(QtCore.QRect(540, 480, 81, 16))
+        self.middle_label.setGeometry(QtCore.QRect(620, 480, 81, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -443,12 +654,12 @@ class Ui_MainForm(object):
 
         #GITNANG PANGALAN LABEL
         self.gitnangpangalan_label = QtWidgets.QLabel(self.centralwidget)
-        self.gitnangpangalan_label.setGeometry(QtCore.QRect(540, 490, 91, 16))
+        self.gitnangpangalan_label.setGeometry(QtCore.QRect(620, 490, 91, 16))
         self.gitnangpangalan_label.setObjectName("gitnangpangalan_label")
 
         #FIRST NAME LABEL
         self.fname_label = QtWidgets.QLabel(self.centralwidget)
-        self.fname_label.setGeometry(QtCore.QRect(870, 480, 81, 16))
+        self.fname_label.setGeometry(QtCore.QRect(950, 480, 81, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -458,12 +669,12 @@ class Ui_MainForm(object):
 
         #UNANG PANGALAN LABEL
         self.unangpangalan_label = QtWidgets.QLabel(self.centralwidget)
-        self.unangpangalan_label.setGeometry(QtCore.QRect(870, 490, 91, 16))
+        self.unangpangalan_label.setGeometry(QtCore.QRect(950, 490, 91, 16))
         self.unangpangalan_label.setObjectName("unangpangalan_label")
 
         #DATE OF BIRTH LABEL
         self.Dateofbirth_label = QtWidgets.QLabel(self.centralwidget)
-        self.Dateofbirth_label.setGeometry(QtCore.QRect(540, 550, 91, 16))
+        self.Dateofbirth_label.setGeometry(QtCore.QRect(620, 550, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -473,12 +684,12 @@ class Ui_MainForm(object):
 
         #PETSA NG KAPANGANAKAN LABEL
         self.petsangkapanganaka_label = QtWidgets.QLabel(self.centralwidget)
-        self.petsangkapanganaka_label.setGeometry(QtCore.QRect(540, 560, 131, 16))
+        self.petsangkapanganaka_label.setGeometry(QtCore.QRect(620, 560, 131, 16))
         self.petsangkapanganaka_label.setObjectName("petsangkapanganaka_label")
 
         #PLACE OF BIRTH LABEL
         self.placeofbirth_label = QtWidgets.QLabel(self.centralwidget)
-        self.placeofbirth_label.setGeometry(QtCore.QRect(870, 550, 101, 16))
+        self.placeofbirth_label.setGeometry(QtCore.QRect(950, 550, 101, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -488,7 +699,7 @@ class Ui_MainForm(object):
 
         #LUGAR NG KAPANGANAKAN LABEL
         self.lugarngkapanganakan_label = QtWidgets.QLabel(self.centralwidget)
-        self.lugarngkapanganakan_label.setGeometry(QtCore.QRect(870, 560, 131, 16))
+        self.lugarngkapanganakan_label.setGeometry(QtCore.QRect(950, 560, 131, 16))
         self.lugarngkapanganakan_label.setObjectName("lugarngkapanganakan_label")
 
         #SEX LABEL
@@ -508,7 +719,7 @@ class Ui_MainForm(object):
 
         #CIVIL STATUS LABEL
         self.civil_label = QtWidgets.QLabel(self.centralwidget)
-        self.civil_label.setGeometry(QtCore.QRect(130, 550, 81, 16))
+        self.civil_label.setGeometry(QtCore.QRect(155, 550, 81, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -518,12 +729,12 @@ class Ui_MainForm(object):
 
         #KALAGAYANG SIBIL LABEL
         self.kalagayansibil_label = QtWidgets.QLabel(self.centralwidget)
-        self.kalagayansibil_label.setGeometry(QtCore.QRect(130, 560, 141, 16))
+        self.kalagayansibil_label.setGeometry(QtCore.QRect(155, 560, 141, 16))
         self.kalagayansibil_label.setObjectName("kalagayansibil_label")
 
         #FAMILY POSITION LABEL
         self.familyPosition_label = QtWidgets.QLabel(self.centralwidget)
-        self.familyPosition_label.setGeometry(QtCore.QRect(240, 550, 101, 16))
+        self.familyPosition_label.setGeometry(QtCore.QRect(270, 550, 101, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -533,17 +744,17 @@ class Ui_MainForm(object):
 
         #POSISYON LABEL
         self.posisyon_label = QtWidgets.QLabel(self.centralwidget)
-        self.posisyon_label.setGeometry(QtCore.QRect(240, 560, 141, 16))
+        self.posisyon_label.setGeometry(QtCore.QRect(270, 560, 141, 16))
         self.posisyon_label.setObjectName("posisyon_label")
 
         #KARAGDAGANG DATOS LABEL
         self.karagdagangDatos_label = QtWidgets.QLabel(self.centralwidget)
-        self.karagdagangDatos_label.setGeometry(QtCore.QRect(380, 560, 141, 16))
+        self.karagdagangDatos_label.setGeometry(QtCore.QRect(410, 560, 141, 16))
         self.karagdagangDatos_label.setObjectName("karagdagangDatos_label")
 
         #SUPPLEMENTAL DATA LABEL
         self.supp_label = QtWidgets.QLabel(self.centralwidget)
-        self.supp_label.setGeometry(QtCore.QRect(380, 550, 141, 16))
+        self.supp_label.setGeometry(QtCore.QRect(410, 550, 141, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -597,7 +808,7 @@ class Ui_MainForm(object):
 
         #STREET LABEL
         self.stree_label = QtWidgets.QLabel(self.centralwidget)
-        self.stree_label.setGeometry(QtCore.QRect(380, 620, 81, 16))
+        self.stree_label.setGeometry(QtCore.QRect(460, 620, 81, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -634,15 +845,7 @@ class Ui_MainForm(object):
         font.setWeight(75)
         self.update_btn.setFont(font)
         self.update_btn.setObjectName("update_btn")
-
-        #DELETE BUTTON
-        self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.delete_btn.setGeometry(QtCore.QRect(590, 720, 121, 41))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.delete_btn.setFont(font)
-        self.delete_btn.setObjectName("delete_btn")
+        self.update_btn.clicked.connect(self.update)
 
         #CANCEL BUTTON
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -653,7 +856,50 @@ class Ui_MainForm(object):
         self.cancel_btn.setFont(font)
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.clicked.connect(self.cancel)
+
+        #DELETE BUTTON
+        self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.delete_btn.setGeometry(QtCore.QRect(590, 720, 121, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.delete_btn.setFont(font)
+        self.delete_btn.setObjectName("delete_btn")
+        self.delete_btn.clicked.connect(self.delete_record)
+
+        #REFRESH BUTTON
+        self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.refresh_btn.setGeometry(QtCore.QRect(730, 720, 121, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.refresh_btn.setFont(font)
+        self.refresh_btn.setObjectName("refresh_btn")
+        self.refresh_btn.clicked.connect(self.loadData)
+        self.refresh_btn.clicked.connect(self.search_radio)
+        self.refresh_btn.clicked.connect(self.clear)
+        self.refresh_btn.clicked.connect(lambda:self.search_radioButton.setChecked(True))
+         
+
+        #EXIT BUTTON
+        self.Exit_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.Exit_btn.setGeometry(QtCore.QRect(870, 720, 121, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.Exit_btn.setFont(font)
+        self.Exit_btn.setObjectName("Exit_btn")
+        self.Exit_btn.clicked.connect(self.popup)
         
+        #SEARCH BUTTON
+        self.search_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.search_btn.setGeometry(QtCore.QRect(30, 150, 131, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.search_btn.setFont(font)
+        self.search_btn.setObjectName("search_btn")
+        self.search_btn.clicked.connect(self.search)
 
         #SEARCH ALL BUTTON
         self.searchAll_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -664,16 +910,7 @@ class Ui_MainForm(object):
         self.searchAll_btn.setFont(font)
         self.searchAll_btn.setObjectName("searchAll_btn")
         self.searchAll_btn.hide()
-
-
-        #SEARCH BUTTON
-        self.search_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.search_btn.setGeometry(QtCore.QRect(30, 150, 131, 41))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.search_btn.setFont(font)
-        self.search_btn.setObjectName("search_btn")
+        self.searchAll_btn.clicked.connect(self.search_all)       
 
         #ADVANCE SEARCH BUTTON
         self.advance_search = QtWidgets.QPushButton(self.centralwidget)
@@ -684,22 +921,32 @@ class Ui_MainForm(object):
         self.advance_search.setFont(font)
         self.advance_search.setObjectName("advance_search")
         self.advance_search.hide()
+        self.advance_search.clicked.connect(self.adv_search)
 
         #SEARCH EDIT TEXTBOX
         self.search_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.search_edit.setGeometry(QtCore.QRect(170, 150, 201, 41))
         self.search_edit.setObjectName("search_edit")
-
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.search_edit.setFont(font)
+        
         #ADVANCE SEARCH EDIT TEXTBOX LAST NAME
         self.adsearch_edit_lname = QtWidgets.QLineEdit(self.centralwidget)
         self.adsearch_edit_lname.setGeometry(QtCore.QRect(170, 150, 201, 41))
         self.adsearch_edit_lname.setObjectName("adsearch_edit_lname")
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.adsearch_edit_lname.setFont(font)
         self.adsearch_edit_lname.hide()
 
         #ADVANCE SEARCH EDIT TEXTBOX FIRST NAME
         self.adsearch_edit_fname = QtWidgets.QLineEdit(self.centralwidget)
         self.adsearch_edit_fname.setGeometry(QtCore.QRect(380, 150, 201, 41))
         self.adsearch_edit_fname.setObjectName("adsearch_edit_fname")
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.adsearch_edit_fname.setFont(font)
         self.adsearch_edit_fname.hide()
 
 
@@ -712,10 +959,8 @@ class Ui_MainForm(object):
         font.setWeight(50)
         self.search_comboBox.setFont(font)
         self.search_comboBox.setObjectName("search_comboBox")
-        self.search_comboBox.addItem("")
-        self.search_comboBox.addItem("")
-        self.search_comboBox.addItem("")
-        self.search_comboBox.addItem("")
+        search = ["SENIOR CITIZEN", "HEAD","PERSON WITH DISABILITY (PWD)", "INDIGENOUS","NOT APPLICABLE"]
+        self.search_comboBox.addItems(search)
         self.search_comboBox.hide()
 
         
@@ -726,15 +971,6 @@ class Ui_MainForm(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
 
-        #EXIT BUTTON
-        self.Exit_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.Exit_btn.setGeometry(QtCore.QRect(730, 720, 121, 41))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.Exit_btn.setFont(font)
-        self.Exit_btn.setObjectName("Exit_btn")
-        self.Exit_btn.clicked.connect(self.popup)
 
         #LABEL THAT CARRY A LOGO
         self.label_15 = QtWidgets.QLabel(self.centralwidget)
@@ -780,7 +1016,6 @@ class Ui_MainForm(object):
         self.posisyon_label.raise_()
         self.karagdagangDatos_label.raise_()
         self.supp_label.raise_()
-        #self.supp_edit.raise_()
         self.supp_comboBox.raise_()
         self.label_12.raise_()
         self.address_label.raise_()
@@ -802,6 +1037,7 @@ class Ui_MainForm(object):
         self.searchAll_radioButton.raise_()
         self.advance_radioButton.raise_()
         self.Exit_btn.raise_()
+        self.refresh_btn.raise_()
         self.label_15.raise_()
 
         MainForm.setCentralWidget(self.centralwidget)
@@ -865,35 +1101,22 @@ class Ui_MainForm(object):
         self.tirahan_label.setText(_translate("MainForm", "(Tirahan)"))
         self.sitio_label.setText(_translate("MainForm", "Sitio:"))
         self.stree_label.setText(_translate("MainForm", "Street:"))
+        
         self.addnew_btn.setText(_translate("MainForm", "ADD NEW"))
         self.edit_btn.setText(_translate("MainForm", "EDIT"))
         self.update_btn.setText(_translate("MainForm", "UPDATE"))
         self.delete_btn.setText(_translate("MainForm", "DELETE"))
         self.cancel_btn.setText(_translate("MainForm", "CANCEL"))
+        self.refresh_btn.setText(_translate("MainForm", "REFRESH"))
         self.searchAll_btn.setText(_translate("MainForm", "Search All"))
         self.advance_search.setText(_translate("MainForm", "Advance Search"))
         self.search_btn.setText(_translate("MainForm", "Search"))
+        self.Exit_btn.setText(_translate("MainForm", "Exit"))
         
-        self.search_comboBox.setItemText(0, _translate("MainForm", "Senior Citizen"))
-        self.search_comboBox.setItemText(1, _translate("MainForm", "Family Leader"))
-        self.search_comboBox.setItemText(2, _translate("MainForm", "PWD"))
-        self.search_comboBox.setItemText(3, _translate("MainForm", "Sitio"))
         
         self.search_radioButton.setText(_translate("MainForm", "Search"))
         self.searchAll_radioButton.setText(_translate("MainForm", "Search All"))
         self.advance_radioButton.setText(_translate("MainForm", "Advance Search"))
-
-        #self.sex_comboBox.setItemText(0, _translate("MainForm", "Male"))
-        #self.sex_comboBox.setItemText(1, _translate("MainForm", "Female"))
-
-        #self.civil_comboBox.setItemText(0, _translate("MainForm", "Single"))
-        #self.civil_comboBox.setItemText(1, _translate("MainForm", "Married"))
-        #self.civil_comboBox.setItemText(2, _translate("MainForm", "Widdow"))
-
-        #self.position_comboBox.setItemText(0, _translate("MainForm", "Leader"))
-        #self.position_comboBox.setItemText(1, _translate("MainForm", "Member"))
-
-        self.Exit_btn.setText(_translate("MainForm", "Exit"))
 
 
 if __name__ == "__main__":
