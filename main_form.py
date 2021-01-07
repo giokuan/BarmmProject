@@ -6,9 +6,17 @@ from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QH
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 from barmm import Ui_AddWindow
+#from delete_dialog import Ui_Dialog as Form
 
 
 class Ui_MainForm(object):
+
+    #def open_dialog(self):
+    #    dialog = QtWidgets.QDialog()
+    #    dialog.ui = Form()
+    #    dialog.ui.setupUi(dialog)
+    #    dialog.exec_()
+    #    dialog.show()
 
     def open_window(self):
         self.window =QtWidgets.QMainWindow()
@@ -276,6 +284,10 @@ class Ui_MainForm(object):
     def delete_record(self):
         mem_id=self.id_edit.text()
 
+        if len(mem_id) == 0:
+            self.messageBox("Information", "No Record Found")
+            return 
+
         self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
         cur=self.conn.cursor()
         sql = "DELETE FROM resident WHERE Resident_ID = '"+mem_id+"' "
@@ -288,7 +300,8 @@ class Ui_MainForm(object):
         msg.setDefaultButton(QMessageBox.Ok)
         
         res = msg.exec_()
-        if res == QMessageBox.Ok: 
+        if res == QMessageBox.Ok:
+            self.open_dialog() 
             self.messageBox("Delete", " Resident Data Record Deleted")
             cur.execute(sql)
             self.conn.commit() 
@@ -865,6 +878,7 @@ class Ui_MainForm(object):
         font.setWeight(75)
         self.delete_btn.setFont(font)
         self.delete_btn.setObjectName("delete_btn")
+        #self.delete_btn.clicked.connect(self.open_dialog)
         self.delete_btn.clicked.connect(self.delete_record)
 
         #REFRESH BUTTON
