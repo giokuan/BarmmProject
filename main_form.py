@@ -411,6 +411,7 @@ class Ui_MainForm(object):
 
     def handlePaintRequest(self, printer):
         printer.setResolution(1000)
+        printer.setPageMargins(6, 10, 1, 20, QPrinter.Millimeter)
         painter = QPainter()
         painter.begin(printer)
         screenPixmap = self.tableWidget.grab()
@@ -423,13 +424,28 @@ class Ui_MainForm(object):
         dialog.paintRequested.connect(self.handlePaintRequest)
         dialog.exec_()
 
-         
+    def pdf(self): 
+        fileName, okPressed = QFileDialog.getSaveFileName( caption = "Export PDF", directory=None, \
+                                                            filter="PDF Files(*.pdf);;All Files(*.*)")  
+        if fileName != "":
+            if QFileInfo(fileName).suffix() =="":
+                fileName +=".pdf"  
+            printer = QPrinter(QPrinter.HighResolution)
+            printer.setPageMargins(6, 10, 1, 20, QPrinter.Millimeter)
+            printer.setOutputFormat(QPrinter.PdfFormat)
+            printer.setOutputFileName(fileName)
+            painter = QPainter()
+            painter.begin(printer)
+            screenPixmap = self.tableWidget.grab()
+            screenPixmap = screenPixmap.scaledToWidth(int(screenPixmap.width() *8000/screenPixmap.width()))
+            painter.drawPixmap(10,10, screenPixmap)
+            painter.end()
 
     def setupUi(self, MainForm):
         MainForm.setObjectName("MainForm")
-        MainForm.resize(1307, 906)
-        MainForm.setMaximumSize(QtCore.QSize(1307, 906))
-        MainForm.setMinimumSize(QtCore.QSize(1307, 906))
+        MainForm.resize(1300, 906)
+        MainForm.setMaximumSize(QtCore.QSize(1300, 906))
+        MainForm.setMinimumSize(QtCore.QSize(1300, 906))
 
         MainForm.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         icon = QtGui.QIcon()
@@ -440,10 +456,11 @@ class Ui_MainForm(object):
 
         
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(50, 220, 1218, 221))
+        self.tableWidget.setGeometry(QtCore.QRect(50, 220, 1202, 221))
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(12)
         self.tableWidget.setRowCount(0)
+        self.tableWidget.verticalHeader().setVisible(False)
         self.loadData()
         self.tableWidget.cellClicked.connect(self.cell_click)
         item = QtWidgets.QTableWidgetItem()
@@ -663,7 +680,7 @@ class Ui_MainForm(object):
 
         #USERNAME EDIT TEXTBOX
         self.user_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.user_edit.setGeometry(QtCore.QRect(1100, 720, 181, 31))
+        self.user_edit.setGeometry(QtCore.QRect(1090, 720, 181, 31))
         self.user_edit.setObjectName("user_edit")
         #self.user_edit.setEnabled(False)
         font = QtGui.QFont()
@@ -673,7 +690,7 @@ class Ui_MainForm(object):
 
         #PASSWORD EDIT TEXTBOX
         self.pass_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.pass_edit.setGeometry(QtCore.QRect(1100, 770, 181, 31))
+        self.pass_edit.setGeometry(QtCore.QRect(1090, 770, 181, 31))
         self.pass_edit.setObjectName("pass_edit")
         #self.user_edit.setEnabled(False)
         self.pass_edit.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -720,13 +737,13 @@ class Ui_MainForm(object):
 
         #USERNAME LABEL
         self.user_label = QtWidgets.QLabel(self.centralwidget)
-        self.user_label.setGeometry(QtCore.QRect(1040, 730, 81, 16))
+        self.user_label.setGeometry(QtCore.QRect(1030, 730, 81, 16))
         self.user_label.setObjectName("user_label")
         self.user_label.hide()
 
         #PASSWORD LABEL
         self.pass_label = QtWidgets.QLabel(self.centralwidget)
-        self.pass_label.setGeometry(QtCore.QRect(1040, 780, 81, 16))
+        self.pass_label.setGeometry(QtCore.QRect(1030, 780, 81, 16))
         self.pass_label.setObjectName("pass_label")
         self.pass_label.hide()
 
@@ -898,14 +915,14 @@ class Ui_MainForm(object):
 
         #FRAME OF RESIDENT DATA
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(30, 470, 1258, 221))
+        self.label_13.setGeometry(QtCore.QRect(30, 470, 1242, 221))
         self.label_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_13.setText("")
         self.label_13.setObjectName("label_13")
 
         #FRAME OF TABLE
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
-        self.label_14.setGeometry(QtCore.QRect(30, 200, 1258, 261))
+        self.label_14.setGeometry(QtCore.QRect(30, 200, 1242, 261))
         self.label_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_14.setText("")
         self.label_14.setObjectName("label_14")
@@ -956,6 +973,16 @@ class Ui_MainForm(object):
         self.print_btn.setObjectName("print_btn")
         self.print_btn.clicked.connect(self.printPreviewListMethod)
 
+        #PDF BUTTON
+        self.pdf_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.pdf_btn.setGeometry(QtCore.QRect(170, 780, 121, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.pdf_btn.setFont(font)
+        self.pdf_btn.setObjectName("pdf_btn")
+        self.pdf_btn.clicked.connect(self.pdf)
+
         #EDIT BUTTON
         self.edit_btn = QtWidgets.QPushButton(self.centralwidget)
         self.edit_btn.setGeometry(QtCore.QRect(170, 720, 121, 41))
@@ -996,8 +1023,6 @@ class Ui_MainForm(object):
         font.setWeight(75)
         self.delete_btn.setFont(font)
         self.delete_btn.setObjectName("delete_btn")
-        #self.delete_btn.clicked.connect(self.open_dialog)
-        #self.delete_btn.clicked.connect(self.delete_record)
         self.delete_btn.clicked.connect(self.delete_show)
 
         #DELETE 2 BUTTON
@@ -1037,7 +1062,7 @@ class Ui_MainForm(object):
 
         #OK BUTTON DELETE
         self.ok_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.ok_btn.setGeometry(QtCore.QRect(1100, 820, 81, 31))
+        self.ok_btn.setGeometry(QtCore.QRect(1090, 820, 81, 31))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -1049,7 +1074,7 @@ class Ui_MainForm(object):
 
         #CANCELED BUTTON DELETE
         self.canceled_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.canceled_btn.setGeometry(QtCore.QRect(1200, 820, 81, 31))
+        self.canceled_btn.setGeometry(QtCore.QRect(1190, 820, 81, 31))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -1240,7 +1265,7 @@ class Ui_MainForm(object):
         _translate = QtCore.QCoreApplication.translate
         MainForm.setWindowTitle(_translate("MainForm", "BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainForm", "Member ID"))
+        item.setText(_translate("MainForm", "Resident ID"))
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainForm", "Last Name"))
         item = self.tableWidget.horizontalHeaderItem(2)
@@ -1306,7 +1331,7 @@ class Ui_MainForm(object):
         self.ok_btn.setText(_translate("MainForm", "OK"))
         self.canceled_btn.setText(_translate("MainForm", "Cancel"))
         self.print_btn.setText(_translate("MainForm", "Print"))
-        
+        self.pdf_btn.setText(_translate("MainForm", "Print PDF"))
         
         self.search_radioButton.setText(_translate("MainForm", "Search"))
         self.searchAll_radioButton.setText(_translate("MainForm", "Search All"))
