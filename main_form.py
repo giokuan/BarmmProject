@@ -331,6 +331,10 @@ class Ui_MainForm(object):
             self.messageBox("Information", "You can now begin to Delete record")
             self.delete2_btn.show()
             self.delete_btn.hide()
+            self.user_edit.clear()
+            self.pass_edit.clear()
+            self.deleteMode_label.show()
+            self.pressCancel_label.show()
         else:
             self.messageBox("Information", "Invalid Username or Password")
             self.delete2_btn.hide()
@@ -382,7 +386,15 @@ class Ui_MainForm(object):
         self.pass_label.hide()
         self.ok_btn.hide()
         self.canceled_btn.hide()
+        self.deleteMode_label.hide()
+        self.pressCancel_label.hide()
         self.delete_btn.setEnabled(True)
+        self.edit_btn.setEnabled(True)
+        self.addnew_btn.setEnabled(True)
+        self.print_btn.setEnabled(True)
+        self.pdf_btn.setEnabled(True)
+
+
 
     def delete_show(self):
         self.user_edit.show()
@@ -392,6 +404,11 @@ class Ui_MainForm(object):
         self.ok_btn.show()
         self.canceled_btn.show()
         self.delete_btn.setEnabled(False)
+        self.edit_btn.setEnabled(False)
+        self.addnew_btn.setEnabled(False)
+        self.print_btn.setEnabled(False)
+        self.pdf_btn.setEnabled(False)
+
 
 
 
@@ -446,11 +463,14 @@ class Ui_MainForm(object):
         MainForm.resize(1300, 906)
         MainForm.setMaximumSize(QtCore.QSize(1300, 906))
         MainForm.setMinimumSize(QtCore.QSize(1300, 906))
+        #MainForm.setStyleSheet("background-color: rgb(0, 170, 127);")
 
         MainForm.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
         MainForm.setWindowIcon(icon)
+
         self.centralwidget = QtWidgets.QWidget(MainForm)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -919,6 +939,7 @@ class Ui_MainForm(object):
         self.label_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_13.setText("")
         self.label_13.setObjectName("label_13")
+        #self.label_13.setStyleSheet("background-color: rgb(207, 207, 71);")
 
         #FRAME OF TABLE
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
@@ -926,6 +947,7 @@ class Ui_MainForm(object):
         self.label_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_14.setText("")
         self.label_14.setObjectName("label_14")
+        #self.label_14.setStyleSheet("background-color: rgb(207, 207, 71);")
 
         #TIRAHAN LABEL
         self.tirahan_label = QtWidgets.QLabel(self.centralwidget)
@@ -952,6 +974,30 @@ class Ui_MainForm(object):
         self.stree_label.setFont(font)
         self.stree_label.setObjectName("stree_label")
 
+        #DELETE MODE LABEL
+        self.deleteMode_label = QtWidgets.QLabel(self.centralwidget)
+        self.deleteMode_label.setGeometry(QtCore.QRect(320, 780, 661, 61))
+        font = QtGui.QFont()
+        font.setPointSize(35)
+        font.setBold(True)
+        font.setWeight(75)
+        self.deleteMode_label.setFont(font)
+        self.deleteMode_label.setStyleSheet("border-color: rgb(255, 0, 0);")
+        self.deleteMode_label.setObjectName("deleteMode_label")
+        self.deleteMode_label.hide()
+
+        #PRESS CANCEL LABEL
+        self.pressCancel_label = QtWidgets.QLabel(self.centralwidget)
+        self.pressCancel_label.setGeometry(QtCore.QRect(420, 820, 661, 61))
+        font = QtGui.QFont()
+        font.setPointSize(25)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pressCancel_label.setFont(font)
+        self.pressCancel_label.setStyleSheet("border-color: rgb(255, 0, 0);")
+        self.pressCancel_label.setObjectName("deleteMode_label")
+        self.pressCancel_label.hide()
+
 
         #ADD NEW BUTTON
         self.addnew_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -962,6 +1008,8 @@ class Ui_MainForm(object):
         self.addnew_btn.setFont(font)
         self.addnew_btn.setObjectName("addnew_btn")
         self.addnew_btn.clicked.connect(self.open_window)
+        self.addnew_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+
 
         #PRINT BUTTON
         self.print_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -972,6 +1020,7 @@ class Ui_MainForm(object):
         self.print_btn.setFont(font)
         self.print_btn.setObjectName("print_btn")
         self.print_btn.clicked.connect(self.printPreviewListMethod)
+        self.print_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #PDF BUTTON
         self.pdf_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -982,6 +1031,7 @@ class Ui_MainForm(object):
         self.pdf_btn.setFont(font)
         self.pdf_btn.setObjectName("pdf_btn")
         self.pdf_btn.clicked.connect(self.pdf)
+        self.pdf_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #EDIT BUTTON
         self.edit_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -992,6 +1042,7 @@ class Ui_MainForm(object):
         self.edit_btn.setFont(font)
         self.edit_btn.setObjectName("edit_btn")
         self.edit_btn.clicked.connect(self.edit)
+        self.edit_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #UPDATE BUTTON
         self.update_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1003,6 +1054,7 @@ class Ui_MainForm(object):
         self.update_btn.setObjectName("update_btn")
         self.update_btn.clicked.connect(self.update)
         self.update_btn.setEnabled(False)
+        self.update_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #CANCEL BUTTON
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1014,6 +1066,7 @@ class Ui_MainForm(object):
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.clicked.connect(self.cancel)
         self.cancel_btn.setEnabled(False)
+        self.cancel_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #DELETE BUTTON
         self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1024,6 +1077,7 @@ class Ui_MainForm(object):
         self.delete_btn.setFont(font)
         self.delete_btn.setObjectName("delete_btn")
         self.delete_btn.clicked.connect(self.delete_show)
+        self.delete_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #DELETE 2 BUTTON
         self.delete2_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1035,6 +1089,7 @@ class Ui_MainForm(object):
         self.delete2_btn.setObjectName("delete2_btn")
         self.delete2_btn.clicked.connect(self.delete_record)
         self.delete2_btn.hide()
+        self.delete2_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #REFRESH BUTTON
         self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1048,6 +1103,7 @@ class Ui_MainForm(object):
         self.refresh_btn.clicked.connect(self.search_radio)
         self.refresh_btn.clicked.connect(self.clear)
         self.refresh_btn.clicked.connect(lambda:self.search_radioButton.setChecked(True))
+        self.refresh_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
          
 
         #EXIT BUTTON
@@ -1059,6 +1115,7 @@ class Ui_MainForm(object):
         self.Exit_btn.setFont(font)
         self.Exit_btn.setObjectName("Exit_btn")
         self.Exit_btn.clicked.connect(self.popup)
+        self.Exit_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #OK BUTTON DELETE
         self.ok_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1070,6 +1127,7 @@ class Ui_MainForm(object):
         self.ok_btn.setObjectName("ok_btn")
         self.ok_btn.hide()
         self.ok_btn.clicked.connect(self.log)
+        self.ok_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         
 
         #CANCELED BUTTON DELETE
@@ -1085,6 +1143,7 @@ class Ui_MainForm(object):
         self.canceled_btn.clicked.connect(lambda:self.delete2_btn.hide())
         self.canceled_btn.clicked.connect(lambda:self.delete_btn.show())
         self.canceled_btn.hide()
+        self.canceled_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         
         #SEARCH BUTTON
         self.search_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1095,6 +1154,7 @@ class Ui_MainForm(object):
         self.search_btn.setFont(font)
         self.search_btn.setObjectName("search_btn")
         self.search_btn.clicked.connect(self.search)
+        self.search_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #SEARCH ALL BUTTON
         self.searchAll_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1105,7 +1165,8 @@ class Ui_MainForm(object):
         self.searchAll_btn.setFont(font)
         self.searchAll_btn.setObjectName("searchAll_btn")
         self.searchAll_btn.hide()
-        self.searchAll_btn.clicked.connect(self.search_all)       
+        self.searchAll_btn.clicked.connect(self.search_all)
+        self.searchAll_btn.setStyleSheet("background-color: rgb(200, 200, 200);")       
 
         #ADVANCE SEARCH BUTTON
         self.advance_search = QtWidgets.QPushButton(self.centralwidget)
@@ -1117,6 +1178,7 @@ class Ui_MainForm(object):
         self.advance_search.setObjectName("advance_search")
         self.advance_search.hide()
         self.advance_search.clicked.connect(self.adv_search)
+        self.advance_search.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #SEARCH EDIT TEXTBOX
         self.search_edit = QtWidgets.QLineEdit(self.centralwidget)
@@ -1169,7 +1231,7 @@ class Ui_MainForm(object):
 
         #LABEL THAT CARRY A LOGO
         self.label_15 = QtWidgets.QLabel(self.centralwidget)
-        self.label_15.setGeometry(QtCore.QRect(1120, 30, 161, 151))
+        self.label_15.setGeometry(QtCore.QRect(1100, 30, 161, 151))
         self.label_15.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.label_15.setText("")
         self.label_15.setPixmap(QtGui.QPixmap("barmm.png"))
@@ -1316,6 +1378,8 @@ class Ui_MainForm(object):
         self.stree_label.setText(_translate("MainForm", "Street:"))
         self.user_label.setText(_translate("MainForm", "Username:"))
         self.pass_label.setText(_translate("MainForm", "Password:"))
+        self.deleteMode_label.setText(_translate("MainForm", "YOU ARE ON DELETE MODE"))
+        self.pressCancel_label.setText(_translate("MainForm", "PRESS CANCEL TO EXIT"))
         
         self.addnew_btn.setText(_translate("MainForm", "ADD NEW"))
         self.edit_btn.setText(_translate("MainForm", "EDIT"))

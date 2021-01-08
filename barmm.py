@@ -381,6 +381,7 @@ class Ui_AddWindow(object):
         self.pic_label.setFrameShape(QtWidgets.QFrame.Box)
         self.pic_label.setText("")
         self.pic_label.setObjectName("pic_label")
+        self.pic_label.setStyleSheet("background-color: rgb(0, 170, 127);")
 
         #self.photo_label = QtWidgets.QLabel(self.centralwidget)
         #self.photo_label.setGeometry(QtCore.QRect(540, 530, 47, 13))
