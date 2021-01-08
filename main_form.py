@@ -1,9 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets,QtSql
+
+from PyQt5.QtPrintSupport import QPrintDialog, QPrintPreviewDialog, QPrinter
+from PyQt5.Qt import QFileInfo
+from PyQt5.QtGui import QPainter
+
 import mysql.connector as mc
 import pymysql
 import sys
 from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QHBoxLayout, QHeaderView,QTableWidget
-from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QLineEdit, QDialog ,QFileDialog
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 from barmm import Ui_AddWindow
 #from delete_dialog import Ui_Dialog as Form
@@ -17,7 +22,8 @@ class Ui_MainForm(object):
     #    dialog.ui.setupUi(dialog)
     #    dialog.exec_()
     #    dialog.show()
-
+   
+    
     def open_window(self):
         self.window =QtWidgets.QMainWindow()
         self.ui = Ui_AddWindow()
@@ -311,18 +317,47 @@ class Ui_MainForm(object):
         if res == QMessageBox.Cancel:
             pass 
 
+    def log(self):
+        
+
+        user=self.user_edit.text()
+        password=self.pass_edit.text()
+
+        self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
+        cur=self.conn.cursor()
+        data = cur.execute ("SELECT * from login WHERE user_name = '"+user+"' AND password = '"+password+"'")
+        
+        if (data):
+            self.messageBox("Information", "You can now begin to Delete record")
+            self.delete2_btn.show()
+            self.delete_btn.hide()
+        else:
+            self.messageBox("Information", "Invalid Username or Password")
+            self.delete2_btn.hide()
+            self.delete_btn.show()
+            return
+
     def edit(self):
-        self.lname_edit.setEnabled(True)
-        self.middle_edit.setEnabled(True)
-        self.fname_edit.setEnabled(True)
-        self.sex_comboBox.setEnabled(True)
-        self.civil_comboBox.setEnabled(True)
-        self.position_comboBox.setEnabled(True)
-        self.supp_comboBox.setEnabled(True)
-        self.bday_edit.setEnabled(True)
-        self.place_edit.setEnabled(True)
-        self.sitio_edit.setEnabled(True)
-        self.street_edit.setEnabled(True)
+        mem_id=self.id_edit.text()
+        if len(mem_id) == 0:
+            self.messageBox("No Record", "No Record found")
+            return
+        else:
+            self.lname_edit.setEnabled(True)
+            self.middle_edit.setEnabled(True)
+            self.fname_edit.setEnabled(True)
+            self.sex_comboBox.setEnabled(True)
+            self.civil_comboBox.setEnabled(True)
+            self.position_comboBox.setEnabled(True)
+            self.supp_comboBox.setEnabled(True)
+            self.bday_edit.setEnabled(True)
+            self.place_edit.setEnabled(True)
+            self.sitio_edit.setEnabled(True)
+            self.street_edit.setEnabled(True)
+            self.update_btn.setEnabled(True)
+            self.cancel_btn.setEnabled(True)
+            self.edit_btn.setEnabled(False)
+
 
     def cancel(self):
         self.lname_edit.setEnabled(False)
@@ -336,6 +371,29 @@ class Ui_MainForm(object):
         self.place_edit.setEnabled(False)
         self.sitio_edit.setEnabled(False)
         self.street_edit.setEnabled(False)
+        self.update_btn.setEnabled(False)
+        self.cancel_btn.setEnabled(False)
+        self.edit_btn.setEnabled(True)
+
+    def cancel2(self):
+        self.user_edit.hide()
+        self.pass_edit.hide()
+        self.user_label.hide()
+        self.pass_label.hide()
+        self.ok_btn.hide()
+        self.canceled_btn.hide()
+        self.delete_btn.setEnabled(True)
+
+    def delete_show(self):
+        self.user_edit.show()
+        self.pass_edit.show()
+        self.user_label.show()
+        self.pass_label.show()
+        self.ok_btn.show()
+        self.canceled_btn.show()
+        self.delete_btn.setEnabled(False)
+
+
 
     def clear(self):
         self.id_edit.clear()
@@ -351,12 +409,27 @@ class Ui_MainForm(object):
         self.sitio_edit.clear()
         self.street_edit.clear()
 
+    def handlePaintRequest(self, printer):
+        printer.setResolution(1000)
+        painter = QPainter()
+        painter.begin(printer)
+        screenPixmap = self.tableWidget.grab()
+        screenPixmap = screenPixmap.scaledToWidth(int(screenPixmap.width() *8000/screenPixmap.width()))
+        painter.drawPixmap(10,10, screenPixmap)
+        painter.end()
+
+    def printPreviewListMethod(self):
+        dialog = QPrintPreviewDialog()
+        dialog.paintRequested.connect(self.handlePaintRequest)
+        dialog.exec_()
+
+         
 
     def setupUi(self, MainForm):
         MainForm.setObjectName("MainForm")
-        MainForm.resize(1300, 906)
-        MainForm.setMaximumSize(QtCore.QSize(1300, 906))
-        MainForm.setMinimumSize(QtCore.QSize(1300, 906))
+        MainForm.resize(1307, 906)
+        MainForm.setMaximumSize(QtCore.QSize(1307, 906))
+        MainForm.setMinimumSize(QtCore.QSize(1307, 906))
 
         MainForm.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         icon = QtGui.QIcon()
@@ -367,7 +440,7 @@ class Ui_MainForm(object):
 
         
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(50, 220, 1211, 221))
+        self.tableWidget.setGeometry(QtCore.QRect(50, 220, 1218, 221))
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(12)
         self.tableWidget.setRowCount(0)
@@ -561,7 +634,7 @@ class Ui_MainForm(object):
         self.supp_comboBox = QtWidgets.QComboBox(self.centralwidget)
         self.supp_comboBox.setGeometry(QtCore.QRect(410, 580, 191, 31))
         self.supp_comboBox.setObjectName("supp_comboBox")
-        sup = ["NOT APPLICABLE","SENIOR CITIZEN", "PERSON WITH DISABILITY (PWD)", "INDIGENOUS"]
+        sup = ["NOT APPLICABLE","SENIOR CITIZEN", "PWD", "INDIGENOUS"]
         self.supp_comboBox.addItems(sup)
         self.supp_comboBox.setEnabled(False)
         font = QtGui.QFont()
@@ -587,6 +660,27 @@ class Ui_MainForm(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.street_edit.setFont(font)
+
+        #USERNAME EDIT TEXTBOX
+        self.user_edit = QtWidgets.QLineEdit(self.centralwidget)
+        self.user_edit.setGeometry(QtCore.QRect(1100, 720, 181, 31))
+        self.user_edit.setObjectName("user_edit")
+        #self.user_edit.setEnabled(False)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.user_edit.setFont(font)
+        self.user_edit.hide()
+
+        #PASSWORD EDIT TEXTBOX
+        self.pass_edit = QtWidgets.QLineEdit(self.centralwidget)
+        self.pass_edit.setGeometry(QtCore.QRect(1100, 770, 181, 31))
+        self.pass_edit.setObjectName("pass_edit")
+        #self.user_edit.setEnabled(False)
+        self.pass_edit.setEchoMode(QtWidgets.QLineEdit.Password)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.pass_edit.setFont(font)
+        self.pass_edit.hide()
 
 
 
@@ -623,6 +717,18 @@ class Ui_MainForm(object):
         self.advance_radioButton.setObjectName("advance_radioButton")
         self.advance_radioButton.toggled.connect(self.addsearch_radio)
         self.advance_radioButton.toggled.connect(lambda:self.search_edit.clear())
+
+        #USERNAME LABEL
+        self.user_label = QtWidgets.QLabel(self.centralwidget)
+        self.user_label.setGeometry(QtCore.QRect(1040, 730, 81, 16))
+        self.user_label.setObjectName("user_label")
+        self.user_label.hide()
+
+        #PASSWORD LABEL
+        self.pass_label = QtWidgets.QLabel(self.centralwidget)
+        self.pass_label.setGeometry(QtCore.QRect(1040, 780, 81, 16))
+        self.pass_label.setObjectName("pass_label")
+        self.pass_label.hide()
 
 
         #NUMERONG ID NG RESIDENTE LABEL
@@ -790,16 +896,16 @@ class Ui_MainForm(object):
         self.address_label.setFont(font)
         self.address_label.setObjectName("address_label")
 
-        #FRAME
+        #FRAME OF RESIDENT DATA
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(30, 470, 1251, 221))
+        self.label_13.setGeometry(QtCore.QRect(30, 470, 1258, 221))
         self.label_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_13.setText("")
         self.label_13.setObjectName("label_13")
 
-        #FRAME
+        #FRAME OF TABLE
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
-        self.label_14.setGeometry(QtCore.QRect(30, 200, 1251, 261))
+        self.label_14.setGeometry(QtCore.QRect(30, 200, 1258, 261))
         self.label_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_14.setText("")
         self.label_14.setObjectName("label_14")
@@ -840,6 +946,16 @@ class Ui_MainForm(object):
         self.addnew_btn.setObjectName("addnew_btn")
         self.addnew_btn.clicked.connect(self.open_window)
 
+        #PRINT BUTTON
+        self.print_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.print_btn.setGeometry(QtCore.QRect(30, 780, 121, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.print_btn.setFont(font)
+        self.print_btn.setObjectName("print_btn")
+        self.print_btn.clicked.connect(self.printPreviewListMethod)
+
         #EDIT BUTTON
         self.edit_btn = QtWidgets.QPushButton(self.centralwidget)
         self.edit_btn.setGeometry(QtCore.QRect(170, 720, 121, 41))
@@ -859,6 +975,7 @@ class Ui_MainForm(object):
         self.update_btn.setFont(font)
         self.update_btn.setObjectName("update_btn")
         self.update_btn.clicked.connect(self.update)
+        self.update_btn.setEnabled(False)
 
         #CANCEL BUTTON
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -869,6 +986,7 @@ class Ui_MainForm(object):
         self.cancel_btn.setFont(font)
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.clicked.connect(self.cancel)
+        self.cancel_btn.setEnabled(False)
 
         #DELETE BUTTON
         self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -879,7 +997,19 @@ class Ui_MainForm(object):
         self.delete_btn.setFont(font)
         self.delete_btn.setObjectName("delete_btn")
         #self.delete_btn.clicked.connect(self.open_dialog)
-        self.delete_btn.clicked.connect(self.delete_record)
+        #self.delete_btn.clicked.connect(self.delete_record)
+        self.delete_btn.clicked.connect(self.delete_show)
+
+        #DELETE 2 BUTTON
+        self.delete2_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.delete2_btn.setGeometry(QtCore.QRect(590, 720, 121, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.delete2_btn.setFont(font)
+        self.delete2_btn.setObjectName("delete2_btn")
+        self.delete2_btn.clicked.connect(self.delete_record)
+        self.delete2_btn.hide()
 
         #REFRESH BUTTON
         self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -904,6 +1034,32 @@ class Ui_MainForm(object):
         self.Exit_btn.setFont(font)
         self.Exit_btn.setObjectName("Exit_btn")
         self.Exit_btn.clicked.connect(self.popup)
+
+        #OK BUTTON DELETE
+        self.ok_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.ok_btn.setGeometry(QtCore.QRect(1100, 820, 81, 31))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.ok_btn.setFont(font)
+        self.ok_btn.setObjectName("ok_btn")
+        self.ok_btn.hide()
+        self.ok_btn.clicked.connect(self.log)
+        
+
+        #CANCELED BUTTON DELETE
+        self.canceled_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.canceled_btn.setGeometry(QtCore.QRect(1200, 820, 81, 31))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.canceled_btn.setFont(font)
+        self.canceled_btn.setObjectName("canceled_btn")
+        self.canceled_btn.clicked.connect(self.clear)
+        self.canceled_btn.clicked.connect(self.cancel2)
+        self.canceled_btn.clicked.connect(lambda:self.delete2_btn.hide())
+        self.canceled_btn.clicked.connect(lambda:self.delete_btn.show())
+        self.canceled_btn.hide()
         
         #SEARCH BUTTON
         self.search_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -973,7 +1129,7 @@ class Ui_MainForm(object):
         font.setWeight(50)
         self.search_comboBox.setFont(font)
         self.search_comboBox.setObjectName("search_comboBox")
-        search = ["SENIOR CITIZEN", "HEAD","PERSON WITH DISABILITY (PWD)", "INDIGENOUS","NOT APPLICABLE"]
+        search = ["SENIOR CITIZEN", "HEAD","PWD", "INDIGENOUS","NOT APPLICABLE"]
         self.search_comboBox.addItems(search)
         self.search_comboBox.hide()
 
@@ -1001,43 +1157,61 @@ class Ui_MainForm(object):
         self.label_14.raise_()
         self.tableWidget.raise_()
         self.label.raise_()
+        
         self.res_id_label.raise_()
         self.id_edit.raise_()
         self.label_23.raise_()
+        
         self.lname_edit.raise_()
         self.apelyido_label.raise_()
         self.lname_label.raise_()
+        
         self.middle_edit.raise_()
         self.middle_label.raise_()
         self.gitnangpangalan_label.raise_()
+        
         self.fname_edit.raise_()
         self.fname_label.raise_()
         self.unangpangalan_label.raise_()
+        
         self.Dateofbirth_label.raise_()
         self.bday_edit.raise_()
         self.petsangkapanganaka_label.raise_()
+        
         self.place_edit.raise_()
         self.placeofbirth_label.raise_()
         self.lugarngkapanganakan_label.raise_()
+        
         self.sex_label.raise_()
         self.sex_comboBox.raise_()
         self.kasarian_label.raise_()
+        
         self.civil_comboBox.raise_()
         self.civil_label.raise_()
         self.kalagayansibil_label.raise_()
+        
         self.position_comboBox.raise_()
         self.familyPosition_label.raise_()
         self.posisyon_label.raise_()
+        
         self.karagdagangDatos_label.raise_()
         self.supp_label.raise_()
         self.supp_comboBox.raise_()
+        
         self.label_12.raise_()
         self.address_label.raise_()
+        
         self.sitio_edit.raise_()
         self.tirahan_label.raise_()
         self.sitio_label.raise_()
+        
         self.stree_label.raise_()
         self.street_edit.raise_()
+        
+        self.user_edit.raise_()
+        self.user_label.raise_()
+        self.pass_edit.raise_()
+        
         self.addnew_btn.raise_()
         self.edit_btn.raise_()
         self.update_btn.raise_()
@@ -1064,7 +1238,7 @@ class Ui_MainForm(object):
 
     def retranslateUi(self, MainForm):
         _translate = QtCore.QCoreApplication.translate
-        MainForm.setWindowTitle(_translate("MainForm", "MainWindow"))
+        MainForm.setWindowTitle(_translate("MainForm", "BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainForm", "Member ID"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -1115,17 +1289,23 @@ class Ui_MainForm(object):
         self.tirahan_label.setText(_translate("MainForm", "(Tirahan)"))
         self.sitio_label.setText(_translate("MainForm", "Sitio:"))
         self.stree_label.setText(_translate("MainForm", "Street:"))
+        self.user_label.setText(_translate("MainForm", "Username:"))
+        self.pass_label.setText(_translate("MainForm", "Password:"))
         
         self.addnew_btn.setText(_translate("MainForm", "ADD NEW"))
         self.edit_btn.setText(_translate("MainForm", "EDIT"))
         self.update_btn.setText(_translate("MainForm", "UPDATE"))
         self.delete_btn.setText(_translate("MainForm", "DELETE"))
+        self.delete2_btn.setText(_translate("MainForm", "DELETE"))
         self.cancel_btn.setText(_translate("MainForm", "CANCEL"))
         self.refresh_btn.setText(_translate("MainForm", "REFRESH"))
         self.searchAll_btn.setText(_translate("MainForm", "Search All"))
         self.advance_search.setText(_translate("MainForm", "Advance Search"))
         self.search_btn.setText(_translate("MainForm", "Search"))
         self.Exit_btn.setText(_translate("MainForm", "Exit"))
+        self.ok_btn.setText(_translate("MainForm", "OK"))
+        self.canceled_btn.setText(_translate("MainForm", "Cancel"))
+        self.print_btn.setText(_translate("MainForm", "Print"))
         
         
         self.search_radioButton.setText(_translate("MainForm", "Search"))
