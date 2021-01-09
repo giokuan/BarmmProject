@@ -20,6 +20,7 @@ class Ui_MainWindow(object):
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
         mess.setWindowTitle(title)
+        mess.setWindowIcon(QtGui.QIcon('barmm.ico'))
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
         mess.setStandardButtons(QtWidgets.QMessageBox.Ok)
