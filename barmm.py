@@ -154,6 +154,7 @@ class Ui_AddWindow(object):
         #SAVE BUTTON
         self.save_btn = QtWidgets.QPushButton(self.centralwidget)
         self.save_btn.setGeometry(QtCore.QRect(410, 600, 131, 41))
+        self.save_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.save_btn.setDefault(False)
         self.save_btn.setFlat(False)
         self.save_btn.setObjectName("save_btn")
@@ -162,10 +163,12 @@ class Ui_AddWindow(object):
         #CANCEL BUTTON
         self.clear_btn = QtWidgets.QPushButton(self.centralwidget)
         self.clear_btn.setGeometry(QtCore.QRect(580, 600, 131, 41))
+        self.clear_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.clear_btn.setDefault(False)
         self.clear_btn.setFlat(False)
         self.clear_btn.setObjectName("clear_btn")
         self.clear_btn.clicked.connect(self.clear_field)
+
 
         #SEX COMBO BOX
         self.sex_combo = QtWidgets.QComboBox(self.centralwidget)
@@ -383,14 +386,7 @@ class Ui_AddWindow(object):
         self.pic_label.setObjectName("pic_label")
         self.pic_label.setStyleSheet("background-color: rgb(0, 170, 127);")
 
-        #self.photo_label = QtWidgets.QLabel(self.centralwidget)
-        #self.photo_label.setGeometry(QtCore.QRect(540, 530, 47, 13))
-        #font = QtGui.QFont()
-        #font.setPointSize(10)
-        #self.photo_label.setFont(font)
-        #self.photo_label.setObjectName("photo_label")
-
-
+       
         #RAISE FROM THE FRAME
         self.pic_label.raise_()
         self.fname_edit.raise_()

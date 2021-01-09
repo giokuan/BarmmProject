@@ -34,6 +34,8 @@ class Ui_MainWindow(object):
         self.confirm_label.show()
         self.save_btn.show()
         self.reg_btn.hide()
+        self.login_btn.setEnabled(False)
+        self.cancel_btn.setEnabled(True)
 
     def cancel(self):
         self.lname_edit.hide()
@@ -46,6 +48,8 @@ class Ui_MainWindow(object):
         self.reg_btn.show()
         self.user_edit.clear()
         self.pass_edit.clear()
+        self.login_btn.setEnabled(True)
+        self.cancel_btn.setEnabled(False)
 
     def log(self):
 
@@ -128,11 +132,13 @@ class Ui_MainWindow(object):
         
         self.reg_btn = QtWidgets.QPushButton(self.centralwidget)
         self.reg_btn.setGeometry(QtCore.QRect(90, 320, 91, 41))
+        self.reg_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.reg_btn.setObjectName("reg_btn")
         self.reg_btn.clicked.connect(self.register)
 
         self.save_btn = QtWidgets.QPushButton(self.centralwidget)
         self.save_btn.setGeometry(QtCore.QRect(90, 320, 91, 41))
+        self.save_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.save_btn.setObjectName("save_btn")
         self.save_btn.hide()
         self.save_btn.clicked.connect(self.save)
@@ -140,17 +146,21 @@ class Ui_MainWindow(object):
         
         self.login_btn = QtWidgets.QPushButton(self.centralwidget)
         self.login_btn.setGeometry(QtCore.QRect(200, 320, 91, 41))
+        self.login_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.login_btn.setObjectName("login_btn")
         self.login_btn.clicked.connect(self.log)
         
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
         self.cancel_btn.setGeometry(QtCore.QRect(310, 320, 91, 41))
+        self.cancel_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.clicked.connect(self.cancel)
+        self.cancel_btn.setEnabled(False)
 
         
         self.exit_btn = QtWidgets.QPushButton(self.centralwidget)
         self.exit_btn.setGeometry(QtCore.QRect(420, 320, 91, 41))
+        self.exit_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         self.exit_btn.setObjectName("cancel_btn")
         self.exit_btn.clicked.connect(self.pop)
 

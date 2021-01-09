@@ -33,6 +33,7 @@ class Ui_MainForm(object):
 
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
+        mess.setWindowIcon(QtGui.QIcon('barmm.ico'))
         mess.setWindowTitle(title)
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
@@ -44,6 +45,7 @@ class Ui_MainForm(object):
 
     def popup(self):
         msg=QMessageBox() 
+        msg.setWindowIcon(QtGui.QIcon('barmm.ico'))
         msg.setWindowTitle("Exit")
         msg.setText("Are you sure you wan't to Exit?")
         msg.setIcon(QMessageBox.Question)
@@ -335,6 +337,10 @@ class Ui_MainForm(object):
             self.pass_edit.clear()
             self.deleteMode_label.show()
             self.pressCancel_label.show()
+            self.ok_btn.setEnabled(False)
+            self.label_13.setStyleSheet("background-color: rgb(0, 170, 127);")
+            self.label_14.setStyleSheet("background-color: rgb(0, 170, 127);")
+
         else:
             self.messageBox("Information", "Invalid Username or Password")
             self.delete2_btn.hide()
@@ -361,6 +367,8 @@ class Ui_MainForm(object):
             self.update_btn.setEnabled(True)
             self.cancel_btn.setEnabled(True)
             self.edit_btn.setEnabled(False)
+            self.delete_btn.setEnabled(False)
+            self.refresh_btn.setEnabled(False)
 
 
     def cancel(self):
@@ -378,6 +386,8 @@ class Ui_MainForm(object):
         self.update_btn.setEnabled(False)
         self.cancel_btn.setEnabled(False)
         self.edit_btn.setEnabled(True)
+        self.delete_btn.setEnabled(True)
+        self.refresh_btn.setEnabled(True)
 
     def cancel2(self):
         self.user_edit.hide()
@@ -393,6 +403,8 @@ class Ui_MainForm(object):
         self.addnew_btn.setEnabled(True)
         self.print_btn.setEnabled(True)
         self.pdf_btn.setEnabled(True)
+        self.label_13.setStyleSheet("background-color: rgb();")
+        self.label_14.setStyleSheet("background-color: rgb();")
 
 
 
@@ -731,7 +743,7 @@ class Ui_MainForm(object):
         self.search_radioButton.toggled.connect(self.search_radio)
         self.search_radioButton.toggled.connect(lambda:self.adsearch_edit_lname.clear())
         self.search_radioButton.toggled.connect(lambda:self.adsearch_edit_fname.clear())
-
+        self.search_radioButton.toggled.connect(lambda:self.loadData())
 
         #SEARCH ALL RADIO BUTTON
         self.searchAll_radioButton = QtWidgets.QRadioButton(self.centralwidget)
@@ -744,6 +756,7 @@ class Ui_MainForm(object):
         self.searchAll_radioButton.toggled.connect(lambda:self.adsearch_edit_lname.clear())
         self.searchAll_radioButton.toggled.connect(lambda:self.adsearch_edit_fname.clear())
         self.searchAll_radioButton.toggled.connect(lambda:self.search_edit.clear())
+        self.searchAll_radioButton.toggled.connect(lambda:self.loadData())
         
         #ADVANCE RADIO BUTTON
         self.advance_radioButton = QtWidgets.QRadioButton(self.centralwidget)
@@ -754,7 +767,7 @@ class Ui_MainForm(object):
         self.advance_radioButton.setObjectName("advance_radioButton")
         self.advance_radioButton.toggled.connect(self.addsearch_radio)
         self.advance_radioButton.toggled.connect(lambda:self.search_edit.clear())
-
+        self.advance_radioButton.toggled.connect(lambda:self.loadData())
         #USERNAME LABEL
         self.user_label = QtWidgets.QLabel(self.centralwidget)
         self.user_label.setGeometry(QtCore.QRect(1030, 730, 81, 16))
