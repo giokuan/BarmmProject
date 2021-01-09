@@ -123,6 +123,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(600, 480)
         #MainWindow.setWindowFlags( QtCore.Qt.CustomizeWindowHint )
+        MainWindow.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         MainWindow.setMaximumSize(QtCore.QSize(600, 480))
         MainWindow.setMinimumSize(QtCore.QSize(600, 480))
         icon = QtGui.QIcon()
