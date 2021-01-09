@@ -15,20 +15,11 @@ from barmm import Ui_AddWindow
 
 
 class Ui_MainForm(object):
-
-    #def open_dialog(self):
-    #    dialog = QtWidgets.QDialog()
-    #    dialog.ui = Form()
-    #    dialog.ui.setupUi(dialog)
-    #    dialog.exec_()
-    #    dialog.show()
    
-    
     def open_window(self):
         self.window =QtWidgets.QMainWindow()
         self.ui = Ui_AddWindow()
         self.ui.setupUi(self.window)
-        #MainForm.hide()
         self.window.show()
 
     def messageBox(self,title,message):
@@ -39,9 +30,6 @@ class Ui_MainForm(object):
         mess.setIcon(QMessageBox.Information)
         mess.setStandardButtons(QtWidgets.QMessageBox.Ok)
         mess.exec_() 
-
-   
-        
 
     def popup(self):
         msg=QMessageBox() 
@@ -56,9 +44,7 @@ class Ui_MainForm(object):
         if res == QMessageBox.Ok:  
             sys.exit()
         if res == QMessageBox.Cancel:
-            pass
-
-    
+            pass 
 
     def search_allRadio(self):
         self.searchAll_btn.show()
@@ -69,7 +55,6 @@ class Ui_MainForm(object):
         self.adsearch_edit_lname.hide()
         self.adsearch_edit_fname.hide()
 
-
     def search_radio(self):
         self.searchAll_btn.hide()
         self.search_comboBox.hide()
@@ -79,7 +64,6 @@ class Ui_MainForm(object):
         self.adsearch_edit_lname.hide()
         self.adsearch_edit_fname.hide()
        
-
 
     def addsearch_radio(self):
         self.searchAll_btn.hide()
@@ -338,8 +322,8 @@ class Ui_MainForm(object):
             self.deleteMode_label.show()
             self.pressCancel_label.show()
             self.ok_btn.setEnabled(False)
-            self.label_13.setStyleSheet("background-color: rgb(0, 170, 127);")
-            self.label_14.setStyleSheet("background-color: rgb(0, 170, 127);")
+            self.residentData_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
+            self.table_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
 
         else:
             self.messageBox("Information", "Invalid Username or Password")
@@ -403,10 +387,8 @@ class Ui_MainForm(object):
         self.addnew_btn.setEnabled(True)
         self.print_btn.setEnabled(True)
         self.pdf_btn.setEnabled(True)
-        self.label_13.setStyleSheet("background-color: rgb();")
-        self.label_14.setStyleSheet("background-color: rgb();")
-
-
+        self.residentData_frame.setStyleSheet("background-color: rgb();")
+        self.table_frame.setStyleSheet("background-color: rgb();")
 
     def delete_show(self):
         self.user_edit.show()
@@ -420,9 +402,6 @@ class Ui_MainForm(object):
         self.addnew_btn.setEnabled(False)
         self.print_btn.setEnabled(False)
         self.pdf_btn.setEnabled(False)
-
-
-
 
     def clear(self):
         self.id_edit.clear()
@@ -480,13 +459,11 @@ class Ui_MainForm(object):
         MainForm.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-
         MainForm.setWindowIcon(icon)
-
         self.centralwidget = QtWidgets.QWidget(MainForm)
         self.centralwidget.setObjectName("centralwidget")
 
-        
+        #TABLE WIDGET
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(50, 220, 1202, 221))
         self.tableWidget.setObjectName("tableWidget")
@@ -580,16 +557,15 @@ class Ui_MainForm(object):
         self.tableWidget.setHorizontalHeaderItem(11, item)
 
 
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(550, 30, 301, 31))
+        #NAME OF BARANGAY LABEL
+        self.nameOfBarangay_label = QtWidgets.QLabel(self.centralwidget)
+        self.nameOfBarangay_label.setGeometry(QtCore.QRect(530, 30, 301, 31))
         font = QtGui.QFont()
         font.setPointSize(20)
         font.setBold(True)
         font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
-
-       
+        self.nameOfBarangay_label.setFont(font)
+        self.nameOfBarangay_label.setObjectName("nameOfBarangay_label") 
 
         #RESIDENT ID EDIT TEXTBOX
         self.id_edit = QtWidgets.QLineEdit(self.centralwidget)
@@ -690,8 +666,6 @@ class Ui_MainForm(object):
         font.setPointSize(12)
         self.supp_comboBox.setFont(font)
 
-
-
         #SITIO EDIT TEXTBOX
         self.sitio_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.sitio_edit.setGeometry(QtCore.QRect(140, 640, 301, 31))
@@ -768,6 +742,8 @@ class Ui_MainForm(object):
         self.advance_radioButton.toggled.connect(self.addsearch_radio)
         self.advance_radioButton.toggled.connect(lambda:self.search_edit.clear())
         self.advance_radioButton.toggled.connect(lambda:self.loadData())
+        
+        
         #USERNAME LABEL
         self.user_label = QtWidgets.QLabel(self.centralwidget)
         self.user_label.setGeometry(QtCore.QRect(1030, 730, 81, 16))
@@ -780,11 +756,10 @@ class Ui_MainForm(object):
         self.pass_label.setObjectName("pass_label")
         self.pass_label.hide()
 
-
         #NUMERONG ID NG RESIDENTE LABEL
-        self.label_23 = QtWidgets.QLabel(self.centralwidget)
-        self.label_23.setGeometry(QtCore.QRect(50, 490, 141, 16))
-        self.label_23.setObjectName("label_23")
+        self.numeroID_label = QtWidgets.QLabel(self.centralwidget)
+        self.numeroID_label.setGeometry(QtCore.QRect(50, 490, 141, 16))
+        self.numeroID_label.setObjectName("numeroID_label")
 
         #RESIDENT ID LABEL
         self.res_id_label = QtWidgets.QLabel(self.centralwidget)
@@ -931,10 +906,10 @@ class Ui_MainForm(object):
         self.supp_label.setFont(font)
         self.supp_label.setObjectName("supp_label")
 
-        self.label_12 = QtWidgets.QLabel(self.centralwidget)
-        self.label_12.setGeometry(QtCore.QRect(50, 630, 47, 13))
-        self.label_12.setText("")
-        self.label_12.setObjectName("label_12")
+        #self.label_12 = QtWidgets.QLabel(self.centralwidget)
+        #self.label_12.setGeometry(QtCore.QRect(50, 630, 47, 13))
+        #self.label_12.setText("")
+        #self.label_12.setObjectName("label_12")
 
         #ADDRESS LABEL
         self.address_label = QtWidgets.QLabel(self.centralwidget)
@@ -946,26 +921,27 @@ class Ui_MainForm(object):
         self.address_label.setFont(font)
         self.address_label.setObjectName("address_label")
 
-        #FRAME OF RESIDENT DATA
-        self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(30, 470, 1242, 221))
-        self.label_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.label_13.setText("")
-        self.label_13.setObjectName("label_13")
-        #self.label_13.setStyleSheet("background-color: rgb(207, 207, 71);")
-
-        #FRAME OF TABLE
-        self.label_14 = QtWidgets.QLabel(self.centralwidget)
-        self.label_14.setGeometry(QtCore.QRect(30, 200, 1242, 261))
-        self.label_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.label_14.setText("")
-        self.label_14.setObjectName("label_14")
-        #self.label_14.setStyleSheet("background-color: rgb(207, 207, 71);")
-
         #TIRAHAN LABEL
         self.tirahan_label = QtWidgets.QLabel(self.centralwidget)
         self.tirahan_label.setGeometry(QtCore.QRect(50, 650, 51, 16))
         self.tirahan_label.setObjectName("tirahan_label")
+
+        
+        #FRAME OF RESIDENT DATA
+        self.residentData_frame = QtWidgets.QLabel(self.centralwidget)
+        self.residentData_frame.setGeometry(QtCore.QRect(30, 470, 1242, 221))
+        self.residentData_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.residentData_frame.setText("")
+        self.residentData_frame.setObjectName("residentData_frame")
+        #self.label_13.setStyleSheet("background-color: rgb(207, 207, 71);")
+
+        #FRAME OF TABLE
+        self.table_frame = QtWidgets.QLabel(self.centralwidget)
+        self.table_frame.setGeometry(QtCore.QRect(30, 200, 1242, 261))
+        self.table_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.table_frame.setText("")
+        self.table_frame.setObjectName("table_frame")
+        #self.label_14.setStyleSheet("background-color: rgb(207, 207, 71);")
 
         #SITIO LABEL
         self.sitio_label = QtWidgets.QLabel(self.centralwidget)
@@ -1022,7 +998,6 @@ class Ui_MainForm(object):
         self.addnew_btn.setObjectName("addnew_btn")
         self.addnew_btn.clicked.connect(self.open_window)
         self.addnew_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
-
 
         #PRINT BUTTON
         self.print_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1118,7 +1093,6 @@ class Ui_MainForm(object):
         self.refresh_btn.clicked.connect(lambda:self.search_radioButton.setChecked(True))
         self.refresh_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
          
-
         #EXIT BUTTON
         self.Exit_btn = QtWidgets.QPushButton(self.centralwidget)
         self.Exit_btn.setGeometry(QtCore.QRect(870, 720, 121, 41))
@@ -1142,7 +1116,6 @@ class Ui_MainForm(object):
         self.ok_btn.clicked.connect(self.log)
         self.ok_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
         
-
         #CANCELED BUTTON DELETE
         self.canceled_btn = QtWidgets.QPushButton(self.centralwidget)
         self.canceled_btn.setGeometry(QtCore.QRect(1190, 820, 81, 31))
@@ -1219,7 +1192,6 @@ class Ui_MainForm(object):
         self.adsearch_edit_fname.setFont(font)
         self.adsearch_edit_fname.hide()
 
-
         #SEARCH COMBO BOX
         self.search_comboBox = QtWidgets.QComboBox(self.centralwidget)
         self.search_comboBox.setGeometry(QtCore.QRect(170, 150, 201, 41))
@@ -1243,24 +1215,23 @@ class Ui_MainForm(object):
 
 
         #LABEL THAT CARRY A LOGO
-        self.label_15 = QtWidgets.QLabel(self.centralwidget)
-        self.label_15.setGeometry(QtCore.QRect(1100, 30, 161, 151))
-        self.label_15.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.label_15.setText("")
-        self.label_15.setPixmap(QtGui.QPixmap("barmm.png"))
-        self.label_15.setScaledContents(True)
-        self.label_15.setObjectName("label_15")
+        self.logo_label = QtWidgets.QLabel(self.centralwidget)
+        self.logo_label.setGeometry(QtCore.QRect(1100, 30, 161, 151))
+        self.logo_label.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.logo_label.setText("")
+        self.logo_label.setPixmap(QtGui.QPixmap("barmm.png"))
+        self.logo_label.setScaledContents(True)
+        self.logo_label.setObjectName("logo_label")
+        
         self.frame.raise_()
-
-
-        self.label_13.raise_()
-        self.label_14.raise_()
+        self.residentData_frame.raise_()
+        self.table_frame.raise_()
         self.tableWidget.raise_()
-        self.label.raise_()
+        #self.label.raise_()
         
         self.res_id_label.raise_()
         self.id_edit.raise_()
-        self.label_23.raise_()
+        self.numeroID_label.raise_()
         
         self.lname_edit.raise_()
         self.apelyido_label.raise_()
@@ -1298,11 +1269,10 @@ class Ui_MainForm(object):
         self.supp_label.raise_()
         self.supp_comboBox.raise_()
         
-        self.label_12.raise_()
         self.address_label.raise_()
+        self.tirahan_label.raise_()
         
         self.sitio_edit.raise_()
-        self.tirahan_label.raise_()
         self.sitio_label.raise_()
         
         self.stree_label.raise_()
@@ -1318,15 +1288,17 @@ class Ui_MainForm(object):
         self.delete_btn.raise_()
         self.cancel_btn.raise_()
         self.searchAll_btn.raise_()
-        self.search_comboBox.raise_()
         self.search_btn.raise_()
+        self.Exit_btn.raise_()
+        self.refresh_btn.raise_()
+
+        self.search_comboBox.raise_()
         self.search_edit.raise_()
         self.search_radioButton.raise_()
         self.searchAll_radioButton.raise_()
         self.advance_radioButton.raise_()
-        self.Exit_btn.raise_()
-        self.refresh_btn.raise_()
-        self.label_15.raise_()
+        
+        self.logo_label.raise_()
 
         MainForm.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainForm)
@@ -1364,9 +1336,9 @@ class Ui_MainForm(object):
         item = self.tableWidget.horizontalHeaderItem(11)
         item.setText(_translate("MainForm", "Street"))
 
-        self.label.setText(_translate("MainForm", "NAME OF BARANGAY"))
+        self.nameOfBarangay_label.setText(_translate("MainForm", "NAME OF BARANGAY"))
         self.res_id_label.setText(_translate("MainForm", "Resident ID:"))
-        self.label_23.setText(_translate("MainForm", "(Numerong ID ng Residente)"))
+        self.numeroID_label.setText(_translate("MainForm", "(Numerong ID ng Residente)"))
         self.apelyido_label.setText(_translate("MainForm", "(Apelyido)"))
         self.lname_label.setText(_translate("MainForm", "Last Name:"))
         self.middle_label.setText(_translate("MainForm", "Middle Name:"))
