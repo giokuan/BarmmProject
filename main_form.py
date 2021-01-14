@@ -16,7 +16,7 @@ from barmm import Ui_AddWindow
 
 class Ui_MainForm(object):
    
-    def open_window(self):
+    def open_window(self):#
         self.window =QtWidgets.QMainWindow()
         self.ui = Ui_AddWindow()
         self.ui.setupUi(self.window)
@@ -1064,20 +1064,20 @@ class Ui_MainForm(object):
         font.setWeight(75)
         self.delete_btn.setFont(font)
         self.delete_btn.setObjectName("delete_btn")
-        self.delete_btn.clicked.connect(self.delete_show)
+        self.delete_btn.clicked.connect(self.delete_record)
         self.delete_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
-        #DELETE 2 BUTTON
-        self.delete2_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.delete2_btn.setGeometry(QtCore.QRect(590, 720, 121, 41))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.delete2_btn.setFont(font)
-        self.delete2_btn.setObjectName("delete2_btn")
-        self.delete2_btn.clicked.connect(self.delete_record)
-        self.delete2_btn.hide()
-        self.delete2_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        ##DELETE 2 BUTTON
+        #self.delete2_btn = QtWidgets.QPushButton(self.centralwidget)
+        #self.delete2_btn.setGeometry(QtCore.QRect(590, 720, 121, 41))
+        #font = QtGui.QFont()
+        #font.setBold(True)
+        #font.setWeight(75)
+        #self.delete2_btn.setFont(font)
+        #self.delete2_btn.setObjectName("delete2_btn")
+        #self.delete2_btn.clicked.connect(self.delete_record)
+        #self.delete2_btn.hide()
+        #self.delete2_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
 
         #REFRESH BUTTON
         self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)

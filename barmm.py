@@ -3,7 +3,7 @@ import mysql.connector as mc
 import pymysql, sys
 from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QHBoxLayout, QHeaderView,QTableWidget
 from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox, QFileDialog
 
 
 
@@ -19,6 +19,11 @@ class Ui_AddWindow(object):
         mess.exec_()     
 
     def insert_data(self):
+        p = self.addPic_edit.text()
+        with open(p, 'rb') as f:
+            m=f.read()
+
+
         lname = self.lname_edit.text()
         fname = self.fname_edit.text()
         middle = self.middle_edit.text()
@@ -35,9 +40,9 @@ class Ui_AddWindow(object):
        
         self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
        
-        query=("INSERT INTO resident (Last_name, Middle_name, First_name, Birth_date, Birth_place, Sex, Civil_status, Family_position, Sitio, Street, Supp_data) VALUES  (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)")
+        query=("INSERT INTO resident (Last_name, Middle_name, First_name, Birth_date, Birth_place, Sex, Civil_status, Family_position, Sitio, Street, Supp_data,photo) VALUES  (%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)")
         cur=self.conn.cursor()
-        data= cur.execute(query, (lname.upper(),middle.upper(),fname.upper(),bday.upper(),place.upper(), sex, status, position, sitio.upper(),street.upper(), supplementary))
+        data= cur.execute(query, (lname.upper(),middle.upper(),fname.upper(),bday.upper(),place.upper(), sex, status, position, sitio.upper(),street.upper(), supplementary,m))
         
         if (data):
             msg=QMessageBox()
@@ -80,6 +85,16 @@ class Ui_AddWindow(object):
         self.civil_combo.setCurrentIndex(0)
         self.position_combo.setCurrentIndex(0)
         self.supp_combo.setCurrentIndex(0)
+
+    def browse_image(self):
+        filename = QFileDialog.getOpenFileName( caption = "Open file", directory=None, \
+                                                            filter="Image (*.png * .jpg);;All Files(*.*)")   
+        self.addPic_edit.setText(filename[0])
+        self.load_image()
+
+    def load_image(self):
+        p = self.addPic_edit.text()
+        self.logo_label.setPixmap(QtGui.QPixmap(p))
       
 
 
@@ -152,6 +167,15 @@ class Ui_AddWindow(object):
         font.setPointSize(12)
         self.street_edit.setFont(font)
 
+        #ADD PICTURE EDIT TEXTBOX
+        self.addPic_edit = QtWidgets.QLineEdit(self.centralwidget)
+        self.addPic_edit.setGeometry(QtCore.QRect(410, 120, 301, 31))
+        self.addPic_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.addPic_edit.setCursorPosition(0)
+        self.addPic_edit.setObjectName("addPic_edit")
+        self.addPic_edit.setText("photo/Men.png")
+        #self.addPic_edit.hide()
+
         #SAVE BUTTON
         self.save_btn = QtWidgets.QPushButton(self.centralwidget)
         self.save_btn.setGeometry(QtCore.QRect(410, 600, 131, 41))
@@ -160,6 +184,15 @@ class Ui_AddWindow(object):
         self.save_btn.setFlat(False)
         self.save_btn.setObjectName("save_btn")
         self.save_btn.clicked.connect(self.insert_data)
+
+        #add photo BUTTON
+        self.add_photo_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.add_photo_btn.setGeometry(QtCore.QRect(410, 650, 131, 41))
+        self.add_photo_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.add_photo_btn.setDefault(False)
+        self.add_photo_btn.setFlat(False)
+        self.add_photo_btn.setObjectName("add_photo_btn")
+        self.add_photo_btn.clicked.connect(self.browse_image)
 
         #CANCEL BUTTON
         self.clear_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -208,7 +241,7 @@ class Ui_AddWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.supp_combo.setFont(font)
-        supp = ["NOT APPLICABLE","SENIOR CITIZEN", "PERSON WITH DISABILITY (PWD)", "INDIGENOUS"]
+        supp = ["NOT APPLICABLE","SENIOR CITIZEN", "PWD", "INDIGENOUS"]
         self.supp_combo.addItems(supp)
 
         #LASTNAME LABEL
@@ -376,7 +409,7 @@ class Ui_AddWindow(object):
         self.logo_label = QtWidgets.QLabel(self.centralwidget)
         self.logo_label.setGeometry(QtCore.QRect(440, 301, 241, 231))
         self.logo_label.setObjectName("logo_label")
-        self.logo_label.setPixmap(QtGui.QPixmap("barmm.png"))
+        self.logo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
         self.logo_label.setScaledContents(True)
 
         self.pic_label = QtWidgets.QLabel(self.centralwidget)
@@ -457,6 +490,8 @@ class Ui_AddWindow(object):
         self.karagdagan_label.setText(_translate("AddWindow", "(Karagdagang Datos)"))
         self.addNew_label.setText(_translate("AddWindow", "ADD NEW RESIDENT"))
         self.save_btn.setText(_translate("AddWindow", "Save"))
+        self.add_photo_btn.setText(_translate("AddWindow", "Add Photo"))
+
         self.clear_btn.setText(_translate("AddWindow", "Clear"))
         self.address_label.setText(_translate("AddWindow", "Address:"))
         self.label_19.setText(_translate("AddWindow", "(Tirahan)"))
