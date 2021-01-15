@@ -21,7 +21,9 @@ class Ui_MainWindow(object):
 
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
-        mess.setWindowIcon(QtGui.QIcon('barmm.ico'))
+        #mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}')
+        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\nQPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); border-radius: 10px; padding: 10px; text-align: center;}\n QPushButton:hover{color: rgb(0, 170, 127);}')
+        mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
         mess.setWindowTitle(title)
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
@@ -29,8 +31,9 @@ class Ui_MainWindow(object):
         mess.exec_() 
 
     def exit_app(self):
-        msg=QMessageBox() 
-        msg.setWindowIcon(QtGui.QIcon('barmm.ico'))
+        msg=QMessageBox()
+        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\nQPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); border-radius: 10px; padding: 10px; text-align: center;}\n QPushButton:hover{color: rgb(0, 170, 127);}') 
+        msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
         msg.setWindowTitle("Exit")
         msg.setText("Are you sure you wan't to Exit?")
         msg.setIcon(QMessageBox.Question)
@@ -45,7 +48,8 @@ class Ui_MainWindow(object):
 
     def delete_messagebox(self):
         msg=QMessageBox() 
-        msg.setWindowIcon(QtGui.QIcon('barmm.ico'))
+        msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
+        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\nQPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); border-radius: 10px; padding: 10px; text-align: center;}\n QPushButton:hover{color: rgb(0, 170, 127);}')
         msg.setWindowTitle("Delete")
         msg.setText("Are you sure you want to enter on Delete Mode")
         msg.setIcon(QMessageBox.Question)
@@ -75,6 +79,10 @@ class Ui_MainWindow(object):
         self.add_btn.setEnabled(True)
         self.cancel_btn.show()
         self.cancel_delete_btn.hide()
+
+    def default(self):
+        self.addPic_edit.setText("photo/Men.png")
+        self.photo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
         
 
 
@@ -268,63 +276,68 @@ class Ui_MainWindow(object):
         
     def update(self):
 
-        p = self.addPic_edit.text() 
-        with open(p, 'rb') as f:
-            m=f.read()
+        p = self.addPic_edit.text()
+        if len(p) == 0:
+            self.messageBox("Add Photo","You have no photo selected, \nDefault Photo will be use\n Press Update Button Again")
+            self.default()
+        else:    
+            with open(p, 'rb') as f:
+                m=f.read()
         
-        mem_id=self.id_edit.text()
-        lname=self.lname_edit.text()
-        mname=self.middle_edit.text()
-        fname=self.fname_edit.text()
-        sex=self.sex_combo.currentText()
-        civil=self.civilStatus_combo.currentText()
-        position=self.family_position_combo.currentText()
-        sup=self.supplemental_combo.currentText()
-        dob=self.dob_edit.text()
-        pob=self.pob_edit.text()
-        sitio=self.sitio_edit.text()
-        street=self.street_address_edit.text()
+            mem_id=self.id_edit.text()
+            lname=self.lname_edit.text()
+            mname=self.middle_edit.text()
+            fname=self.fname_edit.text()
+            sex=self.sex_combo.currentText()
+            civil=self.civilStatus_combo.currentText()
+            position=self.family_position_combo.currentText()
+            sup=self.supplemental_combo.currentText()
+            dob=self.dob_edit.text()
+            pob=self.pob_edit.text()
+            sitio=self.sitio_edit.text()
+            street=self.street_address_edit.text()
 
         
-        self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
-        cur=self.conn.cursor()
+            self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
+            cur=self.conn.cursor()
 
-        sql = "UPDATE resident SET Last_name = '"+ lname.upper() +"', First_name= '" + fname.upper() + "',\
-                Middle_name = '" + mname.upper() + "', Sex= '" + sex.upper()\
-                + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "', Supp_data = '" + sup.upper() + "',\
-                Birth_date = '" + dob.upper() + "', Birth_place = '"\
-                + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "', photo= %s WHERE Resident_ID = '"+mem_id+"' "
+            sql = "UPDATE resident SET Last_name = '"+ lname.upper() +"', First_name= '" + fname.upper() + "',\
+                    Middle_name = '" + mname.upper() + "', Sex= '" + sex.upper()\
+                    + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "', Supp_data = '" + sup.upper() + "',\
+                    Birth_date = '" + dob.upper() + "', Birth_place = '"\
+                    + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "', photo= %s WHERE Resident_ID = '"+mem_id+"' "
         
-        if (sql):
-            msg=QMessageBox()
-            if    len(lname) == 0:
-                self.messageBox("Information", " Please Enter your Last Name!")
-                return
-            elif  len(fname) == 0:
-                self.messageBox("Information", " Please Enter your First Name!")
-                return
-            elif  len(mname)  == 0:
-                self.messageBox("Information", " Please Enter your Middle Name!")
-                return
-            elif  len(dob) == 0:
-                self.messageBox("Information", " Please Enter your Birth Date!")
-                return
-            elif  len(pob)== 0:
-                self.messageBox("Information", " Please Enter your Place of Birth!")
-                return
-            elif  len(sitio)== 0:
-                self.messageBox("Information", " Please Enter your Sitio!")
-                return
-            elif  len(street)== 0:
-                self.messageBox("Information", " Please Enter House number or Street!")
-                return
+            if (sql):
+                msg=QMessageBox()
+                if      len(lname) == 0:
+                    self.messageBox("Information", " Please Enter your Last Name!")
+                    return
+                elif  len(fname) == 0:
+                    self.messageBox("Information", " Please Enter your First Name!")
+                    return
+                elif  len(mname)  == 0:
+                    self.messageBox("Information", " Please Enter your Middle Name!")
+                    return
+                elif  len(dob) == 0:
+                    self.messageBox("Information", " Please Enter your Birth Date!")
+                    return
+                elif  len(pob)== 0:
+                    self.messageBox("Information", " Please Enter your Place of Birth!")
+                    return
+                elif  len(sitio)== 0:
+                    self.messageBox("Information", " Please Enter your Sitio!")
+                    return
+                elif  len(street)== 0:
+                    self.messageBox("Information", " Please Enter House number or Street!")
+                    return
            
-            else:
-                cur.execute(sql,m)
-                self.messageBox("Update", " Member Data Updated")
-                self.conn.commit()
-                #self.cancel()
-                self.loadData()
+                else:
+                    cur.execute(sql,m)
+                    self.messageBox("Update", " Member Data Updated")
+                    self.conn.commit()
+                    #self.cancel()
+                    self.loadData()
+                    self.cancel()
 
     def cell_click(self,columnCount,rowCount):
         #self.cancel()
@@ -1266,7 +1279,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO"))
         self.title_label.setText(_translate("MainWindow", "NAME OF BARANGAY"))
-        self.photo_label.setText(_translate("MainWindow", "TextLabel"))
+        #self.photo_label.setText(_translate("MainWindow", "TextLabel"))
         self.lname_label.setText(_translate("MainWindow", "Last Name"))
         self.middle_label.setText(_translate("MainWindow", "Middle Name"))
         self.fname_label.setText(_translate("MainWindow", "First Name"))
