@@ -213,6 +213,15 @@ class Ui_AddWindow(object):
         self.save_btn.setFlat(False)
         self.save_btn.setObjectName("save_btn")
         self.save_btn.clicked.connect(self.insert_data)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/save.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.save_btn.setIcon(icon)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.save_btn.setFont(font)
+
 
         #add photo BUTTON
         self.add_photo_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -222,8 +231,11 @@ class Ui_AddWindow(object):
         self.add_photo_btn.setFlat(False)
         self.add_photo_btn.setObjectName("add_photo_btn")
         self.add_photo_btn.clicked.connect(self.browse_image)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.add_photo_btn.setIcon(icon)
 
-        #CANCEL BUTTON
+        #CLEAR BUTTON
         self.clear_btn = QtWidgets.QPushButton(self.centralwidget)
         self.clear_btn.setGeometry(QtCore.QRect(570, 600, 141, 41))
         self.clear_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
@@ -231,25 +243,33 @@ class Ui_AddWindow(object):
         self.clear_btn.setFlat(False)
         self.clear_btn.setObjectName("clear_btn")
         self.clear_btn.clicked.connect(self.clear_field)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/clear.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.clear_btn.setIcon(icon)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.clear_btn.setFont(font)
 
         #SEX COMBO BOX
         self.sex_combo = QtWidgets.QComboBox(self.centralwidget)
-        self.sex_combo.setGeometry(QtCore.QRect(30, 520, 69, 32))
+        self.sex_combo.setGeometry(QtCore.QRect(30, 520, 80, 32))
         self.sex_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.sex_combo.setObjectName("sex_combo")
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         self.sex_combo.setFont(font)
         sex =["MALE", "FEMALE"]
         self.sex_combo.addItems(sex)
         
         #CIVIL STATUS COMBO BOX
         self.civil_combo = QtWidgets.QComboBox(self.centralwidget)
-        self.civil_combo.setGeometry(QtCore.QRect(120, 520, 91, 32))
+        self.civil_combo.setGeometry(QtCore.QRect(120, 520, 100, 32))
         self.civil_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.civil_combo.setObjectName("civil_combo")
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         self.civil_combo.setFont(font)
         civil = ["SINGLE", "MARRIED", "WIDDOW"]
         self.civil_combo.addItems(civil)
@@ -260,7 +280,7 @@ class Ui_AddWindow(object):
         self.position_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.position_combo.setObjectName("position_combo")
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         self.position_combo.setFont(font)
         fam_position = ["HEAD", "MEMBER"]
         self.position_combo.addItems(fam_position)
@@ -271,7 +291,7 @@ class Ui_AddWindow(object):
         self.supp_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.supp_combo.setObjectName("supp_combo")
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         self.supp_combo.setFont(font)
         supp = ["NOT APPLICABLE","SENIOR CITIZEN", "PWD", "INDIGENOUS"]
         self.supp_combo.addItems(supp)
@@ -333,7 +353,7 @@ class Ui_AddWindow(object):
 
         #PETSA NG KAPANGANAKAN LABEL
         self.petsa_label = QtWidgets.QLabel(self.centralwidget)
-        self.petsa_label.setGeometry(QtCore.QRect(30, 360, 131, 16))
+        self.petsa_label.setGeometry(QtCore.QRect(30, 360, 201, 16))
         self.petsa_label.setObjectName("petsa_label")
 
         #PLACE OF BIRTH LABEL
@@ -512,7 +532,7 @@ class Ui_AddWindow(object):
         self.lname_label.setText(_translate("AddWindow", "Last Name:"))
         self.apelyido_label.setText(_translate("AddWindow", "(Apelyido)"))
         self.dateofBirth_label.setText(_translate("AddWindow", "Date of Birth:"))
-        self.petsa_label.setText(_translate("AddWindow", "(Petsa ng Kapanganakan)"))
+        self.petsa_label.setText(_translate("AddWindow", "(Petsa ng Kapanganakan)(MM/DD/YYYY)"))
         self.place_label.setText(_translate("AddWindow", "Place of Birth:"))
         self.lugar_label.setText(_translate("AddWindow", "(Lugar ng Kapanganakan)"))
         self.sex_label.setText(_translate("AddWindow", "Sex:"))
@@ -532,6 +552,18 @@ class Ui_AddWindow(object):
         self.bday_edit.setPlaceholderText(_translate("AddWindow", "MM/DD/YYYY"))
         self.sitio_edit.setPlaceholderText(_translate("AddWindow", "SITIO"))
         self.street_edit.setPlaceholderText(_translate("AddWindow", "HOUSE NO./STREET"))
+
+        #TAB ORDER
+        AddWindow.setTabOrder(self.lname_edit, self.middle_edit)
+        AddWindow.setTabOrder(self.middle_edit, self.fname_edit)
+        AddWindow.setTabOrder(self.fname_edit, self.bday_edit)
+        AddWindow.setTabOrder(self.bday_edit, self.place_edit)
+        AddWindow.setTabOrder(self.place_edit, self.sex_combo)
+        AddWindow.setTabOrder(self.sex_combo, self.civil_combo)
+        AddWindow.setTabOrder(self.civil_combo, self.position_combo)
+        AddWindow.setTabOrder(self.position_combo, self.supp_combo)
+        AddWindow.setTabOrder(self.supp_combo, self.sitio_edit)
+        AddWindow.setTabOrder(self.sitio_edit, self.street_edit)
 
 
 if __name__ == "__main__":

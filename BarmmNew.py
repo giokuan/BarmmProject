@@ -903,7 +903,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setRowCount(0)
         font = self.tableWidget.font()
-        font.setPointSize(12)
+        font.setPointSize(10)
         self.tableWidget.setFont(font)
 
         item = QtWidgets.QTableWidgetItem()
@@ -1073,6 +1073,10 @@ class Ui_MainWindow(object):
         self.addPhoto_btn.setObjectName("addPhoto_btn")
         self.addPhoto_btn.clicked.connect(self.browse_image)
         self.addPhoto_btn.setEnabled(False)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.addPhoto_btn.setIcon(icon)
+
 
         #SEARCH BUTTON
         self.search_btn = QtWidgets.QPushButton(self.frame)
@@ -1085,6 +1089,9 @@ class Ui_MainWindow(object):
         self.search_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.search_btn.setObjectName("search_btn")
         self.search_btn.clicked.connect(self.search)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.search_btn.setIcon(icon)
 
         #SEARCH ALL BUTTON
         self.search_all_btn = QtWidgets.QPushButton(self.frame)
@@ -1098,6 +1105,9 @@ class Ui_MainWindow(object):
         self.search_all_btn.setObjectName("search_all_btn")
         self.search_all_btn.hide()
         self.search_all_btn.clicked.connect(self.search_all)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.search_all_btn.setIcon(icon)
 
         #ADVANCE SEARCH BUTTON
         self.advance_search_btn = QtWidgets.QPushButton(self.frame)
@@ -1111,25 +1121,32 @@ class Ui_MainWindow(object):
         self.advance_search_btn.setObjectName("advance_search_btn")
         self.advance_search_btn.hide()
         self.advance_search_btn.clicked.connect(self.adv_search)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.advance_search_btn.setIcon(icon)
 
         
         #EXIT BUTTON
         self.exit_btn = QtWidgets.QPushButton(self.centralwidget)
         self.exit_btn.setGeometry(QtCore.QRect(1130, 770, 141, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.exit_btn.setFont(font)
         self.exit_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.exit_btn.setObjectName("exit_btn")
         self.exit_btn.clicked.connect(self.exit_app)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/exit.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.exit_btn.setIcon(icon)
+
         
         #CANCEL BUTTON
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
         self.cancel_btn.setGeometry(QtCore.QRect(710, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.cancel_btn.setFont(font)
@@ -1137,12 +1154,15 @@ class Ui_MainWindow(object):
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.setEnabled(False)
         self.cancel_btn.clicked.connect(self.cancel)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.cancel_btn.setIcon(icon)
 
         #CANCEL DELETE BUTTON
         self.cancel_delete_btn = QtWidgets.QPushButton(self.centralwidget)
         self.cancel_delete_btn.setGeometry(QtCore.QRect(710, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.cancel_delete_btn.setFont(font)
@@ -1150,12 +1170,15 @@ class Ui_MainWindow(object):
         self.cancel_delete_btn.setObjectName("cancel_btn")
         self.cancel_delete_btn.hide()
         self.cancel_delete_btn.clicked.connect(self.cancel_delete)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.cancel_delete_btn.setIcon(icon)
         
         #REFRESH BUTTON
         self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)
         self.refresh_btn.setGeometry(QtCore.QRect(990, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.refresh_btn.setFont(font)
@@ -1163,24 +1186,31 @@ class Ui_MainWindow(object):
         self.refresh_btn.setObjectName("refresh_btn")
         self.refresh_btn.clicked.connect(self.loadData)
         self.refresh_btn.clicked.connect(self.clear)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.refresh_btn.setIcon(icon)
+
         
         #EDIT BUTTON
         self.edit_btn = QtWidgets.QPushButton(self.centralwidget)
         self.edit_btn.setGeometry(QtCore.QRect(430, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.edit_btn.setFont(font)
         self.edit_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.edit_btn.setObjectName("edit_btn")
         self.edit_btn.clicked.connect(self.edit)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/edit.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.edit_btn.setIcon(icon)
         
         #UPDATE BUTTON
         self.update_btn = QtWidgets.QPushButton(self.centralwidget)
         self.update_btn.setGeometry(QtCore.QRect(570, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.update_btn.setFont(font)
@@ -1188,24 +1218,31 @@ class Ui_MainWindow(object):
         self.update_btn.setObjectName("update_btn")
         self.update_btn.clicked.connect(self.update)
         self.update_btn.setEnabled(False)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/update.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.update_btn.setIcon(icon)
+
         
         #DELETE BUTTON
         self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
         self.delete_btn.setGeometry(QtCore.QRect(850, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.delete_btn.setFont(font)
         self.delete_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.delete_btn.setObjectName("delete_btn")
         self.delete_btn.clicked.connect(self.delete_messagebox)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/delete.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.delete_btn.setIcon(icon)
 
         #DELETE BUTTON 2
         self.delete_record_btn = QtWidgets.QPushButton(self.centralwidget)
         self.delete_record_btn.setGeometry(QtCore.QRect(850, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.delete_record_btn.setFont(font)
@@ -1213,43 +1250,56 @@ class Ui_MainWindow(object):
         self.delete_record_btn.setObjectName("delete_btn")
         self.delete_record_btn.clicked.connect(self.delete_record)
         self.delete_record_btn.hide()
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/delete.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.delete_record_btn.setIcon(icon)
         
         
         #ADD NEW BUTTON
         self.add_btn = QtWidgets.QPushButton(self.centralwidget)
         self.add_btn.setGeometry(QtCore.QRect(290, 770, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.add_btn.setFont(font)
         self.add_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.add_btn.setObjectName("add_btn")
         self.add_btn.clicked.connect(self.open_window)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/reg.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.add_btn.setIcon(icon)
         
         #PRINT BUTTON
         self.print_btn = QtWidgets.QPushButton(self.centralwidget)
         self.print_btn.setGeometry(QtCore.QRect(20, 710, 251, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.print_btn.setFont(font)
         self.print_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.print_btn.setObjectName("print_btn")
         self.print_btn.clicked.connect(self.printPreviewListMethod)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.print_btn.setIcon(icon)
+
         
         #PRINT PDF BUTTON
         self.printPdf_btn = QtWidgets.QPushButton(self.centralwidget)
         self.printPdf_btn.setGeometry(QtCore.QRect(20, 770, 251, 41))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.printPdf_btn.setFont(font)
         self.printPdf_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.printPdf_btn.setObjectName("printPdf_btn")
         self.printPdf_btn.clicked.connect(self.pdf)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.printPdf_btn.setIcon(icon)
         
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
