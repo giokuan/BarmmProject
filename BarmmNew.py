@@ -21,8 +21,9 @@ class Ui_MainWindow(object):
 
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
-        #mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}')
-        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\nQPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); border-radius: 10px; padding: 10px; text-align: center;}\n QPushButton:hover{color: rgb(0, 170, 127);}')
+        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
+            border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
         mess.setWindowTitle(title)
         mess.setText(message)
@@ -32,7 +33,9 @@ class Ui_MainWindow(object):
 
     def exit_app(self):
         msg=QMessageBox()
-        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\nQPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); border-radius: 10px; padding: 10px; text-align: center;}\n QPushButton:hover{color: rgb(0, 170, 127);}') 
+        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
+            border-radius: 10px; padding: 10px; text-align: center;}QPushButton:hover{color: rgb(0, 170, 127);}') 
         msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
         msg.setWindowTitle("Exit")
         msg.setText("Are you sure you wan't to Exit?")
@@ -49,7 +52,9 @@ class Ui_MainWindow(object):
     def delete_messagebox(self):
         msg=QMessageBox() 
         msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
-        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\nQPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); border-radius: 10px; padding: 10px; text-align: center;}\n QPushButton:hover{color: rgb(0, 170, 127);}')
+        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
+            border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         msg.setWindowTitle("Delete")
         msg.setText("Are you sure you want to enter on Delete Mode")
         msg.setIcon(QMessageBox.Question)
@@ -84,7 +89,6 @@ class Ui_MainWindow(object):
         self.addPic_edit.setText("photo/Men.png")
         self.photo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
         
-
 
     def search_allRadio(self):
         self.search_all_btn.show()
@@ -278,7 +282,7 @@ class Ui_MainWindow(object):
 
         p = self.addPic_edit.text()
         if len(p) == 0:
-            self.messageBox("Add Photo","You have no photo selected, \nDefault Photo will be use\n Press Update Button Again")
+            self.messageBox("Add Photo","You have no photo selected, \nDefault Photo will be use")
             self.default()
         else:    
             with open(p, 'rb') as f:
@@ -340,8 +344,7 @@ class Ui_MainWindow(object):
                     self.cancel()
 
     def cell_click(self,columnCount,rowCount):
-        #self.cancel()
-        #self.editbutton.setEnabled(True)
+       
         self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
         cur=self.conn.cursor()
         item = self.tableWidget.selectedItems()
@@ -427,8 +430,7 @@ class Ui_MainWindow(object):
         dialog.exec_()
 
     def pdf(self): 
-        fileName, okPressed = QFileDialog.getSaveFileName( caption = "Export PDF", directory=None, \
-                                                            filter="PDF Files(*.pdf);;All Files(*.*)")  
+        fileName, okPressed = QFileDialog.getSaveFileName( caption = "Export PDF", directory=None, filter="PDF Files(*.pdf);;All Files(*.*)")  
         if fileName != "":
             if QFileInfo(fileName).suffix() =="":
                 fileName +=".pdf"  
@@ -476,8 +478,7 @@ class Ui_MainWindow(object):
 
 
     def browse_image(self):
-        filename = QFileDialog.getOpenFileName( caption = "Open file", directory=None, \
-                                                            filter="Image (*.png * .jpg);;All Files(*.*)")   
+        filename = QFileDialog.getOpenFileName( caption = "Open file", directory=None, filter="Image (*.png * .jpg);;All Files(*.*)")   
         self.addPic_edit.setText(filename[0])
         self.load_image()
         
@@ -500,7 +501,7 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
 
-        #######----FRAMES--------###########
+        #######--------------------FRAMES--------------------###########
         
         #HEADER FRAME
         self.header_frame = QtWidgets.QFrame(self.centralwidget)
@@ -743,7 +744,7 @@ class Ui_MainWindow(object):
         self.sex_combo.setEnabled(False)
         
 
-        ######## TEXTBOX ###########
+        ######## ------------------TEXTBOX -----------------------###########
 
         #SEARCH EDIT TEXTBOX
         self.search_edit = QtWidgets.QLineEdit(self.frame)
@@ -1149,8 +1150,6 @@ class Ui_MainWindow(object):
         self.cancel_delete_btn.setObjectName("cancel_btn")
         self.cancel_delete_btn.hide()
         self.cancel_delete_btn.clicked.connect(self.cancel_delete)
-
-
         
         #REFRESH BUTTON
         self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1200,7 +1199,6 @@ class Ui_MainWindow(object):
         self.delete_btn.setFont(font)
         self.delete_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
         self.delete_btn.setObjectName("delete_btn")
-        #self.delete_btn.clicked.connect(self.delete_record)
         self.delete_btn.clicked.connect(self.delete_messagebox)
 
         #DELETE BUTTON 2
@@ -1279,16 +1277,13 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO"))
         self.title_label.setText(_translate("MainWindow", "NAME OF BARANGAY"))
-        #self.photo_label.setText(_translate("MainWindow", "TextLabel"))
         self.lname_label.setText(_translate("MainWindow", "Last Name"))
         self.middle_label.setText(_translate("MainWindow", "Middle Name"))
         self.fname_label.setText(_translate("MainWindow", "First Name"))
         self.sex_label.setText(_translate("MainWindow", "Sex"))
-        
         self.civilStatus_label.setText(_translate("MainWindow", "Civil Status"))
         self.familyPosition_label.setText(_translate("MainWindow", "Family Position"))
         self.supplemental_label.setText(_translate("MainWindow", "Supplemental Data"))
-        
         self.sitio_label.setText(_translate("MainWindow", "Sitio"))
         self.id_label.setText(_translate("MainWindow", "Resident ID"))
         self.dob_label.setText(_translate("MainWindow", "Date of Birth"))

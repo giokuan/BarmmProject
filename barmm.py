@@ -8,13 +8,14 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox, QFi
 
 
 class Ui_AddWindow(object): 
-
-   
    
 
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
         mess.setWindowTitle(title)
+        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
+            border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         mess.setWindowIcon(QtGui.QIcon("photo/barmm.ico"))
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
@@ -29,7 +30,7 @@ class Ui_AddWindow(object):
     def insert_data(self):
         p = self.addPic_edit.text()
         if len(p) == 0:
-            self.messageBox("Add Photo","You have no photo selected, \nDefault Photo will be use")
+            self.messageBox("Add Photo","You have no photo selected, \n Default Photo will be use!")
             self.default()
         else:
             
@@ -37,7 +38,6 @@ class Ui_AddWindow(object):
             with open(p, 'rb') as f:
                 m=f.read()
           
-
             lname = self.lname_edit.text()
             fname = self.fname_edit.text()
             middle = self.middle_edit.text()
@@ -49,8 +49,6 @@ class Ui_AddWindow(object):
             sex = self.sex_combo.currentText()
             status = self.civil_combo.currentText()
             supplementary = self.supp_combo.currentText()
-       
-            
        
             self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
        
@@ -103,8 +101,7 @@ class Ui_AddWindow(object):
         self.logo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
 
     def browse_image(self):
-        filename = QFileDialog.getOpenFileName( caption = "Open file", directory=None, \
-                                                            filter="Image (*.png * .jpg);;All Files(*.*)")   
+        filename = QFileDialog.getOpenFileName( caption = "Open file", directory=None, filter="Image (*.png * .jpg);;All Files(*.*)")   
         self.addPic_edit.setText(filename[0])
         self.load_image()
 
@@ -112,7 +109,6 @@ class Ui_AddWindow(object):
         p = self.addPic_edit.text()
         self.logo_label.setPixmap(QtGui.QPixmap(p))
       
-
 
     def setupUi(self, AddWindow):
         AddWindow.setObjectName("AddWindow")
@@ -235,7 +231,6 @@ class Ui_AddWindow(object):
         self.clear_btn.setFlat(False)
         self.clear_btn.setObjectName("clear_btn")
         self.clear_btn.clicked.connect(self.clear_field)
-
 
         #SEX COMBO BOX
         self.sex_combo = QtWidgets.QComboBox(self.centralwidget)
@@ -405,7 +400,6 @@ class Ui_AddWindow(object):
         #SUPPLEMENTARY DATA LABEL
         self.supp_label = QtWidgets.QLabel(self.centralwidget)
         self.supp_label.setGeometry(QtCore.QRect(30, 575, 151, 16))
-        #self.supp_label.setStyleSheet("background-color: rgb(75, 75, 75);")
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -416,12 +410,11 @@ class Ui_AddWindow(object):
         #KARAGDAGANG DATOS LABEL
         self.karagdagan_label = QtWidgets.QLabel(self.centralwidget)
         self.karagdagan_label.setGeometry(QtCore.QRect(30, 590, 111, 16))
-        #self.karagdagan_label.setStyleSheet("background-color: rgb(75, 75, 75);")
         self.karagdagan_label.setObjectName("karagdagan_label")
 
         #ADD NEW RESIDENT TITLE LABEL
         self.addNew_label = QtWidgets.QLabel(self.centralwidget)
-        self.addNew_label.setGeometry(QtCore.QRect(270, 20, 321, 41))
+        self.addNew_label.setGeometry(QtCore.QRect(250, 20, 321, 41))
         font = QtGui.QFont()
         font.setPointSize(21)
         font.setBold(True)
@@ -440,11 +433,11 @@ class Ui_AddWindow(object):
         self.address_label.setFont(font)
         self.address_label.setObjectName("address_label")
 
-        self.label_19 = QtWidgets.QLabel(self.centralwidget)
-        self.label_19.setGeometry(QtCore.QRect(410, 170, 91, 16))
-        self.label_19.setObjectName("label_19")
+        #TIRAHAN LABEL
+        self.tirahan_label = QtWidgets.QLabel(self.centralwidget)
+        self.tirahan_label.setGeometry(QtCore.QRect(410, 170, 91, 16))
+        self.tirahan_label.setObjectName("tirahan_label")
 
-    
         #LOGO
         self.logo_label = QtWidgets.QLabel(self.centralwidget)
         self.logo_label.setGeometry(QtCore.QRect(440, 301, 241, 231))
@@ -452,6 +445,7 @@ class Ui_AddWindow(object):
         self.logo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
         self.logo_label.setScaledContents(True)
 
+        #BACKGROUND OF PICK
         self.pic_label = QtWidgets.QLabel(self.centralwidget)
         self.pic_label.setGeometry(QtCore.QRect(410, 280, 301, 271))
         self.pic_label.setAutoFillBackground(False)
@@ -492,11 +486,9 @@ class Ui_AddWindow(object):
         self.clear_btn.raise_()
         self.sitio_edit.raise_()
         self.address_label.raise_()
-        self.label_19.raise_()
+        self.tirahan_label.raise_()
         self.street_edit.raise_()
-        #self.graphicsView.raise_()
         self.logo_label.raise_()
-        #self.photo_label.raise_()
         self.posisyon_label.raise_()
         self.familyPosition_label.raise_()
         self.position_combo.raise_()
@@ -532,18 +524,11 @@ class Ui_AddWindow(object):
         self.addNew_label.setText(_translate("AddWindow", "ADD NEW RESIDENT"))
         self.save_btn.setText(_translate("AddWindow", "Save"))
         self.add_photo_btn.setText(_translate("AddWindow", "Add Photo"))
-
         self.clear_btn.setText(_translate("AddWindow", "Clear"))
-        
         self.address_label.setText(_translate("AddWindow", "Address:"))
-        self.label_19.setText(_translate("AddWindow", "(Tirahan)"))
-        #self.photo_label.setText(_translate("AddWindow", "Photo"))
+        self.tirahan_label.setText(_translate("AddWindow", "(Tirahan)"))
         self.posisyon_label.setText(_translate("AddWindow", "(Posisyon sa Pamilyal)"))
         self.familyPosition_label.setText(_translate("AddWindow", "Family position:"))
-        
-
-        #self.lname_edit.setPlaceholderText(_translate("AddWindow", "LAST NAME"))
-        #self.middle_edit.setPlaceholderText(_translate("AddWindow", "MIDDLE NAME"))
         self.bday_edit.setPlaceholderText(_translate("AddWindow", "MM/DD/YYYY"))
         self.sitio_edit.setPlaceholderText(_translate("AddWindow", "SITIO"))
         self.street_edit.setPlaceholderText(_translate("AddWindow", "HOUSE NO./STREET"))
