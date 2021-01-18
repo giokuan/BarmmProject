@@ -343,6 +343,10 @@ class Ui_MainWindow(object):
                     self.loadData()
                     self.cancel()
 
+    #def cellclick_line_edit_disabled(self):
+
+
+
     def cell_click(self,columnCount,rowCount):
        
         self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
@@ -382,6 +386,7 @@ class Ui_MainWindow(object):
         self.sitio_edit.setText(sitio)
         self.street_address_edit.setText(street)
 
+        self.cancel()
 
         with open('photo/pic.png', 'wb') as f:
                 f.write(pic)
@@ -414,36 +419,45 @@ class Ui_MainWindow(object):
         except mc.Error as e:
             print ("Error Occured")
 
+    #def handlePaintRequest(self, printer):
+       # #printer.setResolution(1000)
+        #printer.setPageMargins(6, 10, 1, 20, QPrinter.Millimeter)
+        #painter = QPainter()
+        #painter.begin(printer)
+        #screenPixmap = self.tableWidget.grab()
+        #screenPixmap = screenPixmap.scaledToWidth(int(screenPixmap.width() *8000/screenPixmap.width()))
+        #painter.drawPixmap(10,10, screenPixmap)
+        #painter.end()
+
     def handlePaintRequest(self, printer):
-        printer.setResolution(1000)
-        printer.setPageMargins(6, 10, 1, 20, QPrinter.Millimeter)
-        painter = QPainter()
-        painter.begin(printer)
-        screenPixmap = self.tableWidget.grab()
-        screenPixmap = screenPixmap.scaledToWidth(int(screenPixmap.width() *8000/screenPixmap.width()))
-        painter.drawPixmap(10,10, screenPixmap)
-        painter.end()
+        document = QtGui.QTextDocument()
+        cursor = QtGui.QTextCursor(document)
+        table = cursor.insertTable(
+            self.tableWidget.rowCount(), self.tableWidget.columnCount())
+        for row in range(table.rows()):
+            for col in range(table.columns()):
+                cursor.insertText(self.tableWidget.item(row, col).text())
+                cursor.movePosition(QtGui.QTextCursor.NextCell)
+        document.print_(printer)
 
     def printPreviewListMethod(self):
         dialog = QPrintPreviewDialog()
         dialog.paintRequested.connect(self.handlePaintRequest)
         dialog.exec_()
 
-    def pdf(self): 
-        fileName, okPressed = QFileDialog.getSaveFileName( caption = "Export PDF", directory=None, filter="PDF Files(*.pdf);;All Files(*.*)")  
-        if fileName != "":
-            if QFileInfo(fileName).suffix() =="":
-                fileName +=".pdf"  
-            printer = QPrinter(QPrinter.HighResolution)
-            printer.setPageMargins(6, 10, 1, 20, QPrinter.Millimeter)
-            printer.setOutputFormat(QPrinter.PdfFormat)
-            printer.setOutputFileName(fileName)
-            painter = QPainter()
-            painter.begin(printer)
-            screenPixmap = self.tableWidget.grab()
-            screenPixmap = screenPixmap.scaledToWidth(int(screenPixmap.width() *8000/screenPixmap.width()))
-            painter.drawPixmap(10,10, screenPixmap)
-            painter.end()
+    #def pdf(self): 
+       #
+       
+            #printer = QPrinter(QPrinter.HighResolution)
+            #printer.setPageMargins(6, 10, 1, 20, QPrinter.Millimeter)
+            #printer.setOutputFormat(QPrinter.PdfFormat)
+            #printer.setOutputFileName(fileName)
+            #painter = QPainter()
+            #painter.begin(printer)
+            #screenPixmap = self.tableWidget.grab()
+            #screenPixmap = screenPixmap.scaledToWidth(int(screenPixmap.width() *8000/screenPixmap.width()))
+            #painter.drawPixmap(10,10, screenPixmap)
+            #painter.end()
 
 
     def delete_record(self):
@@ -896,7 +910,7 @@ class Ui_MainWindow(object):
         self.table_frame.setObjectName("table_frame")
         
         self.tableWidget = QtWidgets.QTableWidget(self.table_frame)
-        self.tableWidget.setGeometry(QtCore.QRect(24, 20, 1204, 231))
+        self.tableWidget.setGeometry(QtCore.QRect(15, 20, 1223, 231))
         self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.tableWidget.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.tableWidget.setColumnCount(12)
@@ -1018,7 +1032,7 @@ class Ui_MainWindow(object):
         self.search_radioButton = QtWidgets.QRadioButton(self.frame)
         self.search_radioButton.setGeometry(QtCore.QRect(10, 20, 101, 17))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.search_radioButton.setFont(font)
@@ -1034,7 +1048,7 @@ class Ui_MainWindow(object):
         self.searchAll_radioButton = QtWidgets.QRadioButton(self.frame)
         self.searchAll_radioButton.setGeometry(QtCore.QRect(10, 50, 131, 17))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.searchAll_radioButton.setFont(font)
@@ -1050,7 +1064,7 @@ class Ui_MainWindow(object):
         self.advance_radioButton = QtWidgets.QRadioButton(self.frame)
         self.advance_radioButton.setGeometry(QtCore.QRect(10, 80, 191, 17))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.advance_radioButton.setFont(font)
@@ -1287,19 +1301,19 @@ class Ui_MainWindow(object):
 
         
         #PRINT PDF BUTTON
-        self.printPdf_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.printPdf_btn.setGeometry(QtCore.QRect(20, 770, 251, 41))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.printPdf_btn.setFont(font)
-        self.printPdf_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
-        self.printPdf_btn.setObjectName("printPdf_btn")
-        self.printPdf_btn.clicked.connect(self.pdf)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.printPdf_btn.setIcon(icon)
+        #self.printPdf_btn = QtWidgets.QPushButton(self.centralwidget)
+        #self.printPdf_btn.setGeometry(QtCore.QRect(20, 770, 251, 41))
+        #font = QtGui.QFont()
+        #font.setPointSize(11)
+        #font.setBold(True)#
+        #font.setWeight(75)
+        #self.printPdf_btn.setFont(font)
+        #self.printPdf_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        #self.printPdf_btn.setObjectName("printPdf_btn")
+        #self.printPdf_btn.clicked.connect(self.pdf)
+        #icon = QtGui.QIcon()
+        #icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #self.printPdf_btn.setIcon(icon)
         
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -1386,7 +1400,7 @@ class Ui_MainWindow(object):
 
         self.add_btn.setText(_translate("MainWindow", "Add New"))
         self.print_btn.setText(_translate("MainWindow", "Print"))
-        self.printPdf_btn.setText(_translate("MainWindow", "Print PDF"))
+        #self.printPdf_btn.setText(_translate("MainWindow", "Print PDF"))
         self.advanceLname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
         self.advanceFname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter First Name"))
         self.search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))

@@ -20,6 +20,9 @@ class Ui_MainForm(object):
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
         mess.setWindowTitle(title)
+        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
+            border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
