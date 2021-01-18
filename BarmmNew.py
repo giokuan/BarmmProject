@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
 
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
-        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+        mess.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
@@ -33,7 +33,8 @@ class Ui_MainWindow(object):
 
     def exit_app(self):
         msg=QMessageBox()
-        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+        msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), \
+            stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
             border-radius: 10px; padding: 10px; text-align: center;}QPushButton:hover{color: rgb(0, 170, 127);}') 
         msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
@@ -52,7 +53,8 @@ class Ui_MainWindow(object):
     def delete_messagebox(self):
         msg=QMessageBox() 
         msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
-        msg.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+        msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0),\
+            stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         msg.setWindowTitle("Delete")
@@ -172,17 +174,28 @@ class Ui_MainWindow(object):
         self.refresh_btn.setEnabled(True)
         self.addPhoto_btn.setEnabled(False)
 
-        self.lname_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.fname_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.middle_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.sex_combo.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.civilStatus_combo.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.family_position_combo.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.supplemental_combo.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.dob_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.pob_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.sitio_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
-        self.street_address_edit.setStyleSheet("background-color: rgb(185, 185, 185);color:black")
+        self.lname_edit.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.fname_edit.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.middle_edit.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.sex_combo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1,\
+             stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.civilStatus_combo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.family_position_combo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.supplemental_combo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.dob_edit.setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1,\
+             stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.pob_edit.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1,\
+             stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.sitio_edit.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1,\
+             stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
+        self.street_address_edit.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1,\
+             y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color:black")
 
     def clear(self):
         self.id_edit.clear()
@@ -508,27 +521,38 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(1292, 845))
         MainWindow.setMinimumSize(QtCore.QSize(1292, 845))
         MainWindow.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
-        MainWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
+        #MainWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
 
+
+        #BACKGROUND LABEL
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(-10, 0, 1351, 821))
+        self.label.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("photo/back3.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+
         #######--------------------FRAMES--------------------###########
         
         #HEADER FRAME
         self.header_frame = QtWidgets.QFrame(self.centralwidget)
-        self.header_frame.setGeometry(QtCore.QRect(0, 0, 1301, 111))
-        self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
-        self.header_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.header_frame.setGeometry(QtCore.QRect(0, 5, 1290, 105))
+        #self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
+        self.header_frame.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.header_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.header_frame.setObjectName("header_frame")
+
 
         #SEARCH FRAME
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(20, 420, 251, 271))
-        self.frame.setStyleSheet("background-color: rgb(75, 75, 75);")
+        #self.frame.setStyleSheet("background-color: rgb(75, 75, 75);")
         self.frame.setFrameShape(QtWidgets.QFrame.Panel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -540,7 +564,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.residentData_frame.setFont(font)
-        self.residentData_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
+        #self.residentData_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
         self.residentData_frame.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.residentData_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.residentData_frame.setObjectName("residentData_frame")
@@ -556,11 +580,12 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.title_label.setFont(font)
+        self.title_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.title_label.setObjectName("title_label")
 
         #HEADER LOGO LABEL
         self.headerLogo_label = QtWidgets.QLabel(self.header_frame)
-        self.headerLogo_label.setGeometry(QtCore.QRect(10, 10, 101, 91))
+        self.headerLogo_label.setGeometry(QtCore.QRect(10, 7, 101, 91))
         self.headerLogo_label.setText("")
         self.headerLogo_label.setPixmap(QtGui.QPixmap("photo/barmm.png"))
         self.headerLogo_label.setScaledContents(True)
@@ -574,6 +599,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.id_label.setFont(font)
+        self.id_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.id_label.setObjectName("id_label")
 
         #PHOTO LABEL
@@ -602,6 +628,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.lname_label.setFont(font)
+        self.lname_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.lname_label.setObjectName("lname_label")
         
         #MIDDLE NAME LABEL
@@ -612,6 +639,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.middle_label.setFont(font)
+        self.middle_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.middle_label.setObjectName("middle_label")
         
         #FIRST NAME LABEL
@@ -622,6 +650,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.fname_label.setFont(font)
+        self.fname_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.fname_label.setObjectName("fname_label")
 
         #PLACE OF BIRTH LABEL
@@ -632,6 +661,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.pob_label.setFont(font)
+        self.pob_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.pob_label.setObjectName("pob_label")
         
         #HOUSE NUMBER LABEL
@@ -642,6 +672,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.houseStreet_label.setFont(font)
+        self.houseStreet_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.houseStreet_label.setObjectName("houseStreet_label")
 
 
@@ -653,6 +684,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.civilStatus_label.setFont(font)
+        self.civilStatus_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.civilStatus_label.setObjectName("civilStatus_label")
 
         #SUPPLEMENTAL DATA LABEL
@@ -663,6 +695,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.supplemental_label.setFont(font)
+        self.supplemental_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.supplemental_label.setObjectName("supplemental_label")
 
         #FAMILY POSITION LABEL
@@ -673,6 +706,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.familyPosition_label.setFont(font)
+        self.familyPosition_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.familyPosition_label.setObjectName("familyPosition_label")
 
         #SEX LABEL
@@ -683,6 +717,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.sex_label.setFont(font)
+        self.sex_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.sex_label.setObjectName("sex_label")
         
         #SITIO LABEL
@@ -693,6 +728,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.sitio_label.setFont(font)
+        self.sitio_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.sitio_label.setObjectName("sitio_label")
 
         #DATE OF BIRTH LABEL
@@ -703,6 +739,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.dob_label.setFont(font)
+        self.dob_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.dob_label.setObjectName("dob_label")
 
 
@@ -711,11 +748,13 @@ class Ui_MainWindow(object):
         
         #CIVIL STATUS COMBO BOX
         self.civilStatus_combo = QtWidgets.QComboBox(self.residentData_frame)
-        self.civilStatus_combo.setGeometry(QtCore.QRect(620, 130, 111, 41))
+        self.civilStatus_combo.setGeometry(QtCore.QRect(611, 130, 120, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.civilStatus_combo.setFont(font)
-        self.civilStatus_combo.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.civilStatus_combo.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.civilStatus_combo.setObjectName("civilStatus_combo")
         status = ["SINGLE", "MARRIED","WIDDOW"]
         self.civilStatus_combo.addItems(status)
@@ -725,9 +764,11 @@ class Ui_MainWindow(object):
         self.family_position_combo = QtWidgets.QComboBox(self.residentData_frame)
         self.family_position_combo.setGeometry(QtCore.QRect(750, 60, 211, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.family_position_combo.setFont(font)
-        self.family_position_combo.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.family_position_combo.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.family_position_combo.setObjectName("family_position_combo")
         position = ["HEAD", "MEMBER"]
         self.family_position_combo.addItems(position)
@@ -737,9 +778,11 @@ class Ui_MainWindow(object):
         self.supplemental_combo = QtWidgets.QComboBox(self.residentData_frame)
         self.supplemental_combo.setGeometry(QtCore.QRect(750, 130, 211, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.supplemental_combo.setFont(font)
-        self.supplemental_combo.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.supplemental_combo.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.supplemental_combo.setObjectName("supplemental_combo")
         supp = ["NOT APPLICABLE", "SENIOR CITIZEN","PWD","INDIGENOUS"]
         self.supplemental_combo.addItems(supp)
@@ -747,11 +790,13 @@ class Ui_MainWindow(object):
 
         #SEX COMBO BOX
         self.sex_combo = QtWidgets.QComboBox(self.residentData_frame)
-        self.sex_combo.setGeometry(QtCore.QRect(620, 60, 111, 41))
+        self.sex_combo.setGeometry(QtCore.QRect(611, 60, 120, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.sex_combo.setFont(font)
-        self.sex_combo.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.sex_combo.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.sex_combo.setObjectName("sex_combo")
         sex = ["MALE", "FEMALE"]
         self.sex_combo.addItems(sex)
@@ -763,18 +808,22 @@ class Ui_MainWindow(object):
         #SEARCH EDIT TEXTBOX
         self.search_edit = QtWidgets.QLineEdit(self.frame)
         self.search_edit.setGeometry(QtCore.QRect(10, 190, 201, 41))
-        self.search_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.search_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.search_edit.setObjectName("search_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.search_edit.setFont(font)
 
         #ADVANCE LAST NAME SEARCH EDIT 
         self.advanceLname_search_edit = QtWidgets.QLineEdit(self.frame)
         self.advanceLname_search_edit.setGeometry(QtCore.QRect(10, 160, 201, 41))
-        self.advanceLname_search_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.advanceLname_search_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.advanceLname_search_edit.setObjectName("advanceLname_search_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.advanceLname_search_edit.setFont(font)
         self.advanceLname_search_edit.hide()
@@ -783,9 +832,11 @@ class Ui_MainWindow(object):
         #ADVANCE FIRST NAME SEARCH EDIT
         self.advanceFname_search_edit = QtWidgets.QLineEdit(self.frame)
         self.advanceFname_search_edit.setGeometry(QtCore.QRect(10, 210, 201, 41))
-        self.advanceFname_search_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.advanceFname_search_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.advanceFname_search_edit.setObjectName("advanceFname_search_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.advanceFname_search_edit.setFont(font)
         self.advanceFname_search_edit.hide()
@@ -793,10 +844,11 @@ class Ui_MainWindow(object):
         #SEARCH COMBO BOX
         self.search_comboBox = QtWidgets.QComboBox(self.frame)
         self.search_comboBox.setGeometry(QtCore.QRect(10, 190, 201, 41))
-        self.search_comboBox.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.search_comboBox.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         font = QtGui.QFont()
         font.setPointSize(12)
-        font.setBold(False)
+        font.setBold(True)
         font.setWeight(50)
         self.search_comboBox.setFont(font)
         self.search_comboBox.setObjectName("search_comboBox")
@@ -809,9 +861,11 @@ class Ui_MainWindow(object):
         self.lname_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.lname_edit.setGeometry(QtCore.QRect(230, 60, 361, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.lname_edit.setFont(font)
-        self.lname_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.lname_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.lname_edit.setObjectName("lname_edit")
         self.lname_edit.setEnabled(False)
         
@@ -819,9 +873,11 @@ class Ui_MainWindow(object):
         self.middle_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.middle_edit.setGeometry(QtCore.QRect(230, 130, 361, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.middle_edit.setFont(font)
-        self.middle_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.middle_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.middle_edit.setText("")
         self.middle_edit.setObjectName("middle_edit")
         self.middle_edit.setEnabled(False)
@@ -830,9 +886,11 @@ class Ui_MainWindow(object):
         self.fname_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.fname_edit.setGeometry(QtCore.QRect(230, 200, 361, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.fname_edit.setFont(font)
-        self.fname_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.fname_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.fname_edit.setObjectName("fname_edit")
         self.fname_edit.setEnabled(False)
         
@@ -840,9 +898,11 @@ class Ui_MainWindow(object):
         self.pob_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.pob_edit.setGeometry(QtCore.QRect(750, 200, 211, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.pob_edit.setFont(font)
-        self.pob_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.pob_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.pob_edit.setObjectName("pob_edit")
         self.pob_edit.setEnabled(False)
         
@@ -851,9 +911,11 @@ class Ui_MainWindow(object):
         self.id_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.id_edit.setGeometry(QtCore.QRect(10, 270, 81, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.id_edit.setFont(font)
-        self.id_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.id_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.id_edit.setObjectName("id_edit")
         self.id_edit.setEnabled(False)
         
@@ -870,11 +932,13 @@ class Ui_MainWindow(object):
         #self.dob_edit.setObjectName("dob_edit")
 
         self.dob_edit = QtWidgets.QLineEdit(self.residentData_frame)
-        self.dob_edit.setGeometry(QtCore.QRect(620, 200, 110, 41))
+        self.dob_edit.setGeometry(QtCore.QRect(611, 200, 120, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.dob_edit.setFont(font)
-        self.dob_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.dob_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.dob_edit.setObjectName("dob_edit")
         self.dob_edit.setEnabled(False)
 
@@ -883,9 +947,11 @@ class Ui_MainWindow(object):
         self.sitio_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.sitio_edit.setGeometry(QtCore.QRect(110, 270, 331, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.sitio_edit.setFont(font)
-        self.sitio_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.sitio_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.sitio_edit.setObjectName("sitio_edit")
         self.sitio_edit.setEnabled(False)
         
@@ -893,9 +959,11 @@ class Ui_MainWindow(object):
         self.street_address_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.street_address_edit.setGeometry(QtCore.QRect(460, 270, 501, 41))
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.street_address_edit.setFont(font)
-        self.street_address_edit.setStyleSheet("background-color: rgb(185, 185, 185);color: black")
+        self.street_address_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.street_address_edit.setObjectName("street_address_edit")
         self.street_address_edit.setEnabled(False)
         
@@ -904,19 +972,21 @@ class Ui_MainWindow(object):
         #TABLE FRAME
         self.table_frame = QtWidgets.QFrame(self.centralwidget)
         self.table_frame.setGeometry(QtCore.QRect(20, 130, 1251, 271))
-        self.table_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
         self.table_frame.setFrameShape(QtWidgets.QFrame.Panel)
         self.table_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.table_frame.setObjectName("table_frame")
         
         self.tableWidget = QtWidgets.QTableWidget(self.table_frame)
-        self.tableWidget.setGeometry(QtCore.QRect(15, 20, 1223, 231))
-        self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.tableWidget.setGeometry(QtCore.QRect(13, 20, 1223, 231))
+        #self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.tableWidget.setStyleSheet("background-color: qlineargradient(spread:pad,\
+            x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.tableWidget.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.tableWidget.setColumnCount(12)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setRowCount(0)
         font = self.tableWidget.font()
+        font.setBold(True)
         font.setPointSize(10)
         self.tableWidget.setFont(font)
 
@@ -1083,7 +1153,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.addPhoto_btn.setFont(font)
-        self.addPhoto_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.addPhoto_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.addPhoto_btn.setObjectName("addPhoto_btn")
         self.addPhoto_btn.clicked.connect(self.browse_image)
         self.addPhoto_btn.setEnabled(False)
@@ -1100,7 +1171,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.search_btn.setFont(font)
-        self.search_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.search_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.search_btn.setObjectName("search_btn")
         self.search_btn.clicked.connect(self.search)
         icon = QtGui.QIcon()
@@ -1115,7 +1187,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.search_all_btn.setFont(font)
-        self.search_all_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.search_all_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.search_all_btn.setObjectName("search_all_btn")
         self.search_all_btn.hide()
         self.search_all_btn.clicked.connect(self.search_all)
@@ -1131,7 +1204,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.advance_search_btn.setFont(font)
-        self.advance_search_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.advance_search_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.advance_search_btn.setObjectName("advance_search_btn")
         self.advance_search_btn.hide()
         self.advance_search_btn.clicked.connect(self.adv_search)
@@ -1148,7 +1222,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.exit_btn.setFont(font)
-        self.exit_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.exit_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.exit_btn.setObjectName("exit_btn")
         self.exit_btn.clicked.connect(self.exit_app)
         icon = QtGui.QIcon()
@@ -1164,7 +1239,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.cancel_btn.setFont(font)
-        self.cancel_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.cancel_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.setEnabled(False)
         self.cancel_btn.clicked.connect(self.cancel)
@@ -1180,7 +1256,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.cancel_delete_btn.setFont(font)
-        self.cancel_delete_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.cancel_delete_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.cancel_delete_btn.setObjectName("cancel_btn")
         self.cancel_delete_btn.hide()
         self.cancel_delete_btn.clicked.connect(self.cancel_delete)
@@ -1196,7 +1273,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.refresh_btn.setFont(font)
-        self.refresh_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.refresh_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.refresh_btn.setObjectName("refresh_btn")
         self.refresh_btn.clicked.connect(self.loadData)
         self.refresh_btn.clicked.connect(self.clear)
@@ -1213,7 +1291,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.edit_btn.setFont(font)
-        self.edit_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.edit_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.edit_btn.setObjectName("edit_btn")
         self.edit_btn.clicked.connect(self.edit)
         icon = QtGui.QIcon()
@@ -1228,7 +1307,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.update_btn.setFont(font)
-        self.update_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.update_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.update_btn.setObjectName("update_btn")
         self.update_btn.clicked.connect(self.update)
         self.update_btn.setEnabled(False)
@@ -1245,7 +1325,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.delete_btn.setFont(font)
-        self.delete_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.delete_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.delete_btn.setObjectName("delete_btn")
         self.delete_btn.clicked.connect(self.delete_messagebox)
         icon = QtGui.QIcon()
@@ -1260,7 +1341,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.delete_record_btn.setFont(font)
-        self.delete_record_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.delete_record_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.delete_record_btn.setObjectName("delete_btn")
         self.delete_record_btn.clicked.connect(self.delete_record)
         self.delete_record_btn.hide()
@@ -1277,7 +1359,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.add_btn.setFont(font)
-        self.add_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.add_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.add_btn.setObjectName("add_btn")
         self.add_btn.clicked.connect(self.open_window)
         icon = QtGui.QIcon()
@@ -1292,7 +1375,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.print_btn.setFont(font)
-        self.print_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
+        self.print_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+         x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.print_btn.setObjectName("print_btn")
         self.print_btn.clicked.connect(self.printPreviewListMethod)
         icon = QtGui.QIcon()
