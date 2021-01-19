@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QH
 from PyQt5.QtWidgets import QLineEdit, QDialog ,QFileDialog, QInputDialog
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 from barmm import Ui_AddWindow
+from PyQt5.QtCore import QDate
 
 
 class Ui_MainWindow(object):
@@ -300,7 +301,7 @@ class Ui_MainWindow(object):
         else:    
             with open(p, 'rb') as f:
                 m=f.read()
-        
+            dob = ('%m-%d-%Y')
             mem_id=self.id_edit.text()
             lname=self.lname_edit.text()
             mname=self.middle_edit.text()
@@ -321,7 +322,7 @@ class Ui_MainWindow(object):
             sql = "UPDATE resident SET Last_name = '"+ lname.upper() +"', First_name= '" + fname.upper() + "',\
                     Middle_name = '" + mname.upper() + "', Sex= '" + sex.upper()\
                     + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "', Supp_data = '" + sup.upper() + "',\
-                    Birth_date = '" + dob.upper() + "', Birth_place = '"\
+                    Birth_date = '" + dob + "', Birth_place = '"\
                     + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "', photo= %s WHERE Resident_ID = '"+mem_id+"' "
         
             if (sql):
@@ -386,6 +387,7 @@ class Ui_MainWindow(object):
             street = col[11]
             pic=col[12]
 
+      
         self.id_edit.setText(i)
         self.lname_edit.setText(lname)
         self.middle_edit.setText(mname)
@@ -920,17 +922,19 @@ class Ui_MainWindow(object):
         self.id_edit.setEnabled(False)
         
         
-        #DATE OF BIRTH EDIT TEXTBOX
+        
         #self.dob_edit = QtWidgets.QDateEdit(self.residentData_frame)
-        #self.dob_edit.setGeometry(QtCore.QRect(620, 200, 110, 41))
+        #self.dob_edit.setGeometry(QtCore.QRect(611, 200, 120, 41))
         #font = QtGui.QFont()
         #font.setPointSize(12)
         #self.dob_edit.setFont(font)
-        #self.dob_edit.setStyleSheet("background-color: rgb(255, 255, 255);")
+        #self.dob_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+        #     x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         #self.dob_edit.setCalendarPopup(False)
         #self.dob_edit.setDate(QtCore.QDate(2021, 1, 1))
         #self.dob_edit.setObjectName("dob_edit")
 
+        #DATE OF BIRTH EDIT TEXTBOX
         self.dob_edit = QtWidgets.QLineEdit(self.residentData_frame)
         self.dob_edit.setGeometry(QtCore.QRect(611, 200, 120, 41))
         font = QtGui.QFont()
@@ -1091,8 +1095,7 @@ class Ui_MainWindow(object):
         self.tableWidget.cellClicked.connect(self.cell_click)
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.horizontalHeader().setFixedHeight(50)
-        self.tableWidget.setAlternatingRowColors(True)
-        
+        self.tableWidget.setAlternatingRowColors(True)     
         
 
         ############------BUTTONS--------###################################################
@@ -1489,6 +1492,7 @@ class Ui_MainWindow(object):
         self.advanceFname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter First Name"))
         self.search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
         self.dob_edit.setPlaceholderText(_translate("MainWindow", "MM/DD/YYYY"))
+    
 
 
 if __name__ == "__main__":

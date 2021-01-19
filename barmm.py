@@ -13,7 +13,8 @@ class Ui_AddWindow(object):
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
         mess.setWindowTitle(title)
-        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+        mess.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         mess.setWindowIcon(QtGui.QIcon("photo/barmm.ico"))
@@ -28,6 +29,7 @@ class Ui_AddWindow(object):
                   
 
     def insert_data(self):
+
         p = self.addPic_edit.text()
         if len(p) == 0:
             self.messageBox("Add Photo","You have no photo selected, \n Default Photo will be use!")
@@ -37,7 +39,7 @@ class Ui_AddWindow(object):
         
             with open(p, 'rb') as f:
                 m=f.read()
-          
+            bday = ('%m-%d-%Y')
             lname = self.lname_edit.text()
             fname = self.fname_edit.text()
             middle = self.middle_edit.text()
@@ -116,83 +118,118 @@ class Ui_AddWindow(object):
         AddWindow.setMaximumSize(QtCore.QSize(742, 710))
         AddWindow.setMinimumSize(QtCore.QSize(742, 710))
         AddWindow.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
-        AddWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
+        #AddWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         AddWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(AddWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+        #BACKGROUND LABEL
+        self.background_label = QtWidgets.QLabel(self.centralwidget)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 742, 701))
+        self.background_label.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.background_label.setText("")
+        self.background_label.setPixmap(QtGui.QPixmap("photo/back3.png"))
+        self.background_label.setScaledContents(True)
+        self.background_label.setObjectName("background_label")
+
 
         #HEADER FRAME
         self.header_frame = QtWidgets.QFrame(self.centralwidget)
-        self.header_frame.setGeometry(QtCore.QRect(0, 0, 801, 101))
-        self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
-        self.header_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.header_frame.setGeometry(QtCore.QRect(0, 5, 740, 101))
+        #self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
+        self.header_frame.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.header_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.header_frame.setObjectName("header_frame")
+
+        #HEADER ICON
+        self.header_icon_label = QtWidgets.QLabel(self.centralwidget)
+        self.header_icon_label.setGeometry(QtCore.QRect(180, 10, 91, 91))
+        #self.tirahan_label.setStyleSheet("color: rgb(255, 255, 255);")
+        self.header_icon_label.setObjectName("header_icon_label")
+        self.header_icon_label.setPixmap(QtGui.QPixmap("photo/add_icon.png"))
+        self.header_icon_label.setScaledContents(True)
 
         #LAST NAME EDIT TEXTBOX
         self.lname_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.lname_edit.setGeometry(QtCore.QRect(30, 170, 311, 31))
-        self.lname_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.lname_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.lname_edit.setObjectName("lname_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.lname_edit.setFont(font)
 
         #FIRST NAME EDIT TEXTBOX
         self.fname_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.fname_edit.setGeometry(QtCore.QRect(30, 310, 311, 31))
-        self.fname_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.fname_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.fname_edit.setObjectName("fname_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.fname_edit.setFont(font)
 
         #MIDDLE NAME EDIT TEXTBOX
         self.middle_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.middle_edit.setGeometry(QtCore.QRect(30, 240, 311, 31))
-        self.middle_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.middle_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.middle_edit.setObjectName("middle_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.middle_edit.setFont(font)
 
         #DATE OF BIRTH EDIT TEXTBOX
-        self.bday_edit = QtWidgets.QLineEdit(self.centralwidget)
+        #self.bday_edit = QtWidgets.QLineEdit(self.centralwidget)
+        #self.bday_edit.setGeometry(QtCore.QRect(30, 380, 311, 31))
+        #self.bday_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        #self.bday_edit.setText("")
+        #self.bday_edit.setObjectName("bday_edit")
+        #font = QtGui.QFont()
+        #font.setPointSize(12)
+        #self.bday_edit.setFont(font)
+
+        #DATE OF BIRTH EDIT TEXTBOX
+        self.bday_edit = QtWidgets.QDateEdit(self.centralwidget)
         self.bday_edit.setGeometry(QtCore.QRect(30, 380, 311, 31))
-        self.bday_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
-        self.bday_edit.setText("")
-        self.bday_edit.setObjectName("bday_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.bday_edit.setFont(font)
+        self.bday_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
+        self.bday_edit.setCalendarPopup(False)
+        self.bday_edit.setDate(QtCore.QDate(2021, 1, 1))
+        self.bday_edit.setObjectName("bday_edit_edit")
 
         #PLACE OF BIRTH EDIT TEXTBOX
         self.place_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.place_edit.setGeometry(QtCore.QRect(30, 450, 311, 31))
-        self.place_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.place_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.place_edit.setObjectName("place_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.place_edit.setFont(font)
 
         #SITIO EDIT TEXTBOX
         self.sitio_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.sitio_edit.setGeometry(QtCore.QRect(410, 190, 301, 31))
-        self.sitio_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.sitio_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.sitio_edit.setObjectName("sitio_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.sitio_edit.setFont(font)
 
         #STREET ADDRESS EDIT TEXTBOX
         self.street_edit = QtWidgets.QLineEdit(self.centralwidget)
         self.street_edit.setGeometry(QtCore.QRect(410, 230, 301, 31))
-        self.street_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.street_edit.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.street_edit.setObjectName("street_edit")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.street_edit.setFont(font)
 
@@ -208,7 +245,8 @@ class Ui_AddWindow(object):
         #SAVE BUTTON
         self.save_btn = QtWidgets.QPushButton(self.centralwidget)
         self.save_btn.setGeometry(QtCore.QRect(410, 600, 141, 41))
-        self.save_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.save_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.save_btn.setDefault(False)
         self.save_btn.setFlat(False)
         self.save_btn.setObjectName("save_btn")
@@ -226,7 +264,8 @@ class Ui_AddWindow(object):
         #add photo BUTTON
         self.add_photo_btn = QtWidgets.QPushButton(self.centralwidget)
         self.add_photo_btn.setGeometry(QtCore.QRect(410, 555, 301, 21))
-        self.add_photo_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.add_photo_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.add_photo_btn.setDefault(False)
         self.add_photo_btn.setFlat(False)
         self.add_photo_btn.setObjectName("add_photo_btn")
@@ -238,7 +277,8 @@ class Ui_AddWindow(object):
         #CLEAR BUTTON
         self.clear_btn = QtWidgets.QPushButton(self.centralwidget)
         self.clear_btn.setGeometry(QtCore.QRect(570, 600, 141, 41))
-        self.clear_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.clear_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.clear_btn.setDefault(False)
         self.clear_btn.setFlat(False)
         self.clear_btn.setObjectName("clear_btn")
@@ -255,9 +295,10 @@ class Ui_AddWindow(object):
         #SEX COMBO BOX
         self.sex_combo = QtWidgets.QComboBox(self.centralwidget)
         self.sex_combo.setGeometry(QtCore.QRect(30, 520, 80, 32))
-        self.sex_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.sex_combo.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.sex_combo.setObjectName("sex_combo")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.sex_combo.setFont(font)
         sex =["MALE", "FEMALE"]
@@ -266,9 +307,10 @@ class Ui_AddWindow(object):
         #CIVIL STATUS COMBO BOX
         self.civil_combo = QtWidgets.QComboBox(self.centralwidget)
         self.civil_combo.setGeometry(QtCore.QRect(120, 520, 100, 32))
-        self.civil_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.civil_combo.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.civil_combo.setObjectName("civil_combo")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.civil_combo.setFont(font)
         civil = ["SINGLE", "MARRIED", "WIDDOW"]
@@ -277,9 +319,10 @@ class Ui_AddWindow(object):
         #FAMILY POSITION COMBO BOX
         self.position_combo = QtWidgets.QComboBox(self.centralwidget)
         self.position_combo.setGeometry(QtCore.QRect(230, 520, 111, 32))
-        self.position_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.position_combo.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.position_combo.setObjectName("position_combo")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.position_combo.setFont(font)
         fam_position = ["HEAD", "MEMBER"]
@@ -288,9 +331,10 @@ class Ui_AddWindow(object):
         #SUPPLEMENTARY DATA COMBO BOX
         self.supp_combo = QtWidgets.QComboBox(self.centralwidget)
         self.supp_combo.setGeometry(QtCore.QRect(30, 610, 201, 32))
-        self.supp_combo.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
+        self.supp_combo.setStyleSheet("background-color: rgb(200, 200, 200);color: black")
         self.supp_combo.setObjectName("supp_combo")
         font = QtGui.QFont()
+        font.setBold(True)
         font.setPointSize(12)
         self.supp_combo.setFont(font)
         supp = ["NOT APPLICABLE","SENIOR CITIZEN", "PWD", "INDIGENOUS"]
@@ -304,11 +348,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.lname_label.setFont(font)
+        self.lname_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.lname_label.setObjectName("lname_label")
 
         #APELYIDO LABEL
         self.apelyido_label = QtWidgets.QLabel(self.centralwidget)
         self.apelyido_label.setGeometry(QtCore.QRect(30, 150, 91, 16))
+        self.apelyido_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.apelyido_label.setObjectName("apelyido_label")
 
         #MIDDLE NAME LABEL
@@ -319,11 +365,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.middle_label.setFont(font)
+        self.middle_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.middle_label.setObjectName("middle_label")
 
         #GITNANG PANGALAN LABEL
         self.gitna_label = QtWidgets.QLabel(self.centralwidget)
         self.gitna_label.setGeometry(QtCore.QRect(30, 220, 91, 16))
+        self.gitna_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.gitna_label.setObjectName("gitna_label")
 
         #FIRSTNAME LABEL
@@ -334,11 +382,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.fname_label.setFont(font)
+        self.fname_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.fname_label.setObjectName("fname_label")
 
         #UNANG PANGALAN LABEL
         self.una_label = QtWidgets.QLabel(self.centralwidget)
         self.una_label.setGeometry(QtCore.QRect(30, 290, 91, 16))
+        self.una_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.una_label.setObjectName("una_label")
         
         #DATE OF BIRTH LABEL
@@ -349,11 +399,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.dateofBirth_label.setFont(font)
+        self.dateofBirth_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.dateofBirth_label.setObjectName("dateofBirth_label")
 
         #PETSA NG KAPANGANAKAN LABEL
         self.petsa_label = QtWidgets.QLabel(self.centralwidget)
         self.petsa_label.setGeometry(QtCore.QRect(30, 360, 201, 16))
+        self.petsa_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.petsa_label.setObjectName("petsa_label")
 
         #PLACE OF BIRTH LABEL
@@ -364,11 +416,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.place_label.setFont(font)
+        self.place_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.place_label.setObjectName("place_label")
 
         #LUGAR NG KAPANGANAKAN LABEL
         self.lugar_label = QtWidgets.QLabel(self.centralwidget)
         self.lugar_label.setGeometry(QtCore.QRect(30, 430, 131, 16))
+        self.lugar_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.lugar_label.setObjectName("lugar_label")
 
         #SEX LABEL
@@ -379,11 +433,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.sex_label.setFont(font)
+        self.sex_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.sex_label.setObjectName("sex_label")
 
         #KASARIAN LABEL
         self.kasarian_label = QtWidgets.QLabel(self.centralwidget)
         self.kasarian_label.setGeometry(QtCore.QRect(30, 500, 51, 16))
+        self.kasarian_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.kasarian_label.setObjectName("kasarian_label")
 
         #CIVIL STATUS LABEL
@@ -394,11 +450,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.civil_label.setFont(font)
+        self.civil_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.civil_label.setObjectName("civil_label")
 
         #KALAGAYANG ESTADO LABEL
         self.kalagayan_label = QtWidgets.QLabel(self.centralwidget)
         self.kalagayan_label.setGeometry(QtCore.QRect(120, 500, 101, 16))
+        self.kalagayan_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.kalagayan_label.setObjectName("kalagayan_label")
 
         #FAMILY POSITION LABEL
@@ -409,11 +467,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.familyPosition_label.setFont(font)
+        self.familyPosition_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.familyPosition_label.setObjectName("familyPosition_label")
 
         #POSISYON SA PAMILYA LABEL
         self.posisyon_label = QtWidgets.QLabel(self.centralwidget)
         self.posisyon_label.setGeometry(QtCore.QRect(230, 500, 111, 16))
+        self.posisyon_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.posisyon_label.setObjectName("posisyon_label")
 
        
@@ -425,11 +485,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.supp_label.setFont(font)
+        self.supp_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.supp_label.setObjectName("supp_label")
 
         #KARAGDAGANG DATOS LABEL
         self.karagdagan_label = QtWidgets.QLabel(self.centralwidget)
         self.karagdagan_label.setGeometry(QtCore.QRect(30, 590, 111, 16))
+        self.karagdagan_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.karagdagan_label.setObjectName("karagdagan_label")
 
         #ADD NEW RESIDENT TITLE LABEL
@@ -440,8 +502,9 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.addNew_label.setFont(font)
+        self.addNew_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.addNew_label.setObjectName("addNew_label")
-        self.addNew_label.setStyleSheet("background-color: rgb(0, 170, 127);")
+        #self.addNew_label.setStyleSheet("background-color: rgb(0, 170, 127);")
 
         #ADDRESS LABEL
         self.address_label = QtWidgets.QLabel(self.centralwidget)
@@ -451,11 +514,13 @@ class Ui_AddWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.address_label.setFont(font)
+        self.address_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.address_label.setObjectName("address_label")
 
         #TIRAHAN LABEL
         self.tirahan_label = QtWidgets.QLabel(self.centralwidget)
         self.tirahan_label.setGeometry(QtCore.QRect(410, 170, 91, 16))
+        self.tirahan_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.tirahan_label.setObjectName("tirahan_label")
 
         #LOGO
@@ -469,10 +534,10 @@ class Ui_AddWindow(object):
         self.pic_label = QtWidgets.QLabel(self.centralwidget)
         self.pic_label.setGeometry(QtCore.QRect(410, 280, 301, 271))
         self.pic_label.setAutoFillBackground(False)
-        self.pic_label.setFrameShape(QtWidgets.QFrame.Box)
+        self.pic_label.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.pic_label.setText("")
         self.pic_label.setObjectName("pic_label")
-        self.pic_label.setStyleSheet("background-color: rgb(0, 170, 127);")
+        #self.pic_label.setStyleSheet("background-color: rgb(0, 170, 127);")
 
        
         #RAISE FROM THE FRAME
@@ -512,6 +577,7 @@ class Ui_AddWindow(object):
         self.posisyon_label.raise_()
         self.familyPosition_label.raise_()
         self.position_combo.raise_()
+        self.header_icon_label.raise_()
 
 
         AddWindow.setCentralWidget(self.centralwidget)
@@ -549,7 +615,7 @@ class Ui_AddWindow(object):
         self.tirahan_label.setText(_translate("AddWindow", "(Tirahan)"))
         self.posisyon_label.setText(_translate("AddWindow", "(Posisyon sa Pamilyal)"))
         self.familyPosition_label.setText(_translate("AddWindow", "Family position:"))
-        self.bday_edit.setPlaceholderText(_translate("AddWindow", "MM/DD/YYYY"))
+        #self.bday_edit.setPlaceholderText(_translate("AddWindow", "MM/DD/YYYY"))
         self.sitio_edit.setPlaceholderText(_translate("AddWindow", "SITIO"))
         self.street_edit.setPlaceholderText(_translate("AddWindow", "HOUSE NO./STREET"))
 
