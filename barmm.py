@@ -39,11 +39,15 @@ class Ui_AddWindow(object):
         
             with open(p, 'rb') as f:
                 m=f.read()
-            bday = ('%m-%d-%Y')
+
+
             lname = self.lname_edit.text()
             fname = self.fname_edit.text()
             middle = self.middle_edit.text()
-            bday = self.bday_edit.text()
+
+            bday = self.bday_edit.date()
+            var_date = bday.toPyDate()
+
             place = self.place_edit.text()
             sitio = self.sitio_edit.text()
             street = self.street_edit.text()
@@ -56,7 +60,7 @@ class Ui_AddWindow(object):
        
             query=("INSERT INTO resident (Last_name, Middle_name, First_name, Birth_date, Birth_place, Sex, Civil_status, Family_position, Sitio, Street, Supp_data,photo) VALUES  (%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)")
             cur=self.conn.cursor()
-            data= cur.execute(query, (lname.upper(),middle.upper(),fname.upper(),bday.upper(),place.upper(), sex, status, position, sitio.upper(),street.upper(), supplementary,m))
+            data= cur.execute(query, (lname.upper(),middle.upper(),fname.upper(),var_date,place.upper(), sex, status, position, sitio.upper(),street.upper(), supplementary,m))
         
             if (data):
                 msg=QMessageBox()
@@ -69,14 +73,14 @@ class Ui_AddWindow(object):
                 elif  len(middle)  == 0:
                     self.messageBox("Information", " Please Enter your Middle Name!")
                     return
-                elif  len(bday) == 0:
-                    self.messageBox("Information", " Please Enter your Birth Date!")
-                    return
+                #elif  len(bday) == 0:
+                    #self.messageBox("Information", " Please Enter your Birth Date!")
+                    #return
                 elif  len(place)== 0:
                     self.messageBox("Information", " Please Enter your Place of Birth!")
                     return
                 elif  len(sitio)== 0:
-                    self.messageBox("Information", " Please Enter your Sitio!")
+                    self.messageBox("Information", " Please Enter your Sitio!")#
                     return
                 elif  len(street)== 0:
                     self.messageBox("Information", " Please Enter House number or Street!")
@@ -114,9 +118,9 @@ class Ui_AddWindow(object):
 
     def setupUi(self, AddWindow):
         AddWindow.setObjectName("AddWindow")
-        AddWindow.resize(742, 710)
-        AddWindow.setMaximumSize(QtCore.QSize(742, 710))
-        AddWindow.setMinimumSize(QtCore.QSize(742, 710))
+        AddWindow.resize(742, 700)
+        AddWindow.setMaximumSize(QtCore.QSize(742, 700))
+        AddWindow.setMinimumSize(QtCore.QSize(742, 700))
         AddWindow.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         #AddWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
         icon = QtGui.QIcon()
@@ -581,9 +585,9 @@ class Ui_AddWindow(object):
 
 
         AddWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(AddWindow)
-        self.statusbar.setObjectName("statusbar")
-        AddWindow.setStatusBar(self.statusbar)
+        #self.statusbar = QtWidgets.QStatusBar(AddWindow)
+        #self.statusbar.setObjectName("statusbar")
+        #AddWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(AddWindow)
         QtCore.QMetaObject.connectSlotsByName(AddWindow)

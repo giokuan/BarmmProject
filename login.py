@@ -20,7 +20,8 @@ class Ui_MainForm(object):
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
         mess.setWindowTitle(title)
-        mess.setStyleSheet('QMessageBox {background-color: rgb(0, 170, 127); color: white;}\
+        mess.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
@@ -40,7 +41,7 @@ class Ui_MainForm(object):
         self.reg_btn.hide()
         self.login_btn.setEnabled(False)
         self.cancel_btn.setEnabled(True)
-        self.header_frame.setGeometry(QtCore.QRect(0, 0, 600, 81))
+        #self.header_frame.setGeometry(QtCore.QRect(0, 0, 600, 81))
         self.logo2_label.show()
         self.logo_label.hide()
 
@@ -58,7 +59,7 @@ class Ui_MainForm(object):
         self.pass_edit.clear()
         self.login_btn.setEnabled(True)
         self.cancel_btn.setEnabled(False)
-        self.header_frame.setGeometry(QtCore.QRect(0, 0, 600, 151))
+        #self.header_frame.setGeometry(QtCore.QRect(0, 5, 600, 151))
         self.logo2_label.hide()
         self.logo_label.show()
 
@@ -133,57 +134,73 @@ class Ui_MainForm(object):
 
     def setupUi(self, MainForm):
         MainForm.setObjectName("MainForm")
-        MainForm.resize(600, 480)
-        MainForm.setStyleSheet("background-color: rgb(75, 75, 75);")
+        MainForm.resize(600, 400)
+        #MainForm.setStyleSheet("background-color: rgb(75, 75, 75);")
         #MainWindow.setWindowFlags( QtCore.Qt.CustomizeWindowHint )
         MainForm.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
-        MainForm.setMaximumSize(QtCore.QSize(600, 480))
-        MainForm.setMinimumSize(QtCore.QSize(600, 480))
+        MainForm.setMaximumSize(QtCore.QSize(600, 400))
+        MainForm.setMinimumSize(QtCore.QSize(600, 400))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainForm.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainForm)
         self.centralwidget.setObjectName("centralwidget")
 
+        #BACKGROUND LABEL
+        self.background_label = QtWidgets.QLabel(self.centralwidget)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 600, 400))
+        self.background_label.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.background_label.setText("")
+        self.background_label.setPixmap(QtGui.QPixmap("photo/back3.png"))
+        self.background_label.setScaledContents(True)
+        self.background_label.setObjectName("background_label")
+
+
+
 
         #HEADER FRAME
-        self.header_frame = QtWidgets.QFrame(self.centralwidget)
-        self.header_frame.setGeometry(QtCore.QRect(0, 0, 600, 151))
-        self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
-        self.header_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.header_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.header_frame.setObjectName("header_frame")
+        #self.header_frame = QtWidgets.QFrame(self.centralwidget)
+        #self.header_frame.setGeometry(QtCore.QRect(0, 5, 600, 151))
+        #self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
+        #self.header_frame.setFrameShape(QtWidgets.QFrame.WinPanel)
+        #self.header_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        #self.header_frame.setObjectName("header_frame")
 
         #BIG LOGO HEADER TRANSITION WITH LOGO2_LABEL
-        self.logo_label = QtWidgets.QLabel(self.header_frame)
-        self.logo_label.setGeometry(QtCore.QRect(260, 30, 101, 101))
+        #self.logo_label = QtWidgets.QLabel(self.header_frame)
+        self.logo_label = QtWidgets.QLabel(self.centralwidget)
+        self.logo_label.setGeometry(QtCore.QRect(240, 10, 301, 71))
+        self.logo_label.setStyleSheet("color: rgb(255, 255, 255);")
         font = QtGui.QFont()
-        font.setPointSize(4)
+        font.setPointSize(30)
         self.logo_label.setFont(font)
         self.logo_label.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.logo_label.setText("")
-        self.logo_label.setPixmap(QtGui.QPixmap("photo/logo_login.png"))
-        self.logo_label.setScaledContents(True)
+        #self.logo_label.setText("Login")
+        #self.logo_label.setPixmap(QtGui.QPixmap("photo/form.png"))
+        #self.logo_label.setScaledContents(True)
         self.logo_label.setObjectName("logo_label")
 
         #SMALL LOGO HEADER TRANSITION WITH LOGO_LABEL
-        self.logo2_label = QtWidgets.QLabel(self.header_frame)
-        self.logo2_label.setGeometry(QtCore.QRect(260, 10, 71, 71))
+        #self.logo2_label = QtWidgets.QLabel(self.header_frame)
+        self.logo2_label = QtWidgets.QLabel(self.centralwidget)
+        self.logo2_label.setGeometry(QtCore.QRect(220, 10, 301, 71))
+        self.logo2_label.setStyleSheet("color: rgb(255, 255, 255);")
         font = QtGui.QFont()
-        font.setPointSize(4)
+        font.setPointSize(30)
         self.logo2_label.setFont(font)
         self.logo2_label.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.logo2_label.setText("")
-        self.logo2_label.setPixmap(QtGui.QPixmap("photo/logo_login.png"))
-        self.logo2_label.setScaledContents(True)
+        #self.logo2_label.setText("Register")
+        #self.logo2_label.setPixmap(QtGui.QPixmap("photo/logo_login.png"))
+        #self.logo2_label.setScaledContents(True)
         self.logo2_label.setObjectName("logo2_label")
         self.logo2_label.hide()
 
         
         #REGISTER BUTTON
         self.reg_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.reg_btn.setGeometry(QtCore.QRect(90, 390, 91, 41))
-        self.reg_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.reg_btn.setGeometry(QtCore.QRect(90, 330, 91, 41))
+        self.reg_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.reg_btn.setObjectName("reg_btn")
         self.reg_btn.clicked.connect(self.register)
         icon = QtGui.QIcon()
@@ -192,8 +209,9 @@ class Ui_MainForm(object):
 
         #SAVE BUTTON
         self.save_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.save_btn.setGeometry(QtCore.QRect(90, 390, 91, 41))
-        self.save_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.save_btn.setGeometry(QtCore.QRect(90, 330, 91, 41))
+        self.save_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.save_btn.setObjectName("save_btn")
         self.save_btn.hide()
         self.save_btn.clicked.connect(self.save)
@@ -203,8 +221,9 @@ class Ui_MainForm(object):
 
         #LOG IN BUTTON
         self.login_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.login_btn.setGeometry(QtCore.QRect(200, 390, 91, 41))
-        self.login_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.login_btn.setGeometry(QtCore.QRect(200, 330, 91, 41))
+        self.login_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.login_btn.setObjectName("login_btn")
         self.login_btn.clicked.connect(self.log)
         icon = QtGui.QIcon()
@@ -213,8 +232,9 @@ class Ui_MainForm(object):
         
         #CANCEL BUTTON
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.cancel_btn.setGeometry(QtCore.QRect(310, 390, 91, 41))
-        self.cancel_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.cancel_btn.setGeometry(QtCore.QRect(310, 330, 91, 41))
+        self.cancel_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.cancel_btn.setObjectName("cancel_btn")
         self.cancel_btn.clicked.connect(self.cancel)
         self.cancel_btn.setEnabled(False)
@@ -224,8 +244,9 @@ class Ui_MainForm(object):
 
         #EXIT BUTTON
         self.exit_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.exit_btn.setGeometry(QtCore.QRect(420, 390, 91, 41))
-        self.exit_btn.setStyleSheet("background-color: rgb(200, 200, 200);")
+        self.exit_btn.setGeometry(QtCore.QRect(420, 330, 91, 41))
+        self.exit_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
         self.exit_btn.setObjectName("cancel_btn")
         self.exit_btn.clicked.connect(self.pop)
         icon = QtGui.QIcon()
@@ -234,34 +255,34 @@ class Ui_MainForm(object):
 
         #LASSTNAME EDIT TEXTBOX
         self.lname_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lname_edit.setGeometry(QtCore.QRect(130, 140, 181, 31))
+        self.lname_edit.setGeometry(QtCore.QRect(130, 100, 181, 31))
         self.lname_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.lname_edit.setObjectName("lname_edit")
         self.lname_edit.hide()
         
         #FIRSTNAME EDIT TEXTBOX
         self.fname_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.fname_edit.setGeometry(QtCore.QRect(130, 180, 181, 31))
+        self.fname_edit.setGeometry(QtCore.QRect(130, 140, 181, 31))
         self.fname_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.fname_edit.setObjectName("fname_edit")
         self.fname_edit.hide()
         
         #USERNAME EDIT TEXTBOX
         self.user_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.user_edit.setGeometry(QtCore.QRect(130, 220, 181, 31))
+        self.user_edit.setGeometry(QtCore.QRect(130, 180, 181, 31))
         self.user_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.user_edit.setObjectName("user_edit")
         
         #PASSWORD EDIT TEXTBOX
         self.pass_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.pass_edit.setGeometry(QtCore.QRect(130, 260, 181, 31))
+        self.pass_edit.setGeometry(QtCore.QRect(130, 220, 181, 31))
         self.pass_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.pass_edit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pass_edit.setObjectName("pass_edit")
         
         #CONFIRM PASSWORD EDIT TEXTBOX
         self.confirm_edit = QtWidgets.QLineEdit(self.centralwidget)
-        self.confirm_edit.setGeometry(QtCore.QRect(130, 300, 181, 31))
+        self.confirm_edit.setGeometry(QtCore.QRect(130, 260, 181, 31))
         self.confirm_edit.setStyleSheet("background-color: rgb(255, 255, 255);color: black")
         self.confirm_edit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.confirm_edit.setObjectName("confirm_edit")
@@ -269,43 +290,48 @@ class Ui_MainForm(object):
         
         #BARMM LOGO LABEL
         self.middle_logo_label = QtWidgets.QLabel(self.centralwidget)
-        self.middle_logo_label.setGeometry(QtCore.QRect(350, 175, 201, 191))
-        self.middle_logo_label.setPixmap(QtGui.QPixmap("photo/barmm.png"))
+        self.middle_logo_label.setGeometry(QtCore.QRect(350, 95, 201, 191))
+        self.middle_logo_label.setPixmap(QtGui.QPixmap("photo/logo_login.png"))
         self.middle_logo_label.setScaledContents(True)
         self.middle_logo_label.setObjectName("middle_logo_label")
         
         #LASTNAME LABEL
         self.lname_label = QtWidgets.QLabel(self.centralwidget)
-        self.lname_label.setGeometry(QtCore.QRect(30, 145, 61, 16))
+        self.lname_label.setGeometry(QtCore.QRect(30, 105, 61, 16))
+        self.lname_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.lname_label.setObjectName("lname_label")
         self.lname_label.hide()
         
         #FIRSTNAME LABEL
         self.fname_label = QtWidgets.QLabel(self.centralwidget)
-        self.fname_label.setGeometry(QtCore.QRect(30, 185, 61, 16))
+        self.fname_label.setGeometry(QtCore.QRect(30, 145, 61, 16))
+        self.fname_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.fname_label.setObjectName("fname_label")
         self.fname_label.hide()
         
         #USERNAME
         self.user_label = QtWidgets.QLabel(self.centralwidget)
-        self.user_label.setGeometry(QtCore.QRect(30, 225, 61, 16))
+        self.user_label.setGeometry(QtCore.QRect(30, 185, 61, 16))
+        self.user_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.user_label.setObjectName("user_label")
         
         #PASSWORD LABEL
         self.pass_label = QtWidgets.QLabel(self.centralwidget)
-        self.pass_label.setGeometry(QtCore.QRect(30, 265, 61, 16))
+        self.pass_label.setGeometry(QtCore.QRect(30, 225, 61, 16))
+        self.pass_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.pass_label.setObjectName("pass_label")
         
         #CONFIRM PASSWORD LABEL
         self.confirm_label = QtWidgets.QLabel(self.centralwidget)
-        self.confirm_label.setGeometry(QtCore.QRect(30, 305, 91, 16))
+        self.confirm_label.setGeometry(QtCore.QRect(30, 265, 91, 16))
+        self.confirm_label.setStyleSheet("color: rgb(255, 255, 255);")
         self.confirm_label.setObjectName("confirm_label")
         self.confirm_label.hide()
         
         MainForm.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainForm)
-        self.statusbar.setObjectName("statusbar")
-        MainForm.setStatusBar(self.statusbar)
+        #self.statusbar = QtWidgets.QStatusBar(MainForm)
+        #self.statusbar.setObjectName("statusbar")
+        #MainForm.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainForm)
         QtCore.QMetaObject.connectSlotsByName(MainForm)
@@ -323,6 +349,8 @@ class Ui_MainForm(object):
         self.user_label.setText(_translate("MainForm", "Username:"))
         self.pass_label.setText(_translate("MainForm", "Password:"))
         self.confirm_label.setText(_translate("MainForm", "Confirm Password:"))
+        self.logo_label.setText(_translate("MainForm", "Login"))
+        self.logo2_label.setText(_translate("MainForm", "Register"))
 
 
 if __name__ == "__main__":

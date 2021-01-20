@@ -52,6 +52,7 @@ class Ui_MainWindow(object):
             pass 
 
     def delete_messagebox(self):
+
         msg=QMessageBox() 
         msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
         msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0),\
@@ -76,10 +77,43 @@ class Ui_MainWindow(object):
             self.cancel_delete_btn.show()
             
         if res == QMessageBox.Cancel:
+           pass 
+
+
+    def delete_record(self):
+        mem_id=self.id_edit.text()
+
+        if len(mem_id) == 0:
+            self.messageBox("Information", "No Record Found")
+            return 
+
+        self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
+        cur=self.conn.cursor()
+        sql = "DELETE FROM resident WHERE Resident_ID = '"+mem_id+"' "
+        
+        msg=QMessageBox() 
+        msg.setWindowTitle("Delete")
+        msg.setText("Are you sure you wan't to Delete this Record?")
+        msg.setIcon(QMessageBox.Question)
+        msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
+        msg.setDefaultButton(QMessageBox.Ok)
+  
+
+        res = msg.exec_()
+        if res == QMessageBox.Ok:
+            #self.open_dialog() 
+            self.messageBox("Delete", " Resident Data Record Deleted")
+            cur.execute(sql)
+            self.conn.commit() 
+            self.loadData()
+            self.clear()
+            
+        if res == QMessageBox.Cancel:
             pass 
 
+
     def cancel_delete(self):
-        MainWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
+        MainWindow.setStyleSheet("background-color:"" ")
         self.delete_btn.show()
         self.delete_record_btn.hide()
         self.refresh_btn.setEnabled(True)
@@ -212,6 +246,7 @@ class Ui_MainWindow(object):
         self.sitio_edit.clear()
         self.street_address_edit.clear()
         self.photo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
+        self.dob_edit.setDate(QtCore.QDate(2021, 1, 1))
 
     def search(self):    
         row = 0
@@ -301,7 +336,7 @@ class Ui_MainWindow(object):
         else:    
             with open(p, 'rb') as f:
                 m=f.read()
-            dob = ('%m-%d-%Y')
+           
             mem_id=self.id_edit.text()
             lname=self.lname_edit.text()
             mname=self.middle_edit.text()
@@ -310,7 +345,10 @@ class Ui_MainWindow(object):
             civil=self.civilStatus_combo.currentText()
             position=self.family_position_combo.currentText()
             sup=self.supplemental_combo.currentText()
-            dob=self.dob_edit.text()
+
+            dob = self.dob_edit.date()
+            var_date = dob.toPyDate()
+
             pob=self.pob_edit.text()
             sitio=self.sitio_edit.text()
             street=self.street_address_edit.text()
@@ -322,7 +360,7 @@ class Ui_MainWindow(object):
             sql = "UPDATE resident SET Last_name = '"+ lname.upper() +"', First_name= '" + fname.upper() + "',\
                     Middle_name = '" + mname.upper() + "', Sex= '" + sex.upper()\
                     + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "', Supp_data = '" + sup.upper() + "',\
-                    Birth_date = '" + dob + "', Birth_place = '"\
+                    Birth_date = '"+str(var_date)+"'  , Birth_place = '"\
                     + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "', photo= %s WHERE Resident_ID = '"+mem_id+"' "
         
             if (sql):
@@ -336,9 +374,7 @@ class Ui_MainWindow(object):
                 elif  len(mname)  == 0:
                     self.messageBox("Information", " Please Enter your Middle Name!")
                     return
-                elif  len(dob) == 0:
-                    self.messageBox("Information", " Please Enter your Birth Date!")
-                    return
+                
                 elif  len(pob)== 0:
                     self.messageBox("Information", " Please Enter your Place of Birth!")
                     return
@@ -356,8 +392,6 @@ class Ui_MainWindow(object):
                     #self.cancel()
                     self.loadData()
                     self.cancel()
-
-    #def cellclick_line_edit_disabled(self):
 
 
 
@@ -387,7 +421,7 @@ class Ui_MainWindow(object):
             street = col[11]
             pic=col[12]
 
-      
+       
         self.id_edit.setText(i)
         self.lname_edit.setText(lname)
         self.middle_edit.setText(mname)
@@ -396,7 +430,7 @@ class Ui_MainWindow(object):
         self.civilStatus_combo.setCurrentText(civil)
         self.family_position_combo.setCurrentText(position)
         self.supplemental_combo.setCurrentText(sup)
-        self.dob_edit.setText(dob)
+        self.dob_edit.setDate(dob)
         self.pob_edit.setText(pob)
         self.sitio_edit.setText(sitio)
         self.street_address_edit.setText(street)
@@ -475,36 +509,7 @@ class Ui_MainWindow(object):
             #painter.end()
 
 
-    def delete_record(self):
-        mem_id=self.id_edit.text()
-
-        if len(mem_id) == 0:
-            self.messageBox("Information", "No Record Found")
-            return 
-
-        self.conn=pymysql.connect(host="localhost", user="root", password="noahkuan03", db="barmm")
-        cur=self.conn.cursor()
-        sql = "DELETE FROM resident WHERE Resident_ID = '"+mem_id+"' "
-        
-        msg=QMessageBox() 
-        msg.setWindowTitle("Delete")
-        msg.setText("Are you sure you wan't to Delete this Record?")
-        msg.setIcon(QMessageBox.Question)
-        msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
-        msg.setDefaultButton(QMessageBox.Ok)
-        
-        res = msg.exec_()
-        if res == QMessageBox.Ok:
-            #self.open_dialog() 
-            self.messageBox("Delete", " Resident Data Record Deleted")
-            cur.execute(sql)
-            self.conn.commit() 
-            self.loadData()
-            self.clear()
-            
-        if res == QMessageBox.Cancel:
-            pass 
-
+    
 
     def browse_image(self):
         filename = QFileDialog.getOpenFileName( caption = "Open file", directory=None, filter="Image (*.png * .jpg);;All Files(*.*)")   
@@ -519,9 +524,9 @@ class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1292, 845)
-        MainWindow.setMaximumSize(QtCore.QSize(1292, 845))
-        MainWindow.setMinimumSize(QtCore.QSize(1292, 845))
+        MainWindow.resize(1292, 841)
+        MainWindow.setMaximumSize(QtCore.QSize(1292, 841))
+        MainWindow.setMinimumSize(QtCore.QSize(1292, 841))
         MainWindow.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         #MainWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -533,7 +538,7 @@ class Ui_MainWindow(object):
 
         #BACKGROUND LABEL
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(-10, 0, 1351, 821))
+        self.label.setGeometry(QtCore.QRect(-10, 0, 1351, 841))
         self.label.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.label.setText("")
         self.label.setPixmap(QtGui.QPixmap("photo/back3.png"))
@@ -624,7 +629,7 @@ class Ui_MainWindow(object):
  
         #LAST NAME LABEL
         self.lname_label = QtWidgets.QLabel(self.residentData_frame)
-        self.lname_label.setGeometry(QtCore.QRect(230, 40, 91, 16))
+        self.lname_label.setGeometry(QtCore.QRect(220, 40, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -635,7 +640,7 @@ class Ui_MainWindow(object):
         
         #MIDDLE NAME LABEL
         self.middle_label = QtWidgets.QLabel(self.residentData_frame)
-        self.middle_label.setGeometry(QtCore.QRect(230, 110, 91, 16))
+        self.middle_label.setGeometry(QtCore.QRect(220, 110, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -646,7 +651,7 @@ class Ui_MainWindow(object):
         
         #FIRST NAME LABEL
         self.fname_label = QtWidgets.QLabel(self.residentData_frame)
-        self.fname_label.setGeometry(QtCore.QRect(230, 180, 91, 16))
+        self.fname_label.setGeometry(QtCore.QRect(220, 180, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -680,7 +685,7 @@ class Ui_MainWindow(object):
 
         #CIVIL STATUS LABEL
         self.civilStatus_label = QtWidgets.QLabel(self.residentData_frame)
-        self.civilStatus_label.setGeometry(QtCore.QRect(620, 110, 91, 16))
+        self.civilStatus_label.setGeometry(QtCore.QRect(602, 110, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -713,7 +718,7 @@ class Ui_MainWindow(object):
 
         #SEX LABEL
         self.sex_label = QtWidgets.QLabel(self.residentData_frame)
-        self.sex_label.setGeometry(QtCore.QRect(620, 40, 91, 16))
+        self.sex_label.setGeometry(QtCore.QRect(602, 40, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -735,7 +740,7 @@ class Ui_MainWindow(object):
 
         #DATE OF BIRTH LABEL
         self.dob_label = QtWidgets.QLabel(self.residentData_frame)
-        self.dob_label.setGeometry(QtCore.QRect(620, 180, 91, 16))
+        self.dob_label.setGeometry(QtCore.QRect(602, 180, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -750,7 +755,7 @@ class Ui_MainWindow(object):
         
         #CIVIL STATUS COMBO BOX
         self.civilStatus_combo = QtWidgets.QComboBox(self.residentData_frame)
-        self.civilStatus_combo.setGeometry(QtCore.QRect(611, 130, 120, 41))
+        self.civilStatus_combo.setGeometry(QtCore.QRect(601, 130, 130, 41))
         font = QtGui.QFont()
         font.setBold(True)
         font.setPointSize(12)
@@ -792,7 +797,7 @@ class Ui_MainWindow(object):
 
         #SEX COMBO BOX
         self.sex_combo = QtWidgets.QComboBox(self.residentData_frame)
-        self.sex_combo.setGeometry(QtCore.QRect(611, 60, 120, 41))
+        self.sex_combo.setGeometry(QtCore.QRect(601, 60, 130, 41))
         font = QtGui.QFont()
         font.setBold(True)
         font.setPointSize(12)
@@ -861,7 +866,7 @@ class Ui_MainWindow(object):
       
         #LAST NAME EDIT TEXTBOX
         self.lname_edit = QtWidgets.QLineEdit(self.residentData_frame)
-        self.lname_edit.setGeometry(QtCore.QRect(230, 60, 361, 41))
+        self.lname_edit.setGeometry(QtCore.QRect(220, 60, 361, 41))
         font = QtGui.QFont()
         font.setBold(True)
         font.setPointSize(12)
@@ -873,7 +878,7 @@ class Ui_MainWindow(object):
         
         #MIDDLE NAME EDIT TEXTBOX
         self.middle_edit = QtWidgets.QLineEdit(self.residentData_frame)
-        self.middle_edit.setGeometry(QtCore.QRect(230, 130, 361, 41))
+        self.middle_edit.setGeometry(QtCore.QRect(220, 130, 361, 41))
         font = QtGui.QFont()
         font.setBold(True)
         font.setPointSize(12)
@@ -886,7 +891,7 @@ class Ui_MainWindow(object):
 
         #FIRST NAME EDIT TEXTBOX
         self.fname_edit = QtWidgets.QLineEdit(self.residentData_frame)
-        self.fname_edit.setGeometry(QtCore.QRect(230, 200, 361, 41))
+        self.fname_edit.setGeometry(QtCore.QRect(220, 200, 361, 41))
         font = QtGui.QFont()
         font.setBold(True)
         font.setPointSize(12)
@@ -922,29 +927,32 @@ class Ui_MainWindow(object):
         self.id_edit.setEnabled(False)
         
         
-        
-        #self.dob_edit = QtWidgets.QDateEdit(self.residentData_frame)
+        #DATE OF BIRTH EDIT TEXTBOX#
+        self.dob_edit = QtWidgets.QDateEdit(self.residentData_frame)
+        self.dob_edit.setGeometry(QtCore.QRect(601, 200, 130, 41))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setPointSize(11)
+        self.dob_edit.setFont(font)
+        self.dob_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
+             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
+        self.dob_edit.setCalendarPopup(False)
+        self.dob_edit.setDate(QtCore.QDate(2021, 1, 1))
+        self.dob_edit.setObjectName("dob_edit")
+        #self.dob_edit.setCalendarPopup(True)
+        #self.dob_edit.setProperty("showGroupSeparator", True)
+
+        #DATE OF BIRTH EDIT TEXTBOX#
+        #self.dob_edit = QtWidgets.QLineEdit(self.residentData_frame)
         #self.dob_edit.setGeometry(QtCore.QRect(611, 200, 120, 41))
         #font = QtGui.QFont()
+        #font.setBold(True)
         #font.setPointSize(12)
         #self.dob_edit.setFont(font)
         #self.dob_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
         #     x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
-        #self.dob_edit.setCalendarPopup(False)
-        #self.dob_edit.setDate(QtCore.QDate(2021, 1, 1))
         #self.dob_edit.setObjectName("dob_edit")
-
-        #DATE OF BIRTH EDIT TEXTBOX
-        self.dob_edit = QtWidgets.QLineEdit(self.residentData_frame)
-        self.dob_edit.setGeometry(QtCore.QRect(611, 200, 120, 41))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setPointSize(12)
-        self.dob_edit.setFont(font)
-        self.dob_edit.setStyleSheet("background-color: qlineargradient(spread:pad,\
-             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));color: black")
-        self.dob_edit.setObjectName("dob_edit")
-        self.dob_edit.setEnabled(False)
+        #self.dob_edit.setEnabled(False)
 
         
         #SITIO EDIT TEXTBOX
@@ -1385,27 +1393,11 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.print_btn.setIcon(icon)
-
-        
-        #PRINT PDF BUTTON
-        #self.printPdf_btn = QtWidgets.QPushButton(self.centralwidget)
-        #self.printPdf_btn.setGeometry(QtCore.QRect(20, 770, 251, 41))
-        #font = QtGui.QFont()
-        #font.setPointSize(11)
-        #font.setBold(True)#
-        #font.setWeight(75)
-        #self.printPdf_btn.setFont(font)
-        #self.printPdf_btn.setStyleSheet("background-color: rgb(185, 185, 185);")
-        #self.printPdf_btn.setObjectName("printPdf_btn")
-        #self.printPdf_btn.clicked.connect(self.pdf)
-        #icon = QtGui.QIcon()
-        #icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #self.printPdf_btn.setIcon(icon)
         
         MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        #self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        #self.statusbar.setObjectName("statusbar")
+        #MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -1487,11 +1479,11 @@ class Ui_MainWindow(object):
 
         self.add_btn.setText(_translate("MainWindow", "Add New"))
         self.print_btn.setText(_translate("MainWindow", "Print"))
-        #self.printPdf_btn.setText(_translate("MainWindow", "Print PDF"))
         self.advanceLname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
         self.advanceFname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter First Name"))
         self.search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
-        self.dob_edit.setPlaceholderText(_translate("MainWindow", "MM/DD/YYYY"))
+        #self.dob_edit.setPlaceholderText(_translate("MainWindow", "MM/DD/YYYY"))
+        #self.dob_edit.setDisplayFormat(_translate("MainWindow", "yyyy/m/d"))
     
 
 
