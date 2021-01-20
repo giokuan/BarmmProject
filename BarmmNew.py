@@ -51,33 +51,33 @@ class Ui_MainWindow(object):
         if res == QMessageBox.Cancel:
             pass 
 
-    def delete_messagebox(self):
+    #def delete_messagebox(self):
 
-        msg=QMessageBox() 
-        msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
-        msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0),\
-            stop:1 rgba(255, 255, 255, 255)); color: white;}\
-            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
-            border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
-        msg.setWindowTitle("Delete")
-        msg.setText("Are you sure you want to enter on Delete Mode")
-        msg.setIcon(QMessageBox.Question)
-        msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
-        msg.setDefaultButton(QMessageBox.Ok)
+    #    msg=QMessageBox() 
+    #    msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
+    #    msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0),\
+    #        stop:1 rgba(255, 255, 255, 255)); color: white;}\
+    #        QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
+    #        border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
+    #    msg.setWindowTitle("Delete")
+    #    msg.setText("Are you sure you want to enter on Delete Mode")
+    #    msg.setIcon(QMessageBox.Question)
+    #    msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
+    #    msg.setDefaultButton(QMessageBox.Ok)
         
-        res = msg.exec_()
-        if res == QMessageBox.Ok:  
-            MainWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
-            self.delete_btn.hide()
-            self.delete_record_btn.show()
-            self.refresh_btn.setEnabled(False)
-            self.edit_btn.setEnabled(False)
-            self.add_btn.setEnabled(False)
-            self.cancel_btn.hide()
-            self.cancel_delete_btn.show()
+    #   res = msg.exec_()
+    #    if res == QMessageBox.Ok:  
+            #MainWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
+    #        self.delete_btn.hide()
+    #        self.delete_record_btn.show()
+    #        self.refresh_btn.setEnabled(False)
+    #        self.edit_btn.setEnabled(False)
+    #        self.add_btn.setEnabled(False)
+    #        self.cancel_btn.hide()
+    #        self.cancel_delete_btn.show()
             
-        if res == QMessageBox.Cancel:
-           pass 
+    ###    if res == QMessageBox.Cancel:
+    ###       pass 
 
 
     def delete_record(self):
@@ -92,35 +92,46 @@ class Ui_MainWindow(object):
         sql = "DELETE FROM resident WHERE Resident_ID = '"+mem_id+"' "
         
         msg=QMessageBox() 
+        msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
+        msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0),\
+            stop:1 rgba(255, 255, 255, 255)); color: white;}\
+            QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
+            border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
         msg.setWindowTitle("Delete")
-        msg.setText("Are you sure you wan't to Delete this Record?")
+        msg.setText("Are you sure you want to delete this record?")
         msg.setIcon(QMessageBox.Question)
         msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
         msg.setDefaultButton(QMessageBox.Ok)
-  
+        
 
         res = msg.exec_()
         if res == QMessageBox.Ok:
-            #self.open_dialog() 
-            self.messageBox("Delete", " Resident Data Record Deleted")
-            cur.execute(sql)
-            self.conn.commit() 
-            self.loadData()
-            self.clear()
+            
+            text, okPressed = QtWidgets.QInputDialog.getText(None,"Password", "Enter Password:", QtWidgets.QLineEdit.Password, "")  
+
+            if okPressed and text == 'adminbarmm':
+                self.messageBox("Delete", " Resident Data Record Deleted")
+                cur.execute(sql)
+                self.conn.commit() 
+                self.loadData()
+                self.clear()
+            else:
+                self.messageBox("Information", "Password Incorrect")
+                return
             
         if res == QMessageBox.Cancel:
             pass 
 
 
-    def cancel_delete(self):
-        MainWindow.setStyleSheet("background-color:"" ")
-        self.delete_btn.show()
-        self.delete_record_btn.hide()
-        self.refresh_btn.setEnabled(True)
-        self.edit_btn.setEnabled(True)
-        self.add_btn.setEnabled(True)
-        self.cancel_btn.show()
-        self.cancel_delete_btn.hide()
+    ##def cancel_delete(self):
+    ##    MainWindow.setStyleSheet("background-color:"" ")
+    ##    self.delete_btn.show()
+    ##    self.delete_record_btn.hide()
+    ##    self.refresh_btn.setEnabled(True)
+    ##    self.edit_btn.setEnabled(True)
+    ##    self.add_btn.setEnabled(True)
+    ##    self.cancel_btn.show()
+    ##    self.cancel_delete_btn.hide()
 
     def default(self):
         self.addPic_edit.setText("photo/Men.png")
@@ -174,7 +185,7 @@ class Ui_MainWindow(object):
             self.update_btn.setEnabled(True)
             self.cancel_btn.setEnabled(True)
             self.edit_btn.setEnabled(False)
-            self.delete_btn.setEnabled(False)
+            #self.delete_btn.setEnabled(False)
             self.refresh_btn.setEnabled(False)
             self.addPhoto_btn.setEnabled(True)
             
@@ -205,7 +216,7 @@ class Ui_MainWindow(object):
         self.update_btn.setEnabled(False)
         self.cancel_btn.setEnabled(False)
         self.edit_btn.setEnabled(True)
-        self.delete_btn.setEnabled(True)
+        #self.delete_btn.setEnabled(True)
         self.refresh_btn.setEnabled(True)
         self.addPhoto_btn.setEnabled(False)
 
@@ -1259,22 +1270,22 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap("photo/cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.cancel_btn.setIcon(icon)
 
-        #CANCEL DELETE BUTTON
-        self.cancel_delete_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.cancel_delete_btn.setGeometry(QtCore.QRect(710, 770, 131, 41))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.cancel_delete_btn.setFont(font)
-        self.cancel_delete_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
-             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
-        self.cancel_delete_btn.setObjectName("cancel_btn")
-        self.cancel_delete_btn.hide()
-        self.cancel_delete_btn.clicked.connect(self.cancel_delete)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("photo/cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.cancel_delete_btn.setIcon(icon)
+        ##CANCEL DELETE BUTTON
+        #self.cancel_delete_btn = QtWidgets.QPushButton(self.centralwidget)
+        #self.cancel_delete_btn.setGeometry(QtCore.QRect(710, 770, 131, 41))
+        #font = QtGui.QFont()
+        #font.setPointSize(11)
+        #font.setBold(True)
+        #font.setWeight(75)
+        #self.cancel_delete_btn.setFont(font)
+        #self.cancel_delete_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+        #     x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
+        #self.cancel_delete_btn.setObjectName("cancel_btn")
+        #self.cancel_delete_btn.hide()
+        #self.cancel_delete_btn.clicked.connect(self.cancel_delete)
+        #icon = QtGui.QIcon()
+        #icon.addPixmap(QtGui.QPixmap("photo/cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #self.cancel_delete_btn.setIcon(icon)
         
         #REFRESH BUTTON
         self.refresh_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1328,21 +1339,21 @@ class Ui_MainWindow(object):
         self.update_btn.setIcon(icon)
 
         
-        #DELETE BUTTON
-        self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.delete_btn.setGeometry(QtCore.QRect(850, 770, 131, 41))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.delete_btn.setFont(font)
-        self.delete_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
-             x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
-        self.delete_btn.setObjectName("delete_btn")
-        self.delete_btn.clicked.connect(self.delete_messagebox)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("photo/delete.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.delete_btn.setIcon(icon)
+        ##DELETE BUTTON
+        #self.delete_btn = QtWidgets.QPushButton(self.centralwidget)
+        #self.delete_btn.setGeometry(QtCore.QRect(850, 770, 131, 41))
+        #font = QtGui.QFont()
+        #font.setPointSize(11)
+        #font.setBold(True)
+        #font.setWeight(75)
+        #self.delete_btn.setFont(font)
+        #self.delete_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+        #     x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
+        #self.delete_btn.setObjectName("delete_btn")
+        #self.delete_btn.clicked.connect(self.delete_messagebox)
+        #icon = QtGui.QIcon()
+        #icon.addPixmap(QtGui.QPixmap("photo/delete.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #self.delete_btn.setIcon(icon)
 
         #DELETE BUTTON 2
         self.delete_record_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -1356,7 +1367,7 @@ class Ui_MainWindow(object):
              x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
         self.delete_record_btn.setObjectName("delete_btn")
         self.delete_record_btn.clicked.connect(self.delete_record)
-        self.delete_record_btn.hide()
+        #self.delete_record_btn.hide()
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/delete.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.delete_record_btn.setIcon(icon)
@@ -1469,13 +1480,13 @@ class Ui_MainWindow(object):
 
         self.exit_btn.setText(_translate("MainWindow", "Exit"))
         self.cancel_btn.setText(_translate("MainWindow", "Cancel"))
-        self.cancel_delete_btn.setText(_translate("MainWindow", "Cancel"))
+        #self.cancel_delete_btn.setText(_translate("MainWindow", "Cancel"))
 
         self.refresh_btn.setText(_translate("MainWindow", "Refresh"))
         self.edit_btn.setText(_translate("MainWindow", "Edit"))
         self.update_btn.setText(_translate("MainWindow", "Update"))
-        self.delete_btn.setText(_translate("MainWindow", "Delete"))
-        self.delete_record_btn.setText(_translate("MainWindow", "Delete Record"))
+        #self.delete_btn.setText(_translate("MainWindow", "Delete"))
+        self.delete_record_btn.setText(_translate("MainWindow", "Delete"))
 
         self.add_btn.setText(_translate("MainWindow", "Add New"))
         self.print_btn.setText(_translate("MainWindow", "Print"))

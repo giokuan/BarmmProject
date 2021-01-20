@@ -156,18 +156,7 @@ class Ui_MainForm(object):
         self.background_label.setObjectName("background_label")
 
 
-
-
-        #HEADER FRAME
-        #self.header_frame = QtWidgets.QFrame(self.centralwidget)
-        #self.header_frame.setGeometry(QtCore.QRect(0, 5, 600, 151))
-        #self.header_frame.setStyleSheet("background-color: rgb(0, 170, 127);")
-        #self.header_frame.setFrameShape(QtWidgets.QFrame.WinPanel)
-        #self.header_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        #self.header_frame.setObjectName("header_frame")
-
         #BIG LOGO HEADER TRANSITION WITH LOGO2_LABEL
-        #self.logo_label = QtWidgets.QLabel(self.header_frame)
         self.logo_label = QtWidgets.QLabel(self.centralwidget)
         self.logo_label.setGeometry(QtCore.QRect(240, 10, 301, 71))
         self.logo_label.setStyleSheet("color: rgb(255, 255, 255);")
@@ -175,13 +164,9 @@ class Ui_MainForm(object):
         font.setPointSize(30)
         self.logo_label.setFont(font)
         self.logo_label.setFrameShape(QtWidgets.QFrame.NoFrame)
-        #self.logo_label.setText("Login")
-        #self.logo_label.setPixmap(QtGui.QPixmap("photo/form.png"))
-        #self.logo_label.setScaledContents(True)
         self.logo_label.setObjectName("logo_label")
 
         #SMALL LOGO HEADER TRANSITION WITH LOGO_LABEL
-        #self.logo2_label = QtWidgets.QLabel(self.header_frame)
         self.logo2_label = QtWidgets.QLabel(self.centralwidget)
         self.logo2_label.setGeometry(QtCore.QRect(220, 10, 301, 71))
         self.logo2_label.setStyleSheet("color: rgb(255, 255, 255);")
@@ -189,9 +174,6 @@ class Ui_MainForm(object):
         font.setPointSize(30)
         self.logo2_label.setFont(font)
         self.logo2_label.setFrameShape(QtWidgets.QFrame.NoFrame)
-        #self.logo2_label.setText("Register")
-        #self.logo2_label.setPixmap(QtGui.QPixmap("photo/logo_login.png"))
-        #self.logo2_label.setScaledContents(True)
         self.logo2_label.setObjectName("logo2_label")
         self.logo2_label.hide()
 
