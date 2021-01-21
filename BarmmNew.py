@@ -51,34 +51,6 @@ class Ui_MainWindow(object):
         if res == QMessageBox.Cancel:
             pass 
 
-    #def delete_messagebox(self):
-
-    #    msg=QMessageBox() 
-    #    msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
-    #    msg.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0),\
-    #        stop:1 rgba(255, 255, 255, 255)); color: white;}\
-    #        QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
-    #        border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
-    #    msg.setWindowTitle("Delete")
-    #    msg.setText("Are you sure you want to enter on Delete Mode")
-    #    msg.setIcon(QMessageBox.Question)
-    #    msg.setStandardButtons(QMessageBox.Ok| QMessageBox.Cancel)
-    #    msg.setDefaultButton(QMessageBox.Ok)
-        
-    #   res = msg.exec_()
-    #    if res == QMessageBox.Ok:  
-            #MainWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
-    #        self.delete_btn.hide()
-    #        self.delete_record_btn.show()
-    #        self.refresh_btn.setEnabled(False)
-    #        self.edit_btn.setEnabled(False)
-    #        self.add_btn.setEnabled(False)
-    #        self.cancel_btn.hide()
-    #        self.cancel_delete_btn.show()
-            
-    ###    if res == QMessageBox.Cancel:
-    ###       pass 
-
 
     def delete_record(self):
         mem_id=self.id_edit.text()
@@ -115,6 +87,7 @@ class Ui_MainWindow(object):
                 self.conn.commit() 
                 self.loadData()
                 self.clear()
+
             else:
                 self.messageBox("Information", "Password Incorrect")
                 return
@@ -122,16 +95,6 @@ class Ui_MainWindow(object):
         if res == QMessageBox.Cancel:
             pass 
 
-
-    ##def cancel_delete(self):
-    ##    MainWindow.setStyleSheet("background-color:"" ")
-    ##    self.delete_btn.show()
-    ##    self.delete_record_btn.hide()
-    ##    self.refresh_btn.setEnabled(True)
-    ##    self.edit_btn.setEnabled(True)
-    ##    self.add_btn.setEnabled(True)
-    ##    self.cancel_btn.show()
-    ##    self.cancel_delete_btn.hide()
 
     def default(self):
         self.addPic_edit.setText("photo/Men.png")
@@ -258,6 +221,9 @@ class Ui_MainWindow(object):
         self.street_address_edit.clear()
         self.photo_label.setPixmap(QtGui.QPixmap("photo/Men.png"))
         self.dob_edit.setDate(QtCore.QDate(2021, 1, 1))
+        self.search_edit.clear()
+        self.advanceLname_search_edit.clear()
+        self.advanceFname_search_edit.clear()
 
     def search(self):    
         row = 0
