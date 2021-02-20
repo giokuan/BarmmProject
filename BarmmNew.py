@@ -9,7 +9,9 @@ from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QH
 from PyQt5.QtWidgets import QLineEdit, QDialog ,QFileDialog, QInputDialog
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 from barmm import Ui_AddWindow
+from tipaz_clearance import Ui_MainClear
 from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QIcon
 
 
 class Ui_MainWindow(object):
@@ -19,6 +21,13 @@ class Ui_MainWindow(object):
         self.ui = Ui_AddWindow()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    def open_clearance(self):
+        self.window =QtWidgets.QMainWindow()
+        self.ui = Ui_MainClear()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
 
     def messageBox(self,title,message):
         mess=QtWidgets.QMessageBox()
@@ -1370,6 +1379,25 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.print_btn.setIcon(icon)
+
+        #BARANGAY CLEARANCE BUTTON
+        self.clearance_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.clearance_btn.setGeometry(QtCore.QRect(20, 770, 251, 41))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.clearance_btn.setFont(font)
+        self.clearance_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+         x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
+        self.clearance_btn.setObjectName("print_btn")
+        self.clearance_btn.clicked.connect(self.open_clearance)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.clearance_btn.setIcon(icon)
+
+
+
         
         MainWindow.setCentralWidget(self.centralwidget)
         #self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -1456,6 +1484,7 @@ class Ui_MainWindow(object):
 
         self.add_btn.setText(_translate("MainWindow", "Add New"))
         self.print_btn.setText(_translate("MainWindow", "Print"))
+        self.clearance_btn.setText(_translate("MainWindow", "Barangay Clearance"))
         self.advanceLname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
         self.advanceFname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter First Name"))
         self.search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
