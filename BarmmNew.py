@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QLineEdit, QDialog ,QFileDialog, QInputDialog
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
 from barmm import Ui_AddWindow
 from tipaz_clearance import Ui_MainClear
+from barmm_business_clearance import Ui_BusinessClearance
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon
 
@@ -25,6 +26,12 @@ class Ui_MainWindow(object):
     def open_clearance(self):
         self.window =QtWidgets.QMainWindow()
         self.ui = Ui_MainClear()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def open_business_clearance(self):
+        self.window =QtWidgets.QMainWindow()
+        self.ui = Ui_BusinessClearance()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -580,7 +587,7 @@ class Ui_MainWindow(object):
         self.headerLogo_label = QtWidgets.QLabel(self.header_frame)
         self.headerLogo_label.setGeometry(QtCore.QRect(10, 7, 101, 91))
         self.headerLogo_label.setText("")
-        self.headerLogo_label.setPixmap(QtGui.QPixmap("photo/barmm.png"))
+        self.headerLogo_label.setPixmap(QtGui.QPixmap("photo/tipaz_logo.png"))
         self.headerLogo_label.setScaledContents(True)
         self.headerLogo_label.setObjectName("headerLogo_label")
 
@@ -1382,19 +1389,38 @@ class Ui_MainWindow(object):
 
         #BARANGAY CLEARANCE BUTTON
         self.clearance_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.clearance_btn.setGeometry(QtCore.QRect(20, 770, 251, 41))
+        self.clearance_btn.setGeometry(QtCore.QRect(20, 770, 100, 41))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(8)
         font.setBold(True)
         font.setWeight(75)
         self.clearance_btn.setFont(font)
         self.clearance_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
          x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
-        self.clearance_btn.setObjectName("print_btn")
+        self.clearance_btn.setObjectName("clearance_btn")
         self.clearance_btn.clicked.connect(self.open_clearance)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.clearance_btn.setIcon(icon)
+
+
+
+        #BARANGAY BUSINESS CLEARANCE BUTTON
+        self.business_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.business_btn.setGeometry(QtCore.QRect(170, 770, 100, 41))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.business_btn.setFont(font)
+        self.business_btn.setStyleSheet("background-color: qlineargradient(spread:pad,\
+         x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));")
+        self.business_btn.setObjectName("business_btn")
+        self.business_btn.clicked.connect(self.open_business_clearance)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/print.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.business_btn.setIcon(icon)
+
 
 
 
@@ -1423,8 +1449,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO"))
-        self.title_label.setText(_translate("MainWindow", "NAME OF BARANGAY"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "BARANGAY RESIDENT RECORD SYSTEM"))
+        self.title_label.setText(_translate("MainWindow", "BARANGAY TIPAZ"))
         self.lname_label.setText(_translate("MainWindow", "Last Name"))
         self.middle_label.setText(_translate("MainWindow", "Middle Name"))
         self.fname_label.setText(_translate("MainWindow", "First Name"))
@@ -1484,7 +1510,8 @@ class Ui_MainWindow(object):
 
         self.add_btn.setText(_translate("MainWindow", "Add New"))
         self.print_btn.setText(_translate("MainWindow", "Print"))
-        self.clearance_btn.setText(_translate("MainWindow", "Barangay Clearance"))
+        self.clearance_btn.setText(_translate("MainWindow", "Barangay \nClearance"))
+        self.business_btn.setText(_translate("MainWindow", "Business \nClearance"))
         self.advanceLname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
         self.advanceFname_search_edit.setPlaceholderText(_translate("MainWindow", "Enter First Name"))
         self.search_edit.setPlaceholderText(_translate("MainWindow", "Enter Last Name"))
