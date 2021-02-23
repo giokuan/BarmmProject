@@ -41,7 +41,7 @@ class Ui_MainWindow(object):
         mess.setStyleSheet('QMessageBox {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
-        mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
+        mess.setWindowIcon(QtGui.QIcon('photo/tipaz_logo.ico'))
         mess.setWindowTitle(title)
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
             stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75); \
             border-radius: 10px; padding: 10px; text-align: center;}QPushButton:hover{color: rgb(0, 170, 127);}') 
-        msg.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
+        msg.setWindowIcon(QtGui.QIcon('photo/tipaz_logo.ico'))
         msg.setWindowTitle("Exit")
         msg.setText("Are you sure you wan't to Exit?")
         msg.setIcon(QMessageBox.Question)
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
             
             text, okPressed = QtWidgets.QInputDialog.getText(None,"Password", "Enter Password:", QtWidgets.QLineEdit.Password, "")  
 
-            if okPressed and text == 'adminbarmm':
+            if okPressed and text == 'admintipaz':
                 self.messageBox("Delete", " Resident Data Record Deleted")
                 cur.execute(sql)
                 self.conn.commit() 
@@ -352,9 +352,11 @@ class Ui_MainWindow(object):
 
             sql = "UPDATE resident SET Last_name = '"+ lname.upper() +"', First_name= '" + fname.upper() + "',\
                     Middle_name = '" + mname.upper() + "', Sex= '" + sex.upper()\
-                    + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "', Supp_data = '" + sup.upper() + "',\
+                    + "', Civil_status = '" + civil.upper() + "', Family_position = '" + position.upper()+ "',\
+                     Supp_data = '" + sup.upper() + "',\
                     Birth_date = '"+str(var_date)+"'  , Birth_place = '"\
-                    + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "', photo= %s WHERE Resident_ID = '"+mem_id+"' "
+                    + pob.upper() + "', Sitio = '" + sitio.upper() + "', Street = '" + street.upper() + "',\
+                     photo= %s WHERE Resident_ID = '"+mem_id+"' "
         
             if (sql):
                 msg=QMessageBox()
@@ -525,7 +527,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("photo/tipaz_logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
 
 
@@ -585,7 +587,7 @@ class Ui_MainWindow(object):
 
         #HEADER LOGO LABEL
         self.headerLogo_label = QtWidgets.QLabel(self.header_frame)
-        self.headerLogo_label.setGeometry(QtCore.QRect(10, 7, 101, 91))
+        self.headerLogo_label.setGeometry(QtCore.QRect(10, 7, 96, 91))
         self.headerLogo_label.setText("")
         self.headerLogo_label.setPixmap(QtGui.QPixmap("photo/tipaz_logo.png"))
         self.headerLogo_label.setScaledContents(True)
@@ -1389,7 +1391,7 @@ class Ui_MainWindow(object):
 
         #BARANGAY CLEARANCE BUTTON
         self.clearance_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.clearance_btn.setGeometry(QtCore.QRect(20, 770, 100, 41))
+        self.clearance_btn.setGeometry(QtCore.QRect(20, 770, 120, 41))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(True)
@@ -1407,7 +1409,7 @@ class Ui_MainWindow(object):
 
         #BARANGAY BUSINESS CLEARANCE BUTTON
         self.business_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.business_btn.setGeometry(QtCore.QRect(170, 770, 100, 41))
+        self.business_btn.setGeometry(QtCore.QRect(150, 770, 120, 41))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(True)

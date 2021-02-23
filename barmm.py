@@ -17,7 +17,7 @@ class Ui_AddWindow(object):
              x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
-        mess.setWindowIcon(QtGui.QIcon("photo/barmm.ico"))
+        mess.setWindowIcon(QtGui.QIcon("photo/tipaz_logo.ico"))
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
         mess.setStandardButtons(QtWidgets.QMessageBox.Ok)
@@ -124,7 +124,7 @@ class Ui_AddWindow(object):
         AddWindow.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
         #AddWindow.setStyleSheet("background-color: rgb(75, 75, 75);")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("photo/tipaz_logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         AddWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(AddWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -594,7 +594,7 @@ class Ui_AddWindow(object):
 
     def retranslateUi(self, AddWindow):
         _translate = QtCore.QCoreApplication.translate
-        AddWindow.setWindowTitle(_translate("AddWindow", "Bangsamorro Autonomous Region in Muslim Mindanao"))
+        AddWindow.setWindowTitle(_translate("AddWindow", "Barangay Tipaz"))
         self.fname_label.setText(_translate("AddWindow", "First Name:"))
         self.una_label.setText(_translate("AddWindow", "(Unang Pangalan)"))
         self.middle_label.setText(_translate("AddWindow", "Middle Name:"))

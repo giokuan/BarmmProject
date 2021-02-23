@@ -34,11 +34,14 @@ class Ui_BusinessClearance(object):
         BusinessClearance.resize(682, 1000)
         self.centralwidget = QtWidgets.QWidget(BusinessClearance)
         self.centralwidget.setObjectName("centralwidget")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("photo/tipaz_logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        BusinessClearance.setWindowIcon(icon)
         
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 0, 682, 892))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("photo/tipaz_business_clearance.png"))
+        self.label.setPixmap(QtGui.QPixmap("photo/business_clearance.png"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         
