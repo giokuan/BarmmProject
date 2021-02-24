@@ -4,7 +4,7 @@ import pymysql
 from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QHBoxLayout, QHeaderView,QTableWidget
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
-from BarmmNew import Ui_MainWindow
+from main_form import Ui_MainWindow
 
 class Ui_MainForm(object):
     def open_window(self):
@@ -24,7 +24,7 @@ class Ui_MainForm(object):
              x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255)); color: white;}\
             QPushButton{color: white; font-size: 16px; background-color: rgb(75,75,75);\
             border-radius: 10px; padding: 10px; text-align: center;} QPushButton:hover{color: rgb(0, 170, 127);}')
-        mess.setWindowIcon(QtGui.QIcon('photo/barmm.ico'))
+        mess.setWindowIcon(QtGui.QIcon('photo/tipaz_logo.ico'))
         mess.setText(message)
         mess.setIcon(QMessageBox.Information)
         mess.setStandardButtons(QtWidgets.QMessageBox.Ok)
@@ -131,6 +131,8 @@ class Ui_MainForm(object):
                     self.pass_edit.clear()
                     self.login_btn.setEnabled(True)
                     self.cancel_btn.setEnabled(False)
+                    self.logo2_label.hide()
+                    self.logo_label.show()
 
     def setupUi(self, MainForm):
         MainForm.setObjectName("MainForm")
@@ -141,7 +143,7 @@ class Ui_MainForm(object):
         MainForm.setMaximumSize(QtCore.QSize(600, 400))
         MainForm.setMinimumSize(QtCore.QSize(600, 400))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("photo/barmm.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("photo/tipaz_logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainForm.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainForm)
         self.centralwidget.setObjectName("centralwidget")
@@ -320,7 +322,7 @@ class Ui_MainForm(object):
 
     def retranslateUi(self, MainForm):
         _translate = QtCore.QCoreApplication.translate
-        MainForm.setWindowTitle(_translate("MainForm", "Bangsamoro Autonomous Region in Muslim Mindanao"))
+        MainForm.setWindowTitle(_translate("MainForm", "Barangay Resident Record System"))
         self.reg_btn.setText(_translate("MainForm", "Register"))
         self.login_btn.setText(_translate("MainForm", "Log In"))
         self.cancel_btn.setText(_translate("MainForm", "Cancel"))

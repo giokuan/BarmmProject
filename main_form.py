@@ -8,9 +8,9 @@ import sys
 from PyQt5.QtWidgets import QTableWidgetItem, QAbstractItemView, QVBoxLayout, QHBoxLayout, QHeaderView,QTableWidget
 from PyQt5.QtWidgets import QLineEdit, QDialog ,QFileDialog, QInputDialog
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox
-from barmm import Ui_AddWindow
+from add_form import Ui_AddWindow
 from tipaz_clearance import Ui_MainClear
-from barmm_business_clearance import Ui_BusinessClearance
+from business_clearance import Ui_BusinessClearance
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon
 

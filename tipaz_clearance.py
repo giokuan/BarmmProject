@@ -39,8 +39,12 @@ class Ui_MainClear(object):
         MainClear.setObjectName("MainClear")
         MainClear.resize(681, 980)
         MainClear.setStatusTip("")
+        MainClear.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
+        MainClear.setMaximumSize(QtCore.QSize(681, 980))
+        MainClear.setMinimumSize(QtCore.QSize(681, 980))
         self.centralwidget = QtWidgets.QWidget(MainClear)
         self.centralwidget.setObjectName("centralwidget")
+
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("photo/tipaz_logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainClear.setWindowIcon(icon)

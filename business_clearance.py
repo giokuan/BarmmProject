@@ -32,6 +32,9 @@ class Ui_BusinessClearance(object):
     def setupUi(self, BusinessClearance):
         BusinessClearance.setObjectName("BusinessClearance")
         BusinessClearance.resize(682, 1000)
+        BusinessClearance.setWindowFlags( QtCore.Qt.WindowCloseButtonHint )
+        BusinessClearance.setMaximumSize(QtCore.QSize(682, 1000))
+        BusinessClearance.setMinimumSize(QtCore.QSize(682, 1000))
         self.centralwidget = QtWidgets.QWidget(BusinessClearance)
         self.centralwidget.setObjectName("centralwidget")
         icon = QtGui.QIcon()
