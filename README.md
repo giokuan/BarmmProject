@@ -11,10 +11,8 @@ calamities are included in our lives, in the event that a calamity hits our area
 
 SEACH ALL
 
-Senior Citizen - madaling maidentify agad ang lahat ng Senior Citizen nakatira sa isang Barangay, kung sakaling
-				 may mga programa ang gobyerno sa ating mga Senior Citizen,
+Senior Citizen - it is easy to immediately identify all Senior Citizens living in a Barangay, in case the government has programs for our Senior Citizens,
 
 SEARCH ALL 
 
-Indigenous - madaling maidentify agad ang lahat ng Indigenous People na nakatira sa isang Barangay, kung sakaling
-			 may mga programa ang gobyerno sa ating mga Indigenous People.
+Indigenous - it is easy to immediately identify all the Indigenous People who live in a Barangay, in case the government has programs for our Indigenous People.
