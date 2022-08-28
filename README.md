@@ -5,11 +5,8 @@ SEARCH ALL
 Head = head of the Family
 Head = One Family
 
-ang kalamidad ay kasama na sa ating buhay, kung sakaling may kalamidad na tumama sa ating
-lugar, sa pamamagitan ng pag search kung ilang pamilya ba ang kailnagan tulongan o apektado sa naturang barangay
-madali po nating ma identify kung sino ang mga kakausapin nating head of the family maiiwasan na po 
-ang pagkalito lalong lalo sa mga malalaking Barangay o malalaking populasyon ng Barangay katulad ng nasa Cavite at Metro
-Manila na hindi na lahat kilala ng mga barangay official ang karamihan sa kanilang residente.
+
+calamities are included in our lives, in the event that a calamity hits our area, by searching how many families need help or are affected in such a barangay, we can easily identify who the heads of the families, confusion can be avoided especially in large barangays or large barangay populations such as in Cavite and Metro Manila where barangay officials no longer know most of their residents.
 
 
 SEACH ALL
