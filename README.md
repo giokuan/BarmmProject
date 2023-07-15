@@ -1,18 +1,13 @@
 # Barangay Resident Registration System
 
-SEARCH ALL 
+The Barangay Residents Record System is a software application developed using Python with PyQt5 and MySQL as the underlying technologies. Its primary purpose is to facilitate the management and organization of resident information within a barangay (local community).
 
-Head = head of the Family
-Head = One Family
+The system provides various search functionalities to efficiently retrieve specific groups of residents based on different criteria. These search features include:
 
+Family Head Search: In the event of a calamity or emergency, the system allows for easy identification of the heads of families residing in the barangay. This feature helps determine the number of affected families and ensures a streamlined response without confusion, particularly in large barangays like Cavite and Metro Manila, where barangay officials may not personally know all residents.
 
-calamities are included in our lives, in the event that a calamity hits our area, by searching how many families need help or are affected in such a barangay, we can easily identify who the heads of the families, confusion can be avoided especially in large barangays or large barangay populations such as in Cavite and Metro Manila where barangay officials no longer know most of their residents.
+Senior Citizen Search: The system enables quick identification of all senior citizens living in the barangay. This functionality is particularly useful for government programs targeting the welfare and support of senior citizens within the community.
 
+Indigenous People Search: The system facilitates the immediate identification of indigenous people residing in the barangay. This functionality is crucial in case the government has specific programs or initiatives tailored for the benefit of indigenous communities.
 
-SEACH ALL
-
-Senior Citizen - it is easy to immediately identify all Senior Citizens living in a Barangay, in case the government has programs for our Senior Citizens,
-
-SEARCH ALL 
-
-Indigenous - it is easy to immediately identify all the Indigenous People who live in a Barangay, in case the government has programs for our Indigenous People.
+By utilizing the Barangay Residents Record System, barangay officials and administrators can efficiently manage resident records, perform targeted searches, and ensure effective implementation of programs and services for different groups of residents.
